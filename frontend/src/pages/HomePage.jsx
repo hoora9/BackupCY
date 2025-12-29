@@ -9,7 +9,12 @@ const HomePage = () => {
       <Navigation transparent />
       
       <div className="home-content">
-        {/* Bottom positioned content - Tikehau style transparent boxes */}
+        {/* Tagline - centered vertically, left aligned */}
+        <div className="tagline">
+          <span className="tagline-text">{brandAssets.tagline}</span>
+        </div>
+        
+        {/* Bottom positioned content - side by side opacity boxes */}
         <div className="home-bottom-content">
           <div className="content-boxes">
             {homeContent.blocks.map((block, index) => (
@@ -18,10 +23,6 @@ const HomePage = () => {
                 <div className="box-small">{block.small}</div>
               </div>
             ))}
-          </div>
-          
-          <div className="tagline">
-            <span className="tagline-text">{brandAssets.tagline}</span>
           </div>
         </div>
       </div>
