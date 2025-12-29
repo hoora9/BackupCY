@@ -113,6 +113,11 @@ export const expertiseContent = {
       name: 'Marie Laurent',
       title: 'Head of Operations',
       photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/0l82ls4u_51f35997-e872-4bdc-96e7-bd330acc9e1e.png'
+    },
+    {
+      name: 'Thomas Mercier',
+      title: 'Head of Strategy',
+      photo: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/8hqd5v20_a43df25d-a63a-4fb0-98b9-1139ed378ee3.png'
     }
   ]
 };
