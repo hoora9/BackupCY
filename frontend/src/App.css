@@ -740,6 +740,27 @@ img {
   animation: slideFromRight 0.9s ease-out forwards;
   animation-delay: 0.25s;
   opacity: 0;
+  overflow: hidden;
+}
+
+/* Monogram watermark for Mission green box */
+.mission-green-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 35%;
+  height: 65%;
+  background-image: url('https://customer-assets.emergentagent.com/job_climatefinance/artifacts/s6q906hp_MONOGRAM.png');
+  background-repeat: repeat;
+  background-size: 70px;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transform: rotate(-12deg);
+  transform-origin: bottom right;
+  -webkit-mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,1) 100%);
+  mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,1) 100%);
 }
 
 .mission-green-content {
