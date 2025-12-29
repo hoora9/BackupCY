@@ -1,50 +1,162 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { contactContent, pageBackgrounds } from '../data/mock';
-import { MapPin, Phone, Mail, Globe } from 'lucide-react';
+import { MapPin, Phone, Mail, Globe, Send } from 'lucide-react';
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    subject: '',
+    message: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Mock form submission
+    console.log('Form submitted:', formData);
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+    setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+  };
+
   return (
     <PageBackground imageUrl={pageBackgrounds.contact} className="contact-page">
       <Navigation />
       
       <div className="contact-content">
-        <div className="contact-info-box">
-          <h2 className="company-name">{contactContent.company}</h2>
-          
-          <div className="info-item">
-            <MapPin className="info-icon" size={18} />
-            <div className="info-text">
-              {contactContent.address.map((line, index) => (
-                <span key={index}>{line}</span>
-              ))}
+        <div className="contact-grid">
+          {/* Contact Info Box */}
+          <div className="contact-info-box">
+            <h2 className="company-name">{contactContent.company}</h2>
+            
+            <div className="info-item">
+              <MapPin className="info-icon" size={18} />
+              <div className="info-text">
+                {contactContent.address.map((line, index) => (
+                  <span key={index}>{line}</span>
+                ))}
+              </div>
+            </div>
+            
+            <div className="info-item">
+              <Phone className="info-icon" size={18} />
+              <a href={`tel:${contactContent.phone}`} className="info-link">
+                {contactContent.phone}
+              </a>
+            </div>
+            
+            <div className="info-item">
+              <Mail className="info-icon" size={18} />
+              <div className="info-text">
+                {contactContent.emails.map((email, index) => (
+                  <a key={index} href={`mailto:${email}`} className="info-link">
+                    {email}
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            <div className="info-item">
+              <Globe className="info-icon" size={18} />
+              <a href={`https://${contactContent.website}`} className="info-link" target="_blank" rel="noopener noreferrer">
+                {contactContent.website}
+              </a>
             </div>
           </div>
-          
-          <div className="info-item">
-            <Phone className="info-icon" size={18} />
-            <a href={`tel:${contactContent.phone}`} className="info-link">
-              {contactContent.phone}
-            </a>
-          </div>
-          
-          <div className="info-item">
-            <Mail className="info-icon" size={18} />
-            <div className="info-text">
-              {contactContent.emails.map((email, index) => (
-                <a key={index} href={`mailto:${email}`} className="info-link">
-                  {email}
-                </a>
-              ))}
-            </div>
-          </div>
-          
-          <div className="info-item">
-            <Globe className="info-icon" size={18} />
-            <a href={`https://${contactContent.website}`} className="info-link" target="_blank" rel="noopener noreferrer">
-              {contactContent.website}
-            </a>
+
+          {/* Contact Form */}
+          <div className="contact-form-box">
+            <h3 className="form-title">Get in Touch</h3>
+            
+            {submitted && (
+              <div className="form-success">
+                Thank you for your message. We'll be in touch shortly.
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="name">Name *</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Your name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email *</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="company">Company</label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    placeholder="Your company"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="subject">Subject *</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    placeholder="How can we help?"
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group full-width">
+                <label htmlFor="message">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  placeholder="Tell us about your project or inquiry..."
+                  rows={4}
+                />
+              </div>
+              
+              <button type="submit" className="submit-btn">
+                <span>Send Message</span>
+                <Send size={16} />
+              </button>
+            </form>
           </div>
         </div>
       </div>
