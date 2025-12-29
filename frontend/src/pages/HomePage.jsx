@@ -14,15 +14,23 @@ const HomePage = () => {
           <span className="tagline-text">{brandAssets.tagline}</span>
         </div>
         
-        {/* Bottom positioned content - side by side opacity boxes */}
+        {/* Bottom: textbox 1 | textbox 2 | emblem */}
         <div className="home-bottom-content">
-          <div className="content-boxes">
+          <div className="content-boxes-row">
             {homeContent.blocks.map((block, index) => (
               <div key={index} className="content-box">
-                <div className="box-large">{block.large}</div>
-                <div className="box-small">{block.small}</div>
+                <div className="box-tab-left">
+                  <div className="box-large">{block.large}</div>
+                </div>
+                <div className="box-tab-right">
+                  <div className="box-small">{block.small}</div>
+                </div>
               </div>
             ))}
+            {/* Emblem at end */}
+            <div className="emblem-box">
+              <img src={brandAssets.emblem} alt="Climate Yield" className="emblem-img" />
+            </div>
           </div>
         </div>
       </div>
