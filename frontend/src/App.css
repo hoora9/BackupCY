@@ -676,79 +676,105 @@ img {
   margin-bottom: 10px;
 }
 
-/* ---------- Mission Page - Fullscreen Flex Overlay ---------- */
+/* ---------- Mission Page - Animated Overlay Boxes ---------- */
 .mission-page .page-content {
   padding: 0;
+  overflow: hidden;
 }
 
-.mission-overlay {
+/* Blue Box - Background layer */
+.mission-blue-box {
   position: absolute;
   top: var(--nav-height);
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  background-color: #2a6cae;
+  z-index: 1;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  /* Animation: slides from top-left corner */
+  animation: slideFromTopLeft 0.9s ease-out forwards;
 }
 
-.mission-box {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px 50px;
+.mission-blue-content {
+  width: 50%;
+  padding: 60px;
+  padding-right: 80px;
 }
 
-/* Left box - Navy/Dark blue background, slides from left */
-.mission-box-left {
-  background: rgba(15, 28, 46, 0.92);
-  animation: slideFromLeft 0.8s ease-out forwards;
-}
-
-/* Right box - Teal/Green background, slides from right */
-.mission-box-right {
-  background: rgba(26, 61, 47, 0.92);
-  animation: slideFromRight 0.8s ease-out forwards;
-  animation-delay: 0.15s;
-  opacity: 0;
-}
-
-.mission-heading {
-  font-size: clamp(48px, 7vw, 80px);
+.mission-blue-content .mission-heading {
+  font-size: clamp(56px, 8vw, 96px);
   font-weight: 700;
-  letter-spacing: -2px;
+  letter-spacing: -3px;
   text-transform: uppercase;
   color: var(--white);
   margin-bottom: 40px;
-  line-height: 0.95;
+  line-height: 0.9;
 }
 
-.mission-content p {
-  font-size: clamp(14px, 1.3vw, 17px);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
+.mission-blue-content p {
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.92);
   margin-bottom: 24px;
+  text-align: left;
 }
 
-.mission-content p:last-child {
+.mission-blue-content p:last-child {
   margin-bottom: 0;
 }
 
-@keyframes slideFromLeft {
+/* Green Box - Foreground layer */
+.mission-green-box {
+  position: absolute;
+  top: var(--nav-height);
+  right: 0;
+  width: 50%;
+  height: calc(100vh - var(--nav-height));
+  background-color: #a8cfb9;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  /* Animation: slides from right */
+  animation: slideFromRight 0.9s ease-out forwards;
+  animation-delay: 0.25s;
+  opacity: 0;
+}
+
+.mission-green-content {
+  padding: 60px;
+  padding-left: 50px;
+}
+
+.mission-green-content p {
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.75;
+  color: #1a3d2f;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.mission-green-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Keyframe Animations */
+@keyframes slideFromTopLeft {
   from {
     opacity: 0;
-    transform: translateX(-60px);
+    transform: translate(-100%, -100%);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0, 0);
   }
 }
 
 @keyframes slideFromRight {
   from {
     opacity: 0;
-    transform: translateX(60px);
+    transform: translateX(100%);
   }
   to {
     opacity: 1;
