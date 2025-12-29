@@ -29,8 +29,8 @@ export const pageBackgrounds = {
   expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
   // Services - Page 33 (B&W Cityscape)
   services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/gobttbnz_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-33.png',
-  // Contact - Page 37 (Yosemite valley golden hour)
-  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/134c1d8x_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-37.png'
+  // Contact - Solar panels at sunset
+  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/f9mf9lla_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-32.png'
 };
 
 // Additional team member photo (bald man with green wave background)
