@@ -126,20 +126,43 @@ export const servicesContent = {
   heading: 'SERVICES',
   services: [
     {
-      label: 'STRATEGIC STRUCTURING',
-      description: 'SPV design with clear governance and risk allocation for institutional-grade carbon assets'
+      label: 'Project Investment – ITMOs & Carbon Tax',
+      description: [
+        'Rigorous origination and due diligence of high-integrity carbon projects',
+        'Strategic structuring aligned with compliance requirements (CORSIA, Article 6.2, Carbon Tax)',
+        'Project financing and offtake structuring for contracted, long-term cashflows'
+      ]
     },
     {
-      label: 'REGULATORY ALIGNMENT',
-      description: 'Complete documentation, due diligence, and long-term revenue structuring aligned with Article 6 and compliance markets'
+      label: 'Commercial Advisory for Governments & Funds',
+      description: [
+        'Strategic planning for large-scale credit portfolio sales',
+        'Negotiation support with airlines, corporates, traders, and buying countries',
+        'Market sounding across CORSIA and ITMO markets',
+        'Portfolio optimization: timing, sizing, and multi-year strategy'
+      ]
     },
     {
-      label: 'EXECUTION & MONETIZATION',
-      description: 'Discreet commercial execution across compliance and voluntary markets with buyer-side intelligence'
+      label: 'Article 6 Advisory & Bilateral Cooperation',
+      description: [
+        'Design of UNFCCC-compliant Article 6 frameworks for credit monetization',
+        'Support for bilateral cooperation agreements with buying countries',
+        'Structuring ITMO governance and corresponding adjustment protocols'
+      ]
+    },
+    {
+      label: 'Carbon Credit Monetization & Revenue Optimization',
+      description: [
+        'Sophisticated pricing strategy and market positioning',
+        'Discreet buyer engagement across compliance markets',
+        'Flexible offtake structures: spot, forwards, floors, indexed pricing',
+        'Competitive processes to maximize value and secure long-term offtakes'
+      ]
     }
   ],
-  additionalText: 'We identify low-carbon infrastructure with strong fundamentals, design investable structures, and facilitate investment with transparent terms.',
-  opportunity: 'Mid-sized infrastructure projects (typically $5-50M) with strong fundamentals, compliance alignment, and contracted revenue streams in the Global South.'
+  sideText: 'With 10+ years of expertise in the carbon markets, we advise clients on sourcing, trading, and structuring innovative market solutions to maximize the value of their carbon assets',
+  highlightNumber: '10+',
+  highlightLabel: 'Years of Expertise'
 };
 
 export const contactContent = {
