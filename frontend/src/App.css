@@ -1242,14 +1242,16 @@ img {
   }
   
   /* Mission page responsive - stack vertically */
-  .mission-blue-box {
+  .mission-blue-box,
+  .company-blue-box {
     position: relative;
     top: 0;
     height: auto;
     min-height: 50vh;
   }
   
-  .mission-blue-content {
+  .mission-blue-content,
+  .company-blue-content {
     width: 100%;
     padding: 40px 24px;
   }
@@ -1259,7 +1261,13 @@ img {
     margin-bottom: 24px;
   }
   
-  .mission-green-box {
+  .company-blue-content .company-heading {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .mission-green-box,
+  .company-green-box {
     position: relative;
     top: 0;
     width: 100%;
@@ -1269,7 +1277,8 @@ img {
     animation-delay: 0.25s;
   }
   
-  .mission-green-content {
+  .mission-green-content,
+  .company-green-content {
     padding: 40px 24px;
   }
   
