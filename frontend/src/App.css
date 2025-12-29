@@ -1410,9 +1410,10 @@ img {
     aspect-ratio: 1;
   }
   
-  /* Mission page responsive - stack vertically */
+  /* Mission/Company/Services page responsive - stack vertically */
   .mission-blue-box,
-  .company-blue-box {
+  .company-blue-box,
+  .services-blue-box {
     position: relative;
     top: 0;
     height: auto;
@@ -1420,7 +1421,8 @@ img {
   }
   
   .mission-blue-content,
-  .company-blue-content {
+  .company-blue-content,
+  .services-blue-content {
     width: 100%;
     padding: 40px 24px;
   }
@@ -1430,13 +1432,15 @@ img {
     margin-bottom: 24px;
   }
   
-  .company-blue-content .company-heading {
+  .company-blue-content .company-heading,
+  .services-blue-content .services-heading {
     font-size: 36px;
     margin-bottom: 20px;
   }
   
   .mission-green-box,
-  .company-green-box {
+  .company-green-box,
+  .services-green-box {
     position: relative;
     top: 0;
     width: 100%;
@@ -1447,7 +1451,8 @@ img {
   }
   
   .mission-green-content,
-  .company-green-content {
+  .company-green-content,
+  .services-green-content {
     padding: 40px 24px;
   }
   
