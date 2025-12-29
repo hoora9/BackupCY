@@ -15,21 +15,21 @@ export const navigationLinks = [
   { label: 'CONTACT', path: '/contact' }
 ];
 
-// Page backgrounds from Brand Book
+// Page backgrounds from Brand Book - User uploaded images
 export const pageBackgrounds = {
-  // Page 31 - B&W Mountain Lake (Cover/Homepage)
-  home: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/e8k356bz_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-31.png',
-  // Page 28/33 - B&W Cityscape
+  // B&W Mountain Lake - Homepage (from user upload Page 30)
+  home: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/gvhbvswn_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-30.png',
+  // B&W Cityscape - Company page (Page 33)
   company: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/54t0cev6_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-33.png',
-  // Page 30 - Mountain Lake Color
-  mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/gvhbvswn_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-30.png',
-  // Solar with Astronaut at sunset
+  // Color Mountain Lake - Mission (Page 25)  
+  mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/8gpbf08d_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-25.png',
+  // Solar with Astronaut at sunset - Manifesto (user uploaded directly)
   manifesto: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/g0r5lafc_a43df25d-a63a-4fb0-98b9-1139ed378ee3.png',
-  // Abstract green waves from brand book
+  // Abstract green waves - Expertise (Page 22)
   expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
-  // Solar panels close-up desert
-  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/2ri267m4_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-34.png',
-  // Mountain valley with sun rays - Page 32
+  // Solar panels at sunset - Services (Page 32)
+  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/nj02fxm5_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-32.png',
+  // Mountain valley golden hour - Contact (Page 29)
   contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/6y3me6p4_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-29.png'
 };
 
