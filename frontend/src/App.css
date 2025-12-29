@@ -1101,19 +1101,42 @@ img {
     grid-template-columns: 1fr;
   }
   
-  .team-grid {
+  .team-grid-overlay {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .member-photo-overlay {
+    aspect-ratio: 1;
+  }
+  
+  /* Mission page responsive */
+  .mission-overlay {
+    flex-direction: column;
+    top: 100px;
+  }
+  
+  .mission-box {
+    padding: 40px 24px;
+  }
+  
+  .mission-heading {
+    font-size: 36px;
+    margin-bottom: 24px;
+  }
+  
+  /* Contact page responsive */
+  .contact-grid {
+    grid-template-columns: 1fr;
     gap: 20px;
   }
   
-  .member-photo {
-    width: 140px;
-    height: 140px;
+  .contact-info-box,
+  .contact-form-box {
+    padding: 28px;
   }
   
-  .contact-info-box {
-    padding: 28px;
-    max-width: 100%;
+  .form-row {
+    grid-template-columns: 1fr;
   }
 }
 
