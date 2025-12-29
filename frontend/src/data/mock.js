@@ -19,18 +19,18 @@ export const navigationLinks = [
 export const pageBackgrounds = {
   // Homepage - Page 25 (Solar farm with astronaut at sunset)
   home: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ralw8yj7_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-25.png',
-  // Company page - Page 29 (Cityscape)
-  company: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/xxokxa6d_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-29.png',
-  // Mission - Page 27
-  mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/zzk98t9o_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-27.png',
-  // Manifesto - Page 26
+  // Company page - Page 34 (Color cityscape at golden hour)
+  company: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ctw5nwym_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-34.png',
+  // Mission - Page 35 (Color mountain lake with reflection)
+  mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/yimhqcaa_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-35.png',
+  // Manifesto - Page 26 (Solar panels)
   manifesto: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/08cmvt51_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-26.png',
   // Expertise - Abstract green waves (Page 22)
   expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
-  // Services - Solar panels (Page 32)
-  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/nj02fxm5_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-32.png',
-  // Contact - Page 29 alternative
-  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/xxokxa6d_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-29.png'
+  // Services - Page 33 (B&W Cityscape)
+  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/gobttbnz_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-33.png',
+  // Contact - Page 37 (Yosemite valley golden hour)
+  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/134c1d8x_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-37.png'
 };
 
 // Additional team member photo (bald man with green wave background)
