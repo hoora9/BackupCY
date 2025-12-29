@@ -8,25 +8,24 @@ const CompanyPage = () => {
     <PageBackground imageUrl={pageBackgrounds.company} className="company-page">
       <Navigation />
       
-      <div className="page-inner-content">
-        <div className="bottom-overlay-section">
-          <h1 className="page-heading animate-slide-up">{companyContent.heading}</h1>
-          
-          <div className="overlay-box animate-slide-up delay-1">
-            <h2 className="overlay-subheading">{companyContent.subheading}</h2>
-            
-            <div className="overlay-body">
-              {companyContent.body.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-            
-            <ul className="key-points">
-              {companyContent.keyPoints.map((point, index) => (
-                <li key={index}>{point}</li>
-              ))}
-            </ul>
-          </div>
+      {/* Blue Box - Background layer, slides from top-left */}
+      <div className="company-blue-box">
+        <div className="company-blue-content">
+          <h1 className="company-heading">{companyContent.heading}</h1>
+          <h2 className="company-subheading">{companyContent.subheading}</h2>
+          <p>{companyContent.body[0]}</p>
+        </div>
+      </div>
+      
+      {/* Green Box - Foreground layer, slides from right */}
+      <div className="company-green-box">
+        <div className="company-green-content">
+          <p>{companyContent.body[1]}</p>
+          <ul className="company-key-points">
+            {companyContent.keyPoints.map((point, index) => (
+              <li key={index}>{point}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </PageBackground>
