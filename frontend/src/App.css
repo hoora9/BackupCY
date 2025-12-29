@@ -676,14 +676,100 @@ img {
   margin-bottom: 10px;
 }
 
-/* ---------- Contact Page - No Animation ---------- */
+/* ---------- Mission Page - Fullscreen Flex Overlay ---------- */
+.mission-page .page-content {
+  padding: 0;
+}
+
+.mission-overlay {
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.mission-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 50px;
+}
+
+/* Left box - Navy/Dark blue background, slides from left */
+.mission-box-left {
+  background: rgba(15, 28, 46, 0.92);
+  animation: slideFromLeft 0.8s ease-out forwards;
+}
+
+/* Right box - Teal/Green background, slides from right */
+.mission-box-right {
+  background: rgba(26, 61, 47, 0.92);
+  animation: slideFromRight 0.8s ease-out forwards;
+  animation-delay: 0.15s;
+  opacity: 0;
+}
+
+.mission-heading {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 40px;
+  line-height: 0.95;
+}
+
+.mission-content p {
+  font-size: clamp(14px, 1.3vw, 17px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+}
+
+.mission-content p:last-child {
+  margin-bottom: 0;
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Contact Page - Form Styles ---------- */
 .contact-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: var(--page-padding);
-  padding-top: calc(var(--nav-height) + 60px);
+  justify-content: center;
+  padding: calc(var(--nav-height) + 40px) var(--page-padding) 50px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  max-width: 1100px;
 }
 
 .contact-info-box {
@@ -692,8 +778,121 @@ img {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);
   border-radius: 2px;
-  padding: 36px 44px;
-  max-width: 380px;
+  padding: 36px 40px;
+}
+
+.contact-form-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 2px;
+  padding: 36px 40px;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.form-success {
+  background: rgba(168, 207, 185, 0.2);
+  border: 1px solid var(--vert-doux);
+  color: var(--vert-doux);
+  padding: 14px 18px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-group input,
+.form-group textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--white);
+  font-family: var(--font-primary);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  border-radius: 2px;
+  padding: 14px 28px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.submit-btn:hover {
+  background: #3d9399;
+  transform: translateY(-2px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
 }
 
 .company-name {
