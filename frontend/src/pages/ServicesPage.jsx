@@ -31,11 +31,16 @@ const ServicesPage = () => {
                   className="accordion-header"
                   onClick={() => toggleAccordion(index)}
                 >
+                  <span className="accordion-number">0{index + 1}</span>
                   <span className="accordion-title">{service.label}</span>
                   <ChevronDown className={`accordion-icon ${openAccordion === index ? 'rotate' : ''}`} size={20} />
                 </button>
                 <div className="accordion-content">
-                  <p>{service.description}</p>
+                  <ul className="accordion-list">
+                    {service.description.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             ))}
@@ -46,12 +51,16 @@ const ServicesPage = () => {
       {/* Green Box - Foreground layer, slides from right */}
       <div className="services-green-box">
         <div className="services-green-content">
-          <p className="services-additional">{servicesContent.additionalText}</p>
-          
-          <div className="services-opportunity">
-            <h3>The Opportunity</h3>
-            <p>{servicesContent.opportunity}</p>
+          <div className="services-highlight">
+            <span className="highlight-number">{servicesContent.highlightNumber}</span>
+            <span className="highlight-label">{servicesContent.highlightLabel}</span>
           </div>
+          
+          <div className="services-side-text">
+            <p>{servicesContent.sideText}</p>
+          </div>
+          
+          <div className="services-accent-line"></div>
         </div>
       </div>
     </PageBackground>
