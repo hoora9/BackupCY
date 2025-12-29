@@ -9,18 +9,19 @@ const MissionPage = () => {
       <Navigation />
       
       <div className="page-inner-content">
-        <h1 className="page-heading fade-slide-up">{missionContent.heading}</h1>
-        
-        <div className="content-blocks-vertical">
-          {missionContent.blocks.map((block, index) => (
-            <div 
-              key={index} 
-              className="content-overlay-box fade-slide-up" 
-              style={{ animationDelay: `${0.3 + index * 0.15}s` }}
-            >
-              <p>{block}</p>
-            </div>
-          ))}
+        <div className="bottom-overlay-section">
+          <h1 className="page-heading animate-slide-up">{missionContent.heading}</h1>
+          
+          <div className="content-columns">
+            {missionContent.blocks.map((block, index) => (
+              <div 
+                key={index} 
+                className={`overlay-box animate-slide-up delay-${index + 1}`}
+              >
+                <p>{block}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </PageBackground>

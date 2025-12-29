@@ -7,10 +7,10 @@ import { MapPin, Phone, Mail, Globe } from 'lucide-react';
 const ContactPage = () => {
   return (
     <PageBackground imageUrl={pageBackgrounds.contact} className="contact-page">
-      <Navigation light />
+      <Navigation />
       
       <div className="contact-content">
-        <div className="contact-info-box fade-slide-up">
+        <div className="contact-info-box">
           <h2 className="company-name">{contactContent.company}</h2>
           
           <div className="info-item">
