@@ -100,24 +100,24 @@ export const expertiseContent = {
   teamSubheading: '+10 years of experience in carbon markets, trading, and project structuring. Proven track record with large transaction volumes, hedged structures, and institutional counterparties.',
   team: [
     {
-      name: 'Samuel Jaudel',
-      title: 'Co-founder & CEO',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/3ocovp0l_9cc24e78-bdd0-42c7-a7b0-25d68dbd79d7.png'
-    },
-    {
       name: 'Victor Coulon',
-      title: 'Co-founder & CEO',
+      title: 'Partner',
       photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/mqde0i45_297a3022-e560-4ff9-8647-be75807e6bd2.png'
     },
     {
-      name: 'Marie Laurent',
-      title: 'Head of Operations',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/0l82ls4u_51f35997-e872-4bdc-96e7-bd330acc9e1e.png'
+      name: 'Samuel Jaudel',
+      title: 'Partner',
+      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/3ocovp0l_9cc24e78-bdd0-42c7-a7b0-25d68dbd79d7.png'
     },
     {
-      name: 'Thomas Mercier',
-      title: 'Head of Strategy',
+      name: 'Guillaume Benhamou',
+      title: 'Adviser',
       photo: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/8hqd5v20_a43df25d-a63a-4fb0-98b9-1139ed378ee3.png'
+    },
+    {
+      name: 'Alexandra Soezer',
+      title: 'Technical Advisor',
+      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/0l82ls4u_51f35997-e872-4bdc-96e7-bd330acc9e1e.png'
     }
   ]
 };
