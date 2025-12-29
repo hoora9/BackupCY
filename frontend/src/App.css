@@ -1135,19 +1135,47 @@ img {
     aspect-ratio: 1;
   }
   
-  /* Mission page responsive */
-  .mission-overlay {
-    flex-direction: column;
-    top: 100px;
+  /* Mission page responsive - stack vertically */
+  .mission-blue-box {
+    position: relative;
+    top: 0;
+    height: auto;
+    min-height: 50vh;
   }
   
-  .mission-box {
+  .mission-blue-content {
+    width: 100%;
     padding: 40px 24px;
   }
   
-  .mission-heading {
-    font-size: 36px;
+  .mission-blue-content .mission-heading {
+    font-size: 40px;
     margin-bottom: 24px;
+  }
+  
+  .mission-green-box {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    min-height: 50vh;
+    animation: slideFromBottom 0.9s ease-out forwards;
+    animation-delay: 0.25s;
+  }
+  
+  .mission-green-content {
+    padding: 40px 24px;
+  }
+  
+  @keyframes slideFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   /* Contact page responsive */
