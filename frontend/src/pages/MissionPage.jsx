@@ -8,23 +8,20 @@ const MissionPage = () => {
     <PageBackground imageUrl={pageBackgrounds.mission} className="mission-page">
       <Navigation />
       
-      {/* Fullscreen flex overlay - two boxes side by side */}
-      <div className="mission-overlay">
-        {/* Left box - slides in from left */}
-        <div className="mission-box mission-box-left">
+      {/* Blue Box - Background layer, slides from top-left */}
+      <div className="mission-blue-box">
+        <div className="mission-blue-content">
           <h1 className="mission-heading">{missionContent.heading}</h1>
-          <div className="mission-content">
-            <p>{missionContent.blocks[0]}</p>
-            <p>{missionContent.blocks[1]}</p>
-          </div>
+          <p>{missionContent.blocks[0]}</p>
+          <p>{missionContent.blocks[1]}</p>
         </div>
-        
-        {/* Right box - slides in from right */}
-        <div className="mission-box mission-box-right">
-          <div className="mission-content">
-            <p>{missionContent.blocks[2]}</p>
-            <p>{missionContent.blocks[3]}</p>
-          </div>
+      </div>
+      
+      {/* Green Box - Foreground layer, slides from right */}
+      <div className="mission-green-box">
+        <div className="mission-green-content">
+          <p>{missionContent.blocks[2]}</p>
+          <p>{missionContent.blocks[3]}</p>
         </div>
       </div>
     </PageBackground>
