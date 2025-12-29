@@ -102,12 +102,12 @@ export const expertiseContent = {
     {
       name: 'Victor Coulon',
       title: 'Partner',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/mqde0i45_297a3022-e560-4ff9-8647-be75807e6bd2.png'
+      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/3ocovp0l_9cc24e78-bdd0-42c7-a7b0-25d68dbd79d7.png'
     },
     {
       name: 'Samuel Jaudel',
       title: 'Partner',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/3ocovp0l_9cc24e78-bdd0-42c7-a7b0-25d68dbd79d7.png'
+      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/mqde0i45_297a3022-e560-4ff9-8647-be75807e6bd2.png'
     },
     {
       name: 'Guillaume Benhamou',
