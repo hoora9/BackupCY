@@ -1,4 +1,4 @@
-// Climate Yield Advisory - Mock Data
+// Climate Yield Advisory - Complete Asset Library
 
 export const brandAssets = {
   logo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/upf0c9pe_CY%20LOGO.png',
@@ -7,27 +7,34 @@ export const brandAssets = {
 };
 
 export const navigationLinks = [
-  { label: 'THE COMPANY', path: '/company', subLinks: [
-    { label: 'Mission', path: '/mission' },
-    { label: 'Manifesto', path: '/manifesto' }
-  ]},
+  { label: 'THE COMPANY', path: '/company' },
+  { label: 'MISSION', path: '/mission' },
+  { label: 'MANIFESTO', path: '/manifesto' },
   { label: 'EXPERTISE', path: '/expertise' },
   { label: 'SERVICES', path: '/services' },
   { label: 'CONTACT', path: '/contact' }
 ];
 
+// Page backgrounds from Brand Book
 export const pageBackgrounds = {
-  home: 'https://images.pexels.com/photos/35405846/pexels-photo-35405846.jpeg',
-  company: 'https://images.pexels.com/photos/13872994/pexels-photo-13872994.jpeg',
-  mission: 'https://images.pexels.com/photos/2166695/pexels-photo-2166695.jpeg',
-  manifesto: 'https://images.pexels.com/photos/371917/pexels-photo-371917.jpeg',
-  expertise: 'https://images.pexels.com/photos/2166695/pexels-photo-2166695.jpeg',
-  services: 'https://images.unsplash.com/photo-1756913455724-6b3a2ae0130b',
-  contact: 'https://images.pexels.com/photos/35408128/pexels-photo-35408128.jpeg'
+  // Page 31 - B&W Mountain Lake (Cover/Homepage)
+  home: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/e8k356bz_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-31.png',
+  // Page 28/33 - B&W Cityscape
+  company: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/54t0cev6_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-33.png',
+  // Page 30 - Mountain Lake Color
+  mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/gvhbvswn_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-30.png',
+  // Solar with Astronaut at sunset
+  manifesto: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/g0r5lafc_a43df25d-a63a-4fb0-98b9-1139ed378ee3.png',
+  // Abstract green waves from brand book
+  expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
+  // Solar panels close-up desert
+  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/2ri267m4_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-34.png',
+  // Mountain valley with sun rays - Page 32
+  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/6y3me6p4_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-29.png'
 };
 
 export const homeContent = {
-  leftBlocks: [
+  blocks: [
     {
       large: 'WE SUPPORT INSTITUTIONAL INVESTORS AND GOVERNMENTS',
       small: 'in optimizing carbon credit value through strategic structuring, regulated alignment, and discreet execution.'

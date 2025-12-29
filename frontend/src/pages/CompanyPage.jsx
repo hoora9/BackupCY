@@ -9,22 +9,24 @@ const CompanyPage = () => {
       <Navigation />
       
       <div className="page-inner-content">
-        <h1 className="page-heading fade-slide-up">{companyContent.heading}</h1>
-        
-        <div className="content-overlay-box fade-slide-up" style={{ animationDelay: '0.3s' }}>
-          <h2 className="subheading">{companyContent.subheading}</h2>
+        <div className="bottom-overlay-section">
+          <h1 className="page-heading animate-slide-up">{companyContent.heading}</h1>
           
-          <div className="body-text">
-            {companyContent.body.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
+          <div className="overlay-box animate-slide-up delay-1">
+            <h2 className="overlay-subheading">{companyContent.subheading}</h2>
+            
+            <div className="overlay-body">
+              {companyContent.body.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+            
+            <ul className="key-points">
+              {companyContent.keyPoints.map((point, index) => (
+                <li key={index}>{point}</li>
+              ))}
+            </ul>
           </div>
-          
-          <ul className="key-points">
-            {companyContent.keyPoints.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
         </div>
       </div>
     </PageBackground>
