@@ -753,14 +753,15 @@ img {
   height: 65%;
   background-image: url('https://customer-assets.emergentagent.com/job_climatefinance/artifacts/s6q906hp_MONOGRAM.png');
   background-repeat: repeat;
-  background-size: 70px;
-  opacity: 0.1;
-  mix-blend-mode: overlay;
+  background-size: 105px;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
   pointer-events: none;
   transform: rotate(-12deg);
   transform-origin: bottom right;
-  -webkit-mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,1) 100%);
-  mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,1) 100%);
+  filter: grayscale(100%) brightness(0.6) contrast(1.2);
+  -webkit-mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,1) 100%);
+  mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,1) 100%);
 }
 
 .mission-green-content {
