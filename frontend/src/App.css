@@ -207,7 +207,7 @@ img {
   width: 100%;
 }
 
-/* ---------- Homepage - Tikehau Style Bottom Boxes ---------- */
+/* ---------- Homepage - Tikehau Style Transparent Boxes ---------- */
 .home-content {
   flex: 1;
   display: flex;
@@ -218,44 +218,56 @@ img {
 }
 
 .home-bottom-content {
-  max-width: 1200px;
+  max-width: 1400px;
+  width: 100%;
 }
 
 .content-boxes {
   display: flex;
-  gap: 40px;
+  flex-direction: column;
+  gap: 0;
   margin-bottom: 40px;
 }
 
+/* Tikehau-style transparent boxes with left/right layout */
 .content-box {
-  flex: 1;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  padding: 32px 36px;
-  border-radius: 2px;
+  display: flex;
+  align-items: stretch;
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0;
+}
+
+.content-box:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .box-large {
+  flex: 0 0 55%;
   font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.3px;
   text-transform: uppercase;
   color: var(--white);
-  margin-bottom: 16px;
+  padding: 28px 40px 28px 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .box-small {
+  flex: 0 0 45%;
   font-size: clamp(13px, 1.2vw, 15px);
   font-weight: 400;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 28px 0 28px 40px;
+  display: flex;
+  align-items: center;
 }
 
 .tagline {
-  padding-left: 4px;
+  padding-left: 0;
+  margin-top: 24px;
 }
 
 .tagline-text {
