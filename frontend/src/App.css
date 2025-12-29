@@ -625,55 +625,180 @@ img {
   color: var(--vert-doux);
 }
 
-/* ---------- Services Page ---------- */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
+/* ---------- Services Page - Animated Overlay with Accordion ---------- */
+.services-page .page-content {
+  padding: 0;
+  overflow: hidden;
 }
 
-.service-item {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 2px;
-  padding: 26px 28px;
-  transition: border-color 0.3s ease;
+/* Blue Box - Background layer */
+.services-blue-box {
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  background-color: #2a6cae;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  animation: slideFromTopLeft 0.9s ease-out forwards;
 }
 
-.service-item:hover {
-  border-color: var(--bleu-clair);
+.services-blue-content {
+  width: 50%;
+  padding: 60px;
+  padding-right: 80px;
 }
 
-.service-label {
+.services-blue-content .services-heading {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 40px;
+  line-height: 0.95;
+}
+
+/* Accordion Styles */
+.services-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.accordion-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.accordion-item:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.accordion-header:hover {
+  opacity: 0.8;
+}
+
+.accordion-title {
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-align: left;
+}
+
+.accordion-icon {
+  color: var(--white);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.accordion-icon.rotate {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 200px;
+  padding-bottom: 20px;
+}
+
+.accordion-content p {
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Green Box - Foreground layer */
+.services-green-box {
+  position: absolute;
+  top: var(--nav-height);
+  right: 0;
+  width: 50%;
+  height: calc(100vh - var(--nav-height));
+  background-color: #a8cfb9;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  animation: slideFromRight 0.9s ease-out forwards;
+  animation-delay: 0.25s;
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Monogram watermark for Services green box */
+.services-green-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 35%;
+  height: 65%;
+  background-image: url('https://customer-assets.emergentagent.com/job_climatefinance/artifacts/s6q906hp_MONOGRAM.png');
+  background-repeat: repeat;
+  background-size: 105px;
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  transform: rotate(-12deg);
+  transform-origin: bottom right;
+  filter: grayscale(100%) brightness(0.6) contrast(1.2);
+  -webkit-mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,1) 100%);
+  mask-image: linear-gradient(to bottom right, transparent 0%, rgba(0,0,0,0.4) 35%, rgba(0,0,0,1) 100%);
+}
+
+.services-green-content {
+  padding: 60px;
+  padding-left: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.services-additional {
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.75;
+  color: #1a3d2f;
+  margin-bottom: 36px;
+}
+
+.services-opportunity {
+  background: rgba(26, 61, 47, 0.1);
+  padding: 24px 28px;
+  border-left: 3px solid #1a3d2f;
+}
+
+.services-opportunity h3 {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--white);
-  margin-bottom: 14px;
+  color: #1a3d2f;
+  margin-bottom: 12px;
 }
 
-.service-description {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.additional-text,
-.opportunity {
-  max-width: 800px;
-}
-
-.opportunity h3 {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin-bottom: 10px;
+.services-opportunity p {
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.7;
+  color: #1a3d2f;
 }
 
 /* ---------- Mission Page - Animated Overlay Boxes ---------- */
