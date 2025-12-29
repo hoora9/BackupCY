@@ -15,23 +15,26 @@ export const navigationLinks = [
   { label: 'CONTACT', path: '/contact' }
 ];
 
-// Page backgrounds - matched to brand book specifications
+// Page backgrounds - Using ONLY user-provided images
 export const pageBackgrounds = {
-  // B&W Mountain Lake with reflection - Homepage (Brand Book Page 1/31)
-  home: 'https://images.unsplash.com/photo-1618443821251-da474ec041e0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxtb3VudGFpbiUyMGxha2UlMjByZWZsZWN0aW9ufGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc2NzAwMzI5N3ww&ixlib=rb-4.1.0&q=85',
-  // B&W Cityscape with river - Company page (Brand Book Page 3/5)
-  company: 'https://images.unsplash.com/photo-1540551008424-4b56fecb3572?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxjaXR5JTIwc2t5bGluZSUyMHJpdmVyfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc2NzAwMzMwNnww&ixlib=rb-4.1.0&q=85',
-  // Color Misty Mountain Lake - Mission (Brand Book Page 4)
-  mission: 'https://images.pexels.com/photos/2166695/pexels-photo-2166695.jpeg',
-  // Solar panels at sunset - Manifesto (dramatic sunset for decisive decade theme)
-  manifesto: 'https://images.pexels.com/photos/371917/pexels-photo-371917.jpeg',
-  // Abstract green waves - Expertise (Brand Book Page 21/22)
+  // Homepage - Page 25 (Solar farm with astronaut at sunset)
+  home: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ralw8yj7_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-25.png',
+  // Company page - Page 29 (Cityscape)
+  company: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/xxokxa6d_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-29.png',
+  // Mission - Page 27
+  mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/zzk98t9o_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-27.png',
+  // Manifesto - Page 26
+  manifesto: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/08cmvt51_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-26.png',
+  // Expertise - Abstract green waves (Page 22)
   expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
-  // Solar panels at sunset on roof - Services (Brand Book Page 27/32)
+  // Services - Solar panels (Page 32)
   services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/nj02fxm5_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-32.png',
-  // Mountain valley golden hour (Yosemite style) - Contact (Brand Book Page 32)
-  contact: 'https://images.unsplash.com/photo-1656627290977-c276fae5d2b7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHx5b3NlbWl0ZSUyMHZhbGxleSUyMHN1bnJheXN8ZW58MHx8fHwxNzY3MDAzMzEzfDA&ixlib=rb-4.1.0&q=85'
+  // Contact - Page 29 alternative
+  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/xxokxa6d_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-29.png'
 };
+
+// Additional team member photo (bald man with green wave background)
+export const additionalTeamPhoto = 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/8hqd5v20_a43df25d-a63a-4fb0-98b9-1139ed378ee3.png';
 
 export const homeContent = {
   blocks: [
