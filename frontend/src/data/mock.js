@@ -29,8 +29,8 @@ export const pageBackgrounds = {
   expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
   // Services - Mountain lake reflection
   services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/lmju7ltn_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-35.png',
-  // Contact - Solar panels at sunset
-  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/f9mf9lla_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-32.png'
+  // Contact - Mountain lake reflection
+  contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/11uf19vk_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-35.png'
 };
 
 // Additional team member photo (bald man with green wave background)
