@@ -27,8 +27,8 @@ export const pageBackgrounds = {
   manifesto: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/08cmvt51_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-26.png',
   // Expertise - Abstract green waves (Page 22)
   expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
-  // Services - Page 33 (B&W Cityscape)
-  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/gobttbnz_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-33.png',
+  // Services - Mountain lake reflection
+  services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/lmju7ltn_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-35.png',
   // Contact - Solar panels at sunset
   contact: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/f9mf9lla_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-32.png'
 };
