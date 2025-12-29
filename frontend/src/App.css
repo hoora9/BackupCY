@@ -680,8 +680,8 @@ img {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px 0;
+  gap: 16px;
+  padding: 18px 0;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -692,13 +692,20 @@ img {
   opacity: 0.8;
 }
 
+.accordion-number {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
 .accordion-title {
-  font-size: clamp(14px, 1.3vw, 17px);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: clamp(13px, 1.2vw, 15px);
+  font-weight: 600;
+  letter-spacing: 0.3px;
   color: var(--white);
   text-align: left;
+  flex: 1;
 }
 
 .accordion-icon {
@@ -718,14 +725,30 @@ img {
 }
 
 .accordion-item.open .accordion-content {
-  max-height: 200px;
+  max-height: 300px;
   padding-bottom: 20px;
 }
 
-.accordion-content p {
-  font-size: clamp(13px, 1.1vw, 15px);
-  line-height: 1.7;
+.accordion-list {
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordion-list li {
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
+  position: relative;
+  padding-left: 16px;
+}
+
+.accordion-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Green Box - Foreground layer */
@@ -771,34 +794,53 @@ img {
   padding-left: 50px;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
-.services-additional {
-  font-size: clamp(14px, 1.2vw, 16px);
-  line-height: 1.75;
-  color: #1a3d2f;
-  margin-bottom: 36px;
+/* Highlight Number Style */
+.services-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.services-opportunity {
-  background: rgba(26, 61, 47, 0.1);
-  padding: 24px 28px;
-  border-left: 3px solid #1a3d2f;
-}
-
-.services-opportunity h3 {
-  font-size: 13px;
+.highlight-number {
+  font-size: clamp(72px, 10vw, 120px);
   font-weight: 700;
+  line-height: 0.9;
+  color: #1a3d2f;
+  letter-spacing: -4px;
+}
+
+.highlight-label {
+  font-size: 14px;
+  font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #1a3d2f;
-  margin-bottom: 12px;
+  opacity: 0.7;
 }
 
-.services-opportunity p {
-  font-size: clamp(13px, 1.1vw, 15px);
-  line-height: 1.7;
+/* Side Text */
+.services-side-text {
+  max-width: 380px;
+}
+
+.services-side-text p {
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.6;
   color: #1a3d2f;
+  font-weight: 500;
+}
+
+/* Accent Line */
+.services-accent-line {
+  width: 60px;
+  height: 3px;
+  background-color: #1a3d2f;
+  margin-top: 8px;
 }
 
 /* ---------- Mission Page - Animated Overlay Boxes ---------- */
