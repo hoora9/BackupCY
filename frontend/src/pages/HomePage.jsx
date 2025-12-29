@@ -9,13 +9,13 @@ const HomePage = () => {
       <Navigation transparent />
       
       <div className="home-content">
-        {/* Bottom positioned content boxes - Tikehau style */}
+        {/* Bottom positioned content - Tikehau style transparent boxes */}
         <div className="home-bottom-content">
           <div className="content-boxes">
             {homeContent.blocks.map((block, index) => (
               <div key={index} className="content-box">
-                <h2 className="box-large">{block.large}</h2>
-                <p className="box-small">{block.small}</p>
+                <div className="box-large">{block.large}</div>
+                <div className="box-small">{block.small}</div>
               </div>
             ))}
           </div>
