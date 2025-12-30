@@ -199,12 +199,14 @@ img {
 }
 
 .nav-link:hover {
-  opacity: 0.7;
+  opacity: 1;
+  color: #4fadb3;
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
+  background: #4fadb3;
 }
 
 /* ---------- Homepage - Tikehau Style Side-by-Side Boxes ---------- */
