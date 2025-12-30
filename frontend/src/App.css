@@ -807,8 +807,9 @@ img {
   z-index: 2;
   display: flex;
   align-items: center;
-  animation: slideFromRight 0.9s ease-out forwards;
-  animation-delay: 0.25s;
+  /* Animation - 25% faster */
+  animation: slideFromRight 0.675s ease-out forwards;
+  animation-delay: 0.19s;
   opacity: 0;
   overflow: hidden;
 }
