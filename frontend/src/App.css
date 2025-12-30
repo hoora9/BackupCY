@@ -901,8 +901,8 @@ img {
   z-index: 1;
   display: flex;
   align-items: center;
-  /* Animation: slides from top-left corner */
-  animation: slideFromTopLeft 0.9s ease-out forwards;
+  /* Animation: slides from top-left corner - 25% faster */
+  animation: slideFromTopLeft 0.675s ease-out forwards;
   overflow: hidden;
 }
 
