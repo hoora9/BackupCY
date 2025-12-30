@@ -1,9 +1,7 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
-import { companyContent, pageBackgrounds, brandAssets } from '../data/mock';
-
-const emblemUrl = 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/knu1eee2_EMB.png';
+import { companyContent, pageBackgrounds } from '../data/mock';
 
 const CompanyPage = () => {
   return (
@@ -13,11 +11,9 @@ const CompanyPage = () => {
       {/* Blue Box - Background layer, slides from top-left */}
       <div className="company-blue-box">
         <div className="company-blue-content">
-          <h1 className="company-heading">
-            <img src={emblemUrl} alt="" className="emblem-quote left" />
-            <span>WHO WE ARE</span>
-            <img src={emblemUrl} alt="" className="emblem-quote right" />
-          </h1>
+          <div className="branded-quote-block">
+            <h1 className="company-heading">WHO WE ARE</h1>
+          </div>
           <h2 className="company-subheading">{companyContent.subheading}</h2>
           <p>{companyContent.body[0]}</p>
         </div>
