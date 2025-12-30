@@ -1097,9 +1097,9 @@ img {
   z-index: 2;
   display: flex;
   align-items: center;
-  /* Animation: slides from right */
-  animation: slideFromRight 0.9s ease-out forwards;
-  animation-delay: 0.25s;
+  /* Animation: slides from right - 25% faster */
+  animation: slideFromRight 0.675s ease-out forwards;
+  animation-delay: 0.19s;
   opacity: 0;
   overflow: hidden;
 }
