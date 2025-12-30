@@ -879,6 +879,25 @@ img {
   color: var(--white);
   margin-bottom: 40px;
   line-height: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Emblem quotation marks */
+.emblem-quote {
+  height: 0.5em;
+  width: auto;
+  opacity: 0.7;
+  filter: brightness(0) invert(1);
+}
+
+.emblem-quote.left {
+  transform: rotate(-12deg);
+}
+
+.emblem-quote.right {
+  transform: rotate(12deg);
 }
 
 .mission-blue-content p {
