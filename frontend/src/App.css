@@ -1001,6 +1001,9 @@ img {
   color: var(--white);
   margin-bottom: 28px;
   line-height: 0.95;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .company-blue-content .company-subheading {
