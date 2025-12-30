@@ -685,7 +685,8 @@ img {
   z-index: 1;
   display: flex;
   align-items: center;
-  animation: slideFromTopLeft 0.9s ease-out forwards;
+  /* Animation - 25% faster */
+  animation: slideFromTopLeft 0.675s ease-out forwards;
   overflow: hidden;
 }
 
