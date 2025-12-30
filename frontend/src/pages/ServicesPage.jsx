@@ -4,6 +4,8 @@ import PageBackground from '../components/PageBackground';
 import { servicesContent, pageBackgrounds } from '../data/mock';
 import { ChevronDown } from 'lucide-react';
 
+const emblemUrl = 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/knu1eee2_EMB.png';
+
 const ServicesPage = () => {
   const [openAccordion, setOpenAccordion] = useState(0);
 
@@ -18,7 +20,11 @@ const ServicesPage = () => {
       {/* Blue Box - Background layer, slides from top-left */}
       <div className="services-blue-box">
         <div className="services-blue-content">
-          <h1 className="services-heading">{servicesContent.heading}</h1>
+          <h1 className="services-heading">
+            <img src={emblemUrl} alt="" className="emblem-quote left" />
+            <span>SERVICES</span>
+            <img src={emblemUrl} alt="" className="emblem-quote right" />
+          </h1>
           
           {/* Accordion */}
           <div className="services-accordion">
