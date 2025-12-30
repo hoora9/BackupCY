@@ -2,8 +2,16 @@ import React from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { expertiseContent, pageBackgrounds } from '../data/mock';
+import { ChevronDown } from 'lucide-react';
 
 const ExpertisePage = () => {
+  const scrollToValues = () => {
+    const valuesSection = document.querySelector('.values-section');
+    if (valuesSection) {
+      valuesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <PageBackground imageUrl={pageBackgrounds.expertise} className="expertise-page" overlay={false}>
       <Navigation />
@@ -33,6 +41,14 @@ const ExpertisePage = () => {
                   </div>
                 </div>
               ))}
+            </div>
+            
+            {/* Scroll Down Arrow */}
+            <div className="scroll-indicator" onClick={scrollToValues}>
+              <span className="scroll-text">Scroll Down</span>
+              <div className="scroll-arrow">
+                <ChevronDown size={28} />
+              </div>
             </div>
           </div>
           
