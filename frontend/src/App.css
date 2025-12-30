@@ -861,6 +861,38 @@ img {
   align-items: center;
   /* Animation: slides from top-left corner */
   animation: slideFromTopLeft 0.9s ease-out forwards;
+  overflow: hidden;
+}
+
+/* Emblem decorations for Mission blue box */
+.mission-blue-box::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  width: 80px;
+  height: 80px;
+  background-image: url('https://customer-assets.emergentagent.com/job_climatefinance/artifacts/knu1eee2_EMB.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.mission-blue-box::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 38%;
+  width: 80px;
+  height: 80px;
+  background-image: url('https://customer-assets.emergentagent.com/job_climatefinance/artifacts/knu1eee2_EMB.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  transform: rotate(-12deg);
+  pointer-events: none;
 }
 
 .mission-blue-content {
