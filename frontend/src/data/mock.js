@@ -109,11 +109,20 @@ export const companyContent = {
 
 export const missionContent = {
   heading: 'MISSION',
+  leftContent: [
+    'Climate Yield exists to make low-carbon infrastructure projects attractive and investable by structuring them for financing and long-term deployment.',
+    'We unlock value by combining rigorous project structuring with deep knowledge of environmental and carbon market frameworks across jurisdictions, enabling low-carbon infrastructure to meet the expectations of investors, governments, and institutions.'
+  ],
+  rightContent: [
+    'We create the conditions for leading institutions to engage with certainty, protect their reputation, and operate confidently in a market that would otherwise remain opaque, risky, and impractical.',
+    'Our mission is to deliver the regulatory clarity, structural security, and operational discipline required to develop and structure credible low-carbon infrastructure assets.'
+  ],
+  // Keep old blocks for backwards compatibility
   blocks: [
-    'Because climate transition cannot succeed unless investors have controlled, reliable, and compliant access to regulated carbon markets, Climate Yield transforms the complexity of regulated carbon markets into investable, transparent, and secure assets.',
-    'Because carbon markets are entering their decade of regulation, and institutions must position themselves before quality assets become inaccessible.',
-    'We create the conditions for leading institutions to invest with certainty, protect their reputation, and take a leadership position in a market that would otherwise remain opaque, risky, and impractical.',
-    'Our mission is to deliver the regulatory clarity, structural security, and operational discipline essential to sustainably engage investor capital at the heart of carbon markets.'
+    'Climate Yield exists to make low-carbon infrastructure projects attractive and investable by structuring them for financing and long-term deployment.',
+    'We unlock value by combining rigorous project structuring with deep knowledge of environmental and carbon market frameworks across jurisdictions, enabling low-carbon infrastructure to meet the expectations of investors, governments, and institutions.',
+    'We create the conditions for leading institutions to engage with certainty, protect their reputation, and operate confidently in a market that would otherwise remain opaque, risky, and impractical.',
+    'Our mission is to deliver the regulatory clarity, structural security, and operational discipline required to develop and structure credible low-carbon infrastructure assets.'
   ]
 };
 
