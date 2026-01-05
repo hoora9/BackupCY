@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { contactContent, pageBackgrounds } from '../data/mock';
-import { MapPin, Phone, Mail, Globe, Send } from 'lucide-react';
+import { MapPin, Phone, Globe, Send } from 'lucide-react';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -23,7 +23,6 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Mock form submission
     console.log('Form submitted:', formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
@@ -54,17 +53,6 @@ const ContactPage = () => {
               <a href={`tel:${contactContent.phone}`} className="info-link">
                 {contactContent.phone}
               </a>
-            </div>
-            
-            <div className="info-item">
-              <Mail className="info-icon" size={18} />
-              <div className="info-text">
-                {contactContent.emails.map((email, index) => (
-                  <a key={index} href={`mailto:${email}`} className="info-link">
-                    {email}
-                  </a>
-                ))}
-              </div>
             </div>
             
             <div className="info-item">
@@ -127,15 +115,18 @@ const ContactPage = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="subject">Subject *</label>
-                  <input
-                    type="text"
+                  <select
                     id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    placeholder="How can we help?"
-                  />
+                  >
+                    <option value="">Select a subject</option>
+                    {contactContent.subjectOptions.map((option, index) => (
+                      <option key={index} value={option}>{option}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
               
