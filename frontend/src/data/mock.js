@@ -3,7 +3,7 @@
 export const brandAssets = {
   logo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/upf0c9pe_CY%20LOGO.png',
   emblem: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png',
-  tagline: 'structured for trust. built for results.'
+  tagline: 'Structured For Trust. Built for Results.'
 };
 
 export const navigationLinks = [
