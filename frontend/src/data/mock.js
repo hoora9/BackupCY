@@ -51,17 +51,59 @@ export const homeContent = {
 
 export const companyContent = {
   heading: 'WHO WE ARE',
+  leftContent: [
+    'Climate Yield is an institutional-grade platform specializing in the structuring of low-carbon infrastructure assets for compliance carbon markets.',
+    'We support the development and structuring of investment-ready low-carbon infrastructure projects eligible for carbon markets, combining discipline, compliance alignment, performance rigor, and measurable impact.'
+  ],
+  rightContent: {
+    intro: 'We operate at the intersection of carbon markets and low-carbon infrastructure, structuring complex projects into compliant, measurable, and investment-ready assets.',
+    keyPoints: [
+      'Deep expertise in regulatory and compliance frameworks',
+      'Robust SPV structuring and governance aligned with institutional standards',
+      'Early access to Article 6-ready and compliance-aligned projects',
+      'Local execution supported by institutional discipline',
+      'Multi-jurisdictional pipeline across the Global South'
+    ]
+  },
+  // Manifesto content now on this page
+  manifesto: {
+    heading: 'MANIFESTO',
+    subheading: 'Low-carbon Infrastructure investment is in a decisive decade.',
+    sections: [
+      {
+        number: '1',
+        title: 'Low-carbon infrastructure will shape the next investment cycle',
+        text: 'The defining investment opportunities of the coming decades will be built through low-carbon infrastructure, as decisions made today lock in economic performance and emissions outcomes for the long term.'
+      },
+      {
+        number: '2',
+        title: 'Capital scales only where risk, returns, and impact are aligned',
+        text: 'Low-carbon infrastructure attracts sustained capital only when climate ambition is matched by disciplined structuring, clear risk allocation, and credible, risk-adjusted performance.'
+      },
+      {
+        number: '3',
+        title: 'The next wave of value lies in overlooked small- and mid-scale projects',
+        text: 'Many of the most impactful low-carbon infrastructure projects remain underserved by large investors due to complexity and fragmentation. Climate Yield focuses on this segment, doing the work required to transform complexity into investment-ready structures.'
+      },
+      {
+        number: '4',
+        title: 'Structure and integrity are the foundations of durable value',
+        text: 'Robust project structuring, regulatory alignment, and institutional discipline are what turn complex climate assets into credible, long-term infrastructure.'
+      }
+    ]
+  },
+  // Keep old fields for backwards compatibility
   subheading: 'CLIMATE YIELD IS AN INSTITUTIONAL PLATFORM SPECIALIZING IN THE STRUCTURING OF REGULATED CARBON ASSETS.',
   body: [
-    'The most reliable institutional platform for investing in carbon infrastructure projects eligible for regulated markets — combining discipline, compliance, performance, and measurable impact.',
-    'We operate exclusively at the heart of carbon markets, transforming complex infrastructure projects into investable, measurable, and compliant assets.'
+    'Climate Yield is an institutional-grade platform specializing in the structuring of low-carbon infrastructure assets for compliance carbon markets.',
+    'We operate at the intersection of carbon markets and low-carbon infrastructure, structuring complex projects into compliant, measurable, and investment-ready assets.'
   ],
   keyPoints: [
-    'Complete regulatory mastery',
-    'Sovereign-grade SPV governance',
-    'Early access to Article 6-ready projects',
-    'Local execution, institutional rigor',
-    'Multi-jurisdictional international pipeline'
+    'Deep expertise in regulatory and compliance frameworks',
+    'Robust SPV structuring and governance aligned with institutional standards',
+    'Early access to Article 6-ready and compliance-aligned projects',
+    'Local execution supported by institutional discipline',
+    'Multi-jurisdictional pipeline across the Global South'
   ]
 };
 
