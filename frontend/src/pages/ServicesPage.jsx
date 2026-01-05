@@ -12,33 +12,33 @@ const ServicesPage = () => {
   };
 
   return (
-    <PageBackground imageUrl={pageBackgrounds.services} className="services-page">
+    <PageBackground imageUrl={pageBackgrounds.services} className="services-page-new">
       <Navigation />
       
-      {/* Blue Box - Background layer, slides from top-left */}
-      <div className="services-blue-box">
-        <div className="services-blue-content">
+      {/* Left Box - Navy/Dark background */}
+      <div className="services-box-left">
+        <div className="services-left-content">
           <div className="branded-quote-block">
-            <h1 className="services-heading">SERVICES</h1>
+            <h1 className="services-heading-new">SERVICES</h1>
           </div>
           
           {/* Accordion */}
-          <div className="services-accordion">
+          <div className="services-accordion-new">
             {servicesContent.services.map((service, index) => (
               <div 
                 key={index} 
-                className={`accordion-item ${openAccordion === index ? 'open' : ''}`}
+                className={`accordion-item-new ${openAccordion === index ? 'open' : ''}`}
               >
                 <button 
-                  className="accordion-header"
+                  className="accordion-header-new"
                   onClick={() => toggleAccordion(index)}
                 >
-                  <span className="accordion-number">0{index + 1}</span>
-                  <span className="accordion-title">{service.label}</span>
-                  <ChevronDown className={`accordion-icon ${openAccordion === index ? 'rotate' : ''}`} size={20} />
+                  <span className="accordion-number-new">0{index + 1}</span>
+                  <span className="accordion-title-new">{service.label}</span>
+                  <ChevronDown className={`accordion-icon-new ${openAccordion === index ? 'rotate' : ''}`} size={20} />
                 </button>
-                <div className="accordion-content">
-                  <ul className="accordion-list">
+                <div className="accordion-content-new">
+                  <ul className="accordion-list-new">
                     {service.description.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
@@ -50,19 +50,19 @@ const ServicesPage = () => {
         </div>
       </div>
       
-      {/* Green Box - Foreground layer, slides from right */}
-      <div className="services-green-box">
-        <div className="services-green-content">
-          <div className="services-highlight">
-            <span className="highlight-number">{servicesContent.highlightNumber}</span>
-            <span className="highlight-label">{servicesContent.highlightLabel}</span>
+      {/* Right Box - Teal background */}
+      <div className="services-box-right">
+        <div className="services-right-content">
+          <div className="services-highlight-new">
+            <span className="highlight-number-new">{servicesContent.highlightNumber}</span>
+            <span className="highlight-label-new">{servicesContent.highlightLabel}</span>
           </div>
           
-          <div className="services-side-text">
+          <div className="services-side-text-new">
             <p>{servicesContent.sideText}</p>
           </div>
           
-          <div className="services-accent-line"></div>
+          <div className="services-accent-line-new"></div>
         </div>
       </div>
     </PageBackground>
