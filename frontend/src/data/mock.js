@@ -220,6 +220,6 @@ export const contactContent = {
   company: 'Climate Yield Advisory',
   address: ['Sky Hub, Abu Dhabi Global Market', 'United Arab Emirates'],
   phone: '+33 7 87 39 61 05',
-  emails: ['victor@climate-yield.com', 'samuel@climate-yield.com'],
-  website: 'climate-yield.com'
+  website: 'climate-yield.com',
+  subjectOptions: ['Looking for Funds', 'Looking for Assets']
 };
