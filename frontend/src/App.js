@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CompanyPage from "./pages/CompanyPage";
 import MissionPage from "./pages/MissionPage";
-import ManifestoPage from "./pages/ManifestoPage";
 import ExpertisePage from "./pages/ExpertisePage";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
@@ -17,7 +16,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/company" element={<CompanyPage />} />
           <Route path="/mission" element={<MissionPage />} />
-          <Route path="/manifesto" element={<ManifestoPage />} />
           <Route path="/expertise" element={<ExpertisePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/contact" element={<ContactPage />} />
