@@ -39,12 +39,12 @@ export const additionalTeamPhoto = 'https://customer-assets.emergentagent.com/jo
 export const homeContent = {
   blocks: [
     {
-      large: 'WE SUPPORT INSTITUTIONAL INVESTORS AND GOVERNMENTS',
-      small: 'in optimizing carbon credit value through strategic structuring, regulated alignment, and discreet execution.'
+      large: 'We structure investment-ready low-carbon infrastructure projects for investors.',
+      small: 'We transform complex carbon and climate assets into clear, investable SPV opportunities aligned with compliance carbon markets'
     },
     {
-      large: 'OUR APPROACH COMBINES DEEP EXPERTISE',
-      small: 'in regulation, governance, and buyer-side market intelligence to secure stronger pricing and sustainable value creation.'
+      large: 'Our approach combines regulatory and governance expertise.',
+      small: 'We structure and enhance the value of low-carbon infrastructure assets.'
     }
   ]
 };
