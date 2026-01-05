@@ -14,16 +14,18 @@ const MissionPage = () => {
           <div className="branded-quote-block">
             <h1 className="mission-heading">MISSION</h1>
           </div>
-          <p>{missionContent.blocks[0]}</p>
-          <p>{missionContent.blocks[1]}</p>
+          {missionContent.leftContent.map((text, index) => (
+            <p key={index}>{text}</p>
+          ))}
         </div>
       </div>
       
       {/* Green Box - Foreground layer, slides from right */}
       <div className="mission-green-box">
         <div className="mission-green-content">
-          <p>{missionContent.blocks[2]}</p>
-          <p>{missionContent.blocks[3]}</p>
+          {missionContent.rightContent.map((text, index) => (
+            <p key={index}>{text}</p>
+          ))}
         </div>
       </div>
     </PageBackground>
