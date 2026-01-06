@@ -1,16 +1,68 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { expertiseContent, pageBackgrounds } from '../data/mock';
 import { ChevronDown } from 'lucide-react';
+import Splitting from 'splitting';
+import 'splitting/dist/splitting.css';
 
 const ExpertisePage = () => {
+  const containerRef = useRef(null);
+  const headingRef = useRef(null);
+  const splitRef = useRef(null);
+  
   const scrollToValues = () => {
     const valuesSection = document.querySelector('.values-section');
     if (valuesSection) {
       valuesSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    if (headingRef.current && !splitRef.current) {
+      // Initialize Splitting on the heading
+      splitRef.current = Splitting({
+        target: headingRef.current,
+        by: 'chars',
+        whitespace: true
+      });
+      
+      // Update function for responsive scaling
+      const update = () => {
+        const container = containerRef.current;
+        const el = headingRef.current;
+        
+        if (!container || !el) return;
+        
+        const originalPathWidth = el.clientWidth;
+        const m = container.clientWidth / originalPathWidth;
+        
+        // If same width, do nothing
+        if (m === 1) return;
+        
+        // Scale
+        el.style.setProperty('--x', m);
+        
+        // Set transform origin
+        if (container.clientWidth < originalPathWidth) {
+          el.style.setProperty('--o', 'left');
+        } else {
+          el.style.setProperty('--o', 'center');
+        }
+      };
+      
+      // Set up ResizeObserver
+      const observer = new ResizeObserver(update);
+      observer.observe(containerRef.current);
+      
+      // Initial update
+      update();
+      
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, []);
 
   return (
     <PageBackground imageUrl={pageBackgrounds.expertise} className="expertise-page" overlay={false}>
@@ -52,9 +104,15 @@ const ExpertisePage = () => {
             </div>
           </div>
           
+          {/* Animated "CLIMATE YIELD VALUES" text */}
+          <div className="splitting-container" ref={containerRef}>
+            <h2 className="splitting-heading" ref={headingRef} data-splitting>
+              CLIMATE YIELD VALUES
+            </h2>
+          </div>
+          
           {/* Values Grid AFTER team */}
           <div className="values-section animate-slide-up delay-6">
-            <h3 className="values-heading">OUR VALUES</h3>
             <div className="values-grid">
               {expertiseContent.values.map((value, index) => (
                 <div key={index} className="value-item">
