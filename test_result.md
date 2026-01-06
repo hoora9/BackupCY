@@ -101,3 +101,109 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Build a high-end, agency-quality website for Climate Yield Advisory with complex animations and professional design inspired by Tikehau Capital. Frontend-only React application."
+
+frontend:
+  - task: "Homepage - Content boxes and tagline"
+    implemented: true
+    working: "NA"
+    file: "src/pages/HomePage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Homepage with side-by-side content boxes and tagline implemented"
+
+  - task: "Company Page - Two-column layout with manifesto section"
+    implemented: true
+    working: "NA"
+    file: "src/pages/CompanyPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Company page redesigned with teal/navy boxes and manifesto section merged"
+
+  - task: "Mission Page - Animated overlays with branded quotes"
+    implemented: true
+    working: "NA"
+    file: "src/pages/MissionPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Mission page with sliding blue/green boxes and emblem quote marks"
+
+  - task: "Expertise Page - Team grid and Splitting.js animation"
+    implemented: true
+    working: "NA"
+    file: "src/pages/ExpertisePage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Implemented CLIMATE YIELD VALUES text animation using Splitting.js with offset-path CSS animation. Removed OUR VALUES static heading. Animation shows text following a curved wave path."
+
+  - task: "Services Page - Accordion and animated boxes"
+    implemented: true
+    working: "NA"
+    file: "src/pages/ServicesPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Services page with animated blue/teal boxes and accordion items"
+
+  - task: "Contact Page - Form with dropdown subject"
+    implemented: true
+    working: "NA"
+    file: "src/pages/ContactPage.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Contact form with dropdown for subject (Looking for funds/Looking for Assets)"
+
+  - task: "Navigation - Fixed navbar with active states"
+    implemented: true
+    working: "NA"
+    file: "src/components/Navigation.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Navigation with logo on left, links on right, active states and hover effects"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "Expertise Page - Team grid and Splitting.js animation"
+    - "Homepage - Content boxes and tagline"
+    - "Company Page - Two-column layout with manifesto section"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Implemented the CLIMATE YIELD VALUES text animation on the Expertise page using Splitting.js library. The animation uses offset-path CSS to make characters flow along a curved wave path. Screenshots confirm the animation is rendering. Please test all pages to verify the recent refactoring from the previous session, especially: 1) Homepage content, 2) Company page with merged manifesto, 3) Mission page animations, 4) Expertise page with new Splitting animation, 5) Services page, 6) Contact page form with dropdown."
