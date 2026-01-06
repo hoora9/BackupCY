@@ -437,15 +437,15 @@ img {
 
 /* Expertise Breathing Heading Animation */
 .expertise-breathing-heading {
-  font-family: "IBM Plex Sans Var", "Menlo", "Monaco", sans-serif;
+  font-family: "Menlo", monospace;
   font-weight: 100;
-  font-size: 10vw;
-  line-height: 10vw;
+  font-size: 6.7vw;
+  line-height: 6.7vw;
   font-variation-settings: 'wght' 100, 'wdth' 85;
   text-transform: uppercase;
   color: var(--white);
   margin-bottom: 28px;
-  letter-spacing: -2px;
+  text-align: center;
 }
 
 .expertise-breathing-heading .char {
@@ -462,15 +462,15 @@ img {
 @keyframes breathe {
   0% {
     font-variation-settings: 'wght' 100, 'wdth' 85;
-    font-size: 10vw;
+    font-size: 6.7vw;
   }
   60% {
     font-variation-settings: 'wght' 700, 'wdth' 100;
-    font-size: 11vw;
+    font-size: 7.37vw;
   }
   100% {
     font-variation-settings: 'wght' 100, 'wdth' 85;
-    font-size: 10vw;
+    font-size: 6.7vw;
   }
 }
 
