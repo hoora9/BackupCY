@@ -602,6 +602,53 @@ img {
   margin-bottom: 20px;
 }
 
+/* ---------- Splitting Animation - CLIMATE YIELD VALUES ---------- */
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:700");
+
+.splitting-container {
+  max-width: 100%;
+  width: 80rem;
+  margin: 40px auto;
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splitting-heading {
+  position: relative;
+  font-family: Inconsolata, monospace;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  color: #a8cfb9;
+  /* Dimensions for path */
+  width: 515px;
+  height: 168px;
+  transform: scale(var(--x, 1));
+  transform-origin: var(--o, center);
+  margin: 0 auto;
+}
+
+.splitting-heading .char {
+  --i: calc(50% / var(--char-total));
+  offset-path: path('M.4 84.1s127.4 188 267.7 0 247.3 0 247.3 0');
+  offset-distance: calc(var(--char-index) * 1.2rem);
+  position: absolute;
+  animation: splitMove 1500ms infinite alternate forwards var(--delay, 0ms);
+}
+
+@keyframes splitMove {
+  100% {
+    --i: 2rem;
+    offset-distance: calc((var(--char-index) * 1.2rem) + 12rem);
+  }
+}
+
+/* Whitespace handling for Splitting */
+.splitting-heading .whitespace {
+  width: 0.5em;
+}
+
 /* Old Team Section - remove */
 .team-section {
   padding-top: 36px;
