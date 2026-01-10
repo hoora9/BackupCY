@@ -10,6 +10,7 @@ export const navigationLinks = [
   { label: 'THE COMPANY', path: '/company' },
   { label: 'MISSION', path: '/mission' },
   { label: 'EXPERTISE', path: '/expertise' },
+  { label: 'IMPACT', path: '/impact' },
   { label: 'SERVICES', path: '/services' },
   { label: 'CONTACT', path: '/contact' }
 ];
