@@ -474,6 +474,127 @@ img {
   }
 }
 
+/* ---------- Impact Page ---------- */
+.impact-page .page-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.impact-page-content {
+  padding-top: var(--nav-height);
+}
+
+.impact-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30vh;
+  padding: 40px var(--page-padding);
+}
+
+/* Impact Breathing Heading Animation - same as Expertise */
+.impact-breathing-heading {
+  font-family: "Menlo", monospace;
+  font-weight: 100;
+  font-size: 6.7vw;
+  line-height: 6.7vw;
+  font-variation-settings: 'wght' 100, 'wdth' 85;
+  text-transform: uppercase;
+  color: var(--white);
+  text-align: center;
+}
+
+.impact-breathing-heading .char {
+  --delay: calc((var(--char-index) + 1) * 400ms);
+  animation: breathe 4000ms infinite both;
+  animation-delay: var(--delay);
+  display: inline-block;
+}
+
+.impact-breathing-heading:hover .char {
+  animation-play-state: paused;
+}
+
+.impact-gallery-section {
+  width: 100%;
+}
+
+/* ---------- Scroll Cards Gallery ---------- */
+.cards-parallax-wrapper {
+  min-height: 100vh;
+}
+
+.scroll-card-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  padding: 0 var(--page-padding);
+}
+
+.scroll-card {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.scroll-card-image-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .scroll-card-container {
+    padding: 0 var(--page-padding-mobile);
+  }
+  
+  .scroll-card {
+    height: 350px;
+  }
+  
+  .impact-header {
+    min-height: 20vh;
+    padding: 30px var(--page-padding-mobile);
+  }
+  
+  .impact-breathing-heading {
+    font-size: 10vw;
+    line-height: 10vw;
+  }
+  
+  .impact-breathing-heading .char {
+    animation: breatheMobile 4000ms infinite both;
+  }
+  
+  @keyframes breatheMobile {
+    0% {
+      font-variation-settings: 'wght' 100, 'wdth' 85;
+      font-size: 10vw;
+    }
+    60% {
+      font-variation-settings: 'wght' 700, 'wdth' 100;
+      font-size: 11vw;
+    }
+    100% {
+      font-variation-settings: 'wght' 100, 'wdth' 85;
+      font-size: 10vw;
+    }
+  }
+}
+
 .expertise-layout {
   max-width: 1200px;
 }
