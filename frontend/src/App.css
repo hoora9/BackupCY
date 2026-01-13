@@ -562,22 +562,22 @@ img {
   padding-top: var(--nav-height);
 }
 
-.impact-page-wrapper .intro {
-  display: block;
-  width: calc(100% - var(--space-xl));
-  margin: 0 auto;
-  max-width: 56.25rem;
-  padding: var(--space-xxl) 0;
-  position: relative;
+/* Impact Header Section - Mission style */
+.impact-header-section {
+  padding: calc(var(--nav-height) + 60px) var(--page-padding) 40px;
 }
 
-.impact-page-wrapper .intro h1 {
-  font-family: var(--font-mono);
-  font-size: var(--ts-xxxl);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+.impact-heading-branded {
+  font-size: clamp(56px, 8vw, 96px);
+  font-weight: 700;
+  letter-spacing: -3px;
+  text-transform: uppercase;
   color: var(--impact-color-light);
+  line-height: 0.9;
+}
+
+.impact-page-wrapper .intro {
+  display: none; /* Replaced by header section */
 }
 
 .impact-page-wrapper .section-title {
