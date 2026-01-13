@@ -9,9 +9,9 @@ const HomePage = () => {
       <Navigation transparent />
       
       <div className="home-content">
-        {/* Tagline - centered vertically, left aligned */}
-        <div className="tagline">
-          <span className="tagline-text">{brandAssets.tagline}</span>
+        {/* Tagline - centered */}
+        <div className="tagline tagline-centered">
+          <span className="tagline-text">Structured for Trust. Built for Results.</span>
         </div>
         
         {/* Bottom: textbox 1 | textbox 2 | emblem */}
