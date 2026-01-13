@@ -1966,13 +1966,15 @@ img {
 /* Right Box - Navy background */
 .company-box-right {
   flex: 1;
-  background-color: #0f1c2e;
+  background-color: rgba(15, 28, 46, 0.5);
   display: flex;
   align-items: center;
   padding: 60px;
   animation: slideFromRight 0.675s ease-out forwards;
   animation-delay: 0.19s;
   opacity: 0;
+  border: 100px solid transparent;
+  box-sizing: border-box;
 }
 
 .company-right-content {
