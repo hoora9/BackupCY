@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import { pageBackgrounds } from '../data/mock';
 
 const ImpactPage = () => {
   const initialized = useRef(false);
@@ -39,11 +38,10 @@ const ImpactPage = () => {
 
     const wrappersLen = wrappers.length;
     const compLen = comparatorData.length;
-    let d, v;
 
     function createStageIndicators() {
-      for (i = 0; i < compLen; i++) {
-        d = comparatorData[i];
+      for (let i = 0; i < compLen; i++) {
+        const d = comparatorData[i];
         const nav = document.createElement("div");
         nav.className = "stage-nav";
 
@@ -185,7 +183,6 @@ const ImpactPage = () => {
         <article>
           <section className="intro">
             <h1>WORK IN ACTION</h1>
-            <p></p>
           </section>
           
           <section>
@@ -201,54 +198,26 @@ const ImpactPage = () => {
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" />
-                        <img src="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" decoding="async" alt="Stage 1" />
+                        <img src="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" decoding="async" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 1</span>
-                        <div className="image-text">
-                          <h2>Clean water</h2>
-                          <h3>— Community access</h3>
-                        </div>
-                      </div>
                     </div>
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" decoding="async" alt="Stage 2" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" decoding="async" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 2</span>
-                        <div className="image-text">
-                          <h2>Infrastructure</h2>
-                          <h3>— Building capacity</h3>
-                        </div>
-                      </div>
                     </div>
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" decoding="async" alt="Stage 3" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" decoding="async" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 3</span>
-                        <div className="image-text">
-                          <h2>Technical Support</h2>
-                          <h3>— Monitoring systems</h3>
-                        </div>
-                      </div>
                     </div>
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" decoding="async" alt="Stage 4" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" decoding="async" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 4</span>
-                        <div className="image-text">
-                          <h2>Sustainable Impact</h2>
-                          <h3>— Long-term growth</h3>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div className="divider-lines">
@@ -274,54 +243,26 @@ const ImpactPage = () => {
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" decoding="async" loading="lazy" alt="Stage 1" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" decoding="async" loading="lazy" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 1</span>
-                        <div className="image-text">
-                          <h2>Sun House</h2>
-                          <h3>— Quiet heat</h3>
-                        </div>
-                      </div>
                     </div>
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" />
-                        <img src="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" decoding="async" loading="lazy" alt="Stage 2" />
+                        <img src="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" decoding="async" loading="lazy" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 2</span>
-                        <div className="image-text">
-                          <h2>Rain Siege</h2>
-                          <h3>— Rough weather</h3>
-                        </div>
-                      </div>
                     </div>
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" />
-                        <img src="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" decoding="async" loading="lazy" alt="Stage 3" />
+                        <img src="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" decoding="async" loading="lazy" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 3</span>
-                        <div className="image-text">
-                          <h2>Fault Line</h2>
-                          <h3>— Breaking point</h3>
-                        </div>
-                      </div>
                     </div>
                     <div className="image-layer">
                       <picture>
                         <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" decoding="async" loading="lazy" alt="Stage 4" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" decoding="async" loading="lazy" alt="" />
                       </picture>
-                      <div className="comparator-overlay">
-                        <span className="label">Stage 4</span>
-                        <div className="image-text">
-                          <h2>White Surge</h2>
-                          <h3>— Carried away</h3>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div className="divider-lines">
