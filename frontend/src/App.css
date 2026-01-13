@@ -1030,6 +1030,117 @@ img {
   line-height: 1.3;
 }
 
+/* Match homepage tagline style */
+.closing-statement.home-tagline {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+/* ============================================
+   EXPERTISE PAGE - NEW VALUES SECTION
+   ============================================ */
+
+.values-section-new {
+  padding: 80px 0;
+  margin-top: 60px;
+}
+
+.values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.value-word-container {
+  overflow: hidden;
+}
+
+.value-word {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.value-first-letter {
+  font-weight: 500;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.value-rest {
+  color: var(--white);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover effects */
+.value-word:hover {
+  transform: translateX(20px);
+}
+
+.value-word:hover .value-first-letter {
+  transform: scale(1.1);
+  text-shadow: 0 0 30px currentColor;
+}
+
+.value-word:hover .value-rest {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Alternating colors for variety */
+.value-word-container:nth-child(odd) .value-word:hover {
+  color: var(--bleu-clair);
+}
+
+.value-word-container:nth-child(even) .value-word:hover {
+  color: var(--vert-doux);
+}
+
+/* Underline effect on hover */
+.value-word::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.value-word:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .values-section-new {
+    padding: 60px 0;
+  }
+  
+  .values-list {
+    gap: 16px;
+  }
+  
+  .value-word {
+    font-size: clamp(1.8rem, 10vw, 3rem);
+  }
+  
+  .value-word:hover {
+    transform: translateX(10px);
+  }
+}
+
+/* ============================================
+   END EXPERTISE VALUES SECTION
+   ============================================ */
+
 /* Manifesto Mobile Responsive */
 @media (max-width: 1024px) {
   .manifesto-section-inner {
