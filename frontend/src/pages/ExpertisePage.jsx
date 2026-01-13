@@ -27,23 +27,27 @@ const ExpertisePage = () => {
       // Create scroll trigger for the wave section
       ScrollTrigger.create({
         trigger: '.topographic-wave-section',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        scrub: 0.5,
+        start: 'top 90%',
+        end: 'bottom 10%',
+        scrub: 0.3,
         onUpdate: (self) => {
           // Animate wave paths based on scroll
           const progress = self.progress;
           
-          // Calculate which values should be visible
-          const numVisibleValues = Math.min(Math.floor(progress * 7), 6);
+          // Calculate which values should be visible (smoother progression)
+          const numVisibleValues = Math.min(Math.ceil(progress * 6.5), 6);
           const newVisibleValues = valuesData.slice(0, numVisibleValues);
           setVisibleValues(newVisibleValues);
           
-          // Animate wave paths - shift them vertically based on scroll
+          // Animate wave paths - dramatic flowing movement
           pathRefs.current.forEach((path, index) => {
             if (path) {
-              const offset = progress * 50 * (index % 2 === 0 ? 1 : -1);
-              path.style.transform = `translateY(${offset}px)`;
+              // Create flowing wave effect - alternating directions with phase offset
+              const direction = index % 2 === 0 ? 1 : -1;
+              const phaseOffset = index * 0.3;
+              const yOffset = Math.sin(progress * Math.PI * 2 + phaseOffset) * 40 * direction;
+              const xOffset = progress * 100 * direction;
+              path.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
             }
           });
         }
@@ -56,25 +60,25 @@ const ExpertisePage = () => {
   // Generate topographic wave paths (matching background aesthetic)
   const generateWavePaths = () => {
     const paths = [];
-    const numLayers = 12;
+    const numLayers = 15; // More layers for richer effect
     
     for (let i = 0; i < numLayers; i++) {
-      const yOffset = 50 + i * 35;
-      const amplitude = 30 + Math.sin(i * 0.5) * 15;
-      const frequency = 0.8 + (i % 3) * 0.2;
+      const yOffset = 30 + i * 30;
+      const amplitude = 40 + Math.sin(i * 0.5) * 20;
+      const frequency = 0.6 + (i % 3) * 0.15;
       
       // Create flowing wave path
-      let d = `M -100 ${yOffset}`;
-      for (let x = -100; x <= 2100; x += 50) {
+      let d = `M -200 ${yOffset}`;
+      for (let x = -200; x <= 2200; x += 40) {
         const y = yOffset + Math.sin(x * frequency * 0.01) * amplitude 
-                  + Math.cos(x * 0.005 + i) * (amplitude * 0.5);
-        d += ` Q ${x + 25} ${y + amplitude * 0.3}, ${x + 50} ${y}`;
+                  + Math.cos(x * 0.004 + i * 0.5) * (amplitude * 0.6);
+        d += ` Q ${x + 20} ${y + amplitude * 0.4}, ${x + 40} ${y}`;
       }
       
       paths.push({
         d,
-        opacity: 0.15 + (i % 4) * 0.08,
-        strokeWidth: 1.5 + (i % 3) * 0.5,
+        opacity: 0.2 + (i % 4) * 0.1, // More visible
+        strokeWidth: 1.5 + (i % 3) * 0.8,
         index: i
       });
     }
