@@ -178,37 +178,24 @@ export const servicesContent = {
   heading: 'SERVICES',
   services: [
     {
-      label: 'Project Investment – ITMOs & Carbon Tax',
+      label: 'Project Origination',
+      subtitle: 'Identifying the right low-carbon infrastructure projects with robust risk-return profiles.',
       description: [
-        'Rigorous origination and due diligence of high-integrity carbon projects',
-        'Strategic structuring aligned with compliance requirements (CORSIA, Article 6.2, Carbon Tax)',
-        'Project financing and offtake structuring for contracted, long-term cashflows'
+        'Climate Yield sources and screens low-carbon infrastructure opportunities, focusing on projects where asset fundamentals, regulatory context, and revenue potential support attractive long-term returns.'
       ]
     },
     {
-      label: 'Commercial Advisory for Governments & Funds',
+      label: 'Project Structuring & Financing',
+      subtitle: 'Structuring projects to be investment-ready and financeable.',
       description: [
-        'Strategic planning for large-scale credit portfolio sales',
-        'Negotiation support with airlines, corporates, traders, and buying countries',
-        'Market sounding across CORSIA and ITMO markets',
-        'Portfolio optimization: timing, sizing, and multi-year strategy'
+        'Climate Yield structures projects for investment by designing SPVs, defining governance and risk allocation, and supporting capital raising at the project level so assets can be financed and deployed under clear, disciplined structures.'
       ]
     },
     {
-      label: 'Article 6 Advisory & Bilateral Cooperation',
+      label: 'Asset Management & Optimization',
+      subtitle: 'Enhancing asset performance and long-term value.',
       description: [
-        'Design of UNFCCC-compliant Article 6 frameworks for credit monetization',
-        'Support for bilateral cooperation agreements with buying countries',
-        'Structuring ITMO governance and corresponding adjustment protocols'
-      ]
-    },
-    {
-      label: 'Carbon Credit Monetization & Revenue Optimization',
-      description: [
-        'Sophisticated pricing strategy and market positioning',
-        'Discreet buyer engagement across compliance markets',
-        'Flexible offtake structures: spot, forwards, floors, indexed pricing',
-        'Competitive processes to maximize value and secure long-term offtakes'
+        'Climate Yield provides ongoing advisory to improve project economics, governance, and resilience over time, helping optimize revenue frameworks, manage risks, and strengthen long-term returns at the asset level.'
       ]
     }
   ],
