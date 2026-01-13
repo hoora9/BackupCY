@@ -1090,35 +1090,24 @@ img {
 /* Individual Value Items */
 .value-item {
   font-family: var(--font-primary);
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 300;
-  letter-spacing: 0.15em;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 200;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: transparent;
+  color: rgba(232, 224, 200, 0.15);
   opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  text-shadow: none;
-  /* Gradient text matching background colors */
-  background: linear-gradient(
-    135deg,
-    #1a3d2f 0%,
-    #2d5a3d 25%,
-    #a8cfb9 50%,
-    #d4c9a8 75%,
-    #e8e0c8 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .value-item.visible {
   opacity: 1;
-  color: transparent;
-  transform: translateY(0) scale(1);
+  color: #e8e0c8;
+  transform: translateY(0);
   text-shadow: 
-    0 2px 20px rgba(168, 207, 185, 0.3),
-    0 4px 40px rgba(26, 61, 47, 0.2);
+    0 2px 30px rgba(168, 207, 185, 0.4),
+    0 4px 60px rgba(26, 61, 47, 0.3),
+    0 0 80px rgba(232, 224, 200, 0.2);
 }
 
 /* Stagger animation delays for each value */
