@@ -790,6 +790,16 @@ img {
   color: var(--white);
 }
 
+/* Use same style as Mission heading */
+.manifesto-hero-title.mission-heading {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 0;
+}
+
 .manifesto-hero-line {
   width: 120px;
   height: 1px;
