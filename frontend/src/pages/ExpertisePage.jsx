@@ -2,96 +2,95 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { expertiseContent, pageBackgrounds } from '../data/mock';
+import { ChevronDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Values data
+// Values data with descriptions
 const valuesData = [
-  'Integrity',
-  'Discipline', 
-  'Agility',
-  'Mastery',
-  'Real Impact',
-  'Collaboration'
+  { 
+    label: 'Integrity', 
+    description: 'We uphold the highest standards of honesty and transparency in all our dealings, building trust with clients and partners.'
+  },
+  { 
+    label: 'Discipline', 
+    description: 'We maintain rigorous processes and methodologies, ensuring consistent quality and reliable outcomes.'
+  },
+  { 
+    label: 'Agility', 
+    description: 'We adapt quickly to changing market conditions and client needs, staying ahead of industry developments.'
+  },
+  { 
+    label: 'Mastery', 
+    description: 'We continuously deepen our expertise in carbon markets and low-carbon infrastructure, delivering superior insights.'
+  },
+  { 
+    label: 'Real Impact', 
+    description: 'We focus on tangible, measurable outcomes that drive genuine environmental and financial value.'
+  },
+  { 
+    label: 'Collaboration', 
+    description: 'We work closely with clients, partners, and stakeholders to achieve shared goals and maximize value creation.'
+  }
 ];
 
 const ExpertisePage = () => {
-  const waveContainerRef = useRef(null);
-  const [visibleValues, setVisibleValues] = useState([]);
-  const pathRefs = useRef([]);
+  const containerRef = useRef(null);
+  const [openValue, setOpenValue] = useState(0);
+  const [waveRevealed, setWaveRevealed] = useState(false);
+
+  const toggleValue = (index) => {
+    setOpenValue(openValue === index ? -1 : index);
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Create scroll trigger for the wave section
+      // Animate wave section to reveal on scroll
       ScrollTrigger.create({
-        trigger: '.topographic-wave-section',
-        start: 'top 90%',
-        end: 'bottom 10%',
-        scrub: 0.3,
+        trigger: '.values-wave-section',
+        start: 'top 80%',
+        end: 'top 30%',
+        scrub: 0.5,
         onUpdate: (self) => {
-          // Animate wave paths based on scroll
           const progress = self.progress;
-          
-          // Calculate which values should be visible (smoother progression)
-          const numVisibleValues = Math.min(Math.ceil(progress * 6.5), 6);
-          const newVisibleValues = valuesData.slice(0, numVisibleValues);
-          setVisibleValues(newVisibleValues);
-          
-          // Animate wave paths - dramatic flowing movement
-          pathRefs.current.forEach((path, index) => {
-            if (path) {
-              // Create flowing wave effect - alternating directions with phase offset
-              const direction = index % 2 === 0 ? 1 : -1;
-              const phaseOffset = index * 0.3;
-              const yOffset = Math.sin(progress * Math.PI * 2 + phaseOffset) * 40 * direction;
-              const xOffset = progress * 100 * direction;
-              path.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-            }
-          });
+          // Move waves down to reveal content
+          const waveContainer = document.querySelector('.wave-animation-container');
+          if (waveContainer) {
+            waveContainer.style.transform = `translateY(${progress * 100}%)`;
+          }
+          if (progress > 0.5) {
+            setWaveRevealed(true);
+          }
         }
       });
-    }, waveContainerRef);
+
+      // Animate values accordion on reveal
+      gsap.utils.toArray('.value-accordion-item').forEach((item, i) => {
+        gsap.from(item, {
+          scrollTrigger: {
+            trigger: '.values-content-area',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          },
+          y: 30,
+          opacity: 0,
+          duration: 0.6,
+          delay: i * 0.1,
+          ease: 'power2.out'
+        });
+      });
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
-
-  // Generate topographic wave paths (matching background aesthetic)
-  const generateWavePaths = () => {
-    const paths = [];
-    const numLayers = 15; // More layers for richer effect
-    
-    for (let i = 0; i < numLayers; i++) {
-      const yOffset = 30 + i * 30;
-      const amplitude = 40 + Math.sin(i * 0.5) * 20;
-      const frequency = 0.6 + (i % 3) * 0.15;
-      
-      // Create flowing wave path
-      let d = `M -200 ${yOffset}`;
-      for (let x = -200; x <= 2200; x += 40) {
-        const y = yOffset + Math.sin(x * frequency * 0.01) * amplitude 
-                  + Math.cos(x * 0.004 + i * 0.5) * (amplitude * 0.6);
-        d += ` Q ${x + 20} ${y + amplitude * 0.4}, ${x + 40} ${y}`;
-      }
-      
-      paths.push({
-        d,
-        opacity: 0.2 + (i % 4) * 0.1, // More visible
-        strokeWidth: 1.5 + (i % 3) * 0.8,
-        index: i
-      });
-    }
-    return paths;
-  };
-
-  const wavePaths = generateWavePaths();
 
   return (
     <PageBackground imageUrl={pageBackgrounds.expertise} className="expertise-page" overlay={false}>
       <Navigation />
       
-      <div className="page-inner-content scrollable" ref={waveContainerRef}>
+      <div className="page-inner-content scrollable" ref={containerRef}>
         <div className="bottom-overlay-section expertise-layout">
           {/* Team Section */}
           <div className="team-section-overlay animate-slide-up delay-1">
@@ -120,65 +119,67 @@ const ExpertisePage = () => {
             </div>
           </div>
           
-          {/* Topographic Wave Values Section */}
-          <div className="topographic-wave-section" data-testid="topographic-wave-section">
-            {/* SVG Topographic Waves */}
-            <svg 
-              className="topographic-waves-svg"
-              viewBox="0 0 1920 500"
-              preserveAspectRatio="xMidYMid slice"
-            >
-              <defs>
-                {/* Gradient matching background colors */}
-                <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2d5a3d" stopOpacity="0.3" />
-                  <stop offset="50%" stopColor="#a8cfb9" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#d4c9a8" stopOpacity="0.15" />
-                </linearGradient>
-                <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1a3d2f" stopOpacity="0.25" />
-                  <stop offset="50%" stopColor="#78a890" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#e8e0c8" stopOpacity="0.1" />
-                </linearGradient>
-              </defs>
-              
-              {wavePaths.map((path, idx) => (
-                <path
-                  key={idx}
-                  ref={el => pathRefs.current[idx] = el}
-                  d={path.d}
-                  fill="none"
-                  stroke={idx % 2 === 0 ? "url(#waveGradient1)" : "url(#waveGradient2)"}
-                  strokeWidth={path.strokeWidth}
-                  opacity={path.opacity}
-                  className="wave-path"
-                  style={{
-                    transition: 'transform 0.3s ease-out'
-                  }}
+          {/* Values Section with Animated Waves */}
+          <div className="values-wave-section" data-testid="values-wave-section">
+            {/* Animated Wave Overlay */}
+            <div className="wave-animation-container">
+              <svg viewBox="0 0 1320 500" className="wave-svg" preserveAspectRatio="none">
+                <path 
+                  className="wave-path wave-1"
+                  fillOpacity="0.5" 
+                  d="M0, 192 C220, 100, 440, 100, 660, 192 C880, 290, 1100, 290, 1320, 192 L1320 500 L0 500"
+                  fill="#daaf61"
                 />
-              ))}
-            </svg>
-            
-            {/* Values Display - Centered, Accumulating */}
-            <div className="values-display-container" data-testid="values-display">
-              {valuesData.map((value, index) => (
-                <div
-                  key={index}
-                  className={`value-item ${visibleValues.includes(value) ? 'visible' : ''}`}
-                  data-testid={`value-${value.toLowerCase().replace(' ', '-')}`}
-                >
-                  {value}
-                </div>
-              ))}
+                <path 
+                  className="wave-path wave-2"
+                  fillOpacity="0.5" 
+                  d="M0, 192 C220, 100, 440, 100, 660, 192 C880, 290, 1100, 290, 1320, 192 L1320 500 L0 500"
+                  fill="#f5f0db"
+                />
+                <path 
+                  className="wave-path wave-3"
+                  fillOpacity="0.5" 
+                  d="M0, 192 C220, 100, 440, 100, 660, 192 C880, 290, 1100, 290, 1320, 192 L1320 500 L0 500"
+                  fill="#546e4a"
+                />
+                <path 
+                  className="wave-path wave-4"
+                  fillOpacity="0.5" 
+                  d="M0, 192 C220, 100, 440, 100, 660, 192 C880, 290, 1100, 290, 1320, 192 L1320 500 L0 500"
+                  fill="#285831"
+                />
+              </svg>
             </div>
             
-            {/* Scroll hint */}
-            {visibleValues.length === 0 && (
-              <div className="wave-scroll-hint">
-                <span>Scroll to reveal our values</span>
-                <div className="scroll-arrow-wave">↓</div>
+            {/* Values Content */}
+            <div className={`values-content-area ${waveRevealed ? 'revealed' : ''}`}>
+              <div className="branded-quote-block values-heading-block">
+                <h3 className="values-section-heading">Our Values</h3>
               </div>
-            )}
+              
+              {/* Values Accordion */}
+              <div className="values-accordion" data-testid="values-accordion">
+                {valuesData.map((value, index) => (
+                  <div 
+                    key={index} 
+                    className={`value-accordion-item ${openValue === index ? 'open' : ''}`}
+                    data-testid={`value-item-${index}`}
+                  >
+                    <button 
+                      className="value-accordion-header"
+                      onClick={() => toggleValue(index)}
+                    >
+                      <span className="value-number">0{index + 1}</span>
+                      <span className="value-label">{value.label}</span>
+                      <ChevronDown className={`value-icon ${openValue === index ? 'rotate' : ''}`} size={20} />
+                    </button>
+                    <div className="value-accordion-content">
+                      <p>{value.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
