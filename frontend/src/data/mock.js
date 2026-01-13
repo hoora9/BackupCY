@@ -9,6 +9,7 @@ export const brandAssets = {
 export const navigationLinks = [
   { label: 'THE COMPANY', path: '/company' },
   { label: 'MISSION', path: '/mission' },
+  { label: 'MANIFESTO', path: '/manifesto' },
   { label: 'EXPERTISE', path: '/expertise' },
   { label: 'IMPACT', path: '/impact' },
   { label: 'SERVICES', path: '/services' },
