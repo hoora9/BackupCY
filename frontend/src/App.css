@@ -542,7 +542,7 @@ img {
 /* ---------- NEW Impact Page - Scroll Comparator ---------- */
 .impact-page-wrapper {
   --impact-color-light: #fafafa;
-  --impact-color-dark: #a8cfb9; /* Changed to Vert doux */
+  --impact-color-dark: #a8cfb9;
   --impact-color-accent: color-mix(in oklch, #a8cfb9, #fff 75%);
   
   --space-md: 1rem;
@@ -554,11 +554,11 @@ img {
   --ts-xl: clamp(1.582rem, 6cqw + 0.35rem, 2.0215rem);
   --ts-xxxl: clamp(2.4719rem, 12cqw + 0.35rem, 3.1586rem);
   
-  --comparator-max-width: 500px; /* Changed to 500px max */
+  --comparator-max-width: 900px; /* Changed to 900px */
   --comparator-aspect-ratio: 4/3;
   
   min-height: 100vh;
-  background: #a8cfb9; /* Solid Vert doux color */
+  background: rgba(168, 207, 185, 0.5); /* #a8cfb9 at 50% opacity */
   color: var(--impact-color-light);
 }
 
