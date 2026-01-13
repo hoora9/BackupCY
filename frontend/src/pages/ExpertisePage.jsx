@@ -39,7 +39,6 @@ const valuesData = [
 const ExpertisePage = () => {
   const containerRef = useRef(null);
   const [openValue, setOpenValue] = useState(0);
-  const [waveRevealed, setWaveRevealed] = useState(false);
 
   const toggleValue = (index) => {
     setOpenValue(openValue === index ? -1 : index);
@@ -47,21 +46,19 @@ const ExpertisePage = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate wave section to reveal on scroll
+      // Animate wave to move UPWARD and reveal content below
       ScrollTrigger.create({
         trigger: '.values-wave-section',
-        start: 'top 80%',
-        end: 'top 30%',
+        start: 'top 60%',
+        end: 'bottom 20%',
         scrub: 0.5,
         onUpdate: (self) => {
           const progress = self.progress;
-          // Move waves down to reveal content
+          // Move waves UPWARD (negative Y) to reveal content
           const waveContainer = document.querySelector('.wave-animation-container');
           if (waveContainer) {
-            waveContainer.style.transform = `translateY(${progress * 100}%)`;
-          }
-          if (progress > 0.5) {
-            setWaveRevealed(true);
+            waveContainer.style.transform = `translateY(${-progress * 100}%)`;
+            waveContainer.style.opacity = 1 - progress * 0.8;
           }
         }
       });
@@ -119,9 +116,39 @@ const ExpertisePage = () => {
             </div>
           </div>
           
-          {/* Values Section with Animated Waves */}
+          {/* Values Section with Animated Waves OVER content */}
           <div className="values-wave-section" data-testid="values-wave-section">
-            {/* Animated Wave Overlay */}
+            {/* Values Content - Underneath the waves */}
+            <div className="values-content-area">
+              <div className="branded-quote-block values-heading-block">
+                <h3 className="values-section-heading">Our Values</h3>
+              </div>
+              
+              {/* Values Accordion */}
+              <div className="values-accordion" data-testid="values-accordion">
+                {valuesData.map((value, index) => (
+                  <div 
+                    key={index} 
+                    className={`value-accordion-item ${openValue === index ? 'open' : ''}`}
+                    data-testid={`value-item-${index}`}
+                  >
+                    <button 
+                      className="value-accordion-header"
+                      onClick={() => toggleValue(index)}
+                    >
+                      <span className="value-number">0{index + 1}</span>
+                      <span className="value-label">{value.label}</span>
+                      <ChevronDown className={`value-icon ${openValue === index ? 'rotate' : ''}`} size={20} />
+                    </button>
+                    <div className="value-accordion-content">
+                      <p>{value.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Animated Wave Overlay - ON TOP, moves UP on scroll */}
             <div className="wave-animation-container">
               <svg viewBox="0 0 1320 500" className="wave-svg" preserveAspectRatio="none">
                 <path 
@@ -149,36 +176,6 @@ const ExpertisePage = () => {
                   fill="#285831"
                 />
               </svg>
-            </div>
-            
-            {/* Values Content */}
-            <div className={`values-content-area ${waveRevealed ? 'revealed' : ''}`}>
-              <div className="branded-quote-block values-heading-block">
-                <h3 className="values-section-heading">Our Values</h3>
-              </div>
-              
-              {/* Values Accordion */}
-              <div className="values-accordion" data-testid="values-accordion">
-                {valuesData.map((value, index) => (
-                  <div 
-                    key={index} 
-                    className={`value-accordion-item ${openValue === index ? 'open' : ''}`}
-                    data-testid={`value-item-${index}`}
-                  >
-                    <button 
-                      className="value-accordion-header"
-                      onClick={() => toggleValue(index)}
-                    >
-                      <span className="value-number">0{index + 1}</span>
-                      <span className="value-label">{value.label}</span>
-                      <ChevronDown className={`value-icon ${openValue === index ? 'rotate' : ''}`} size={20} />
-                    </button>
-                    <div className="value-accordion-content">
-                      <p>{value.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
