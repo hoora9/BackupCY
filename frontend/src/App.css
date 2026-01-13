@@ -739,6 +739,346 @@ img {
   min-height: 100vh;
 }
 
+/* ============================================
+   MANIFESTO PAGE - IMPERATIVE INSPIRED
+   ============================================ */
+
+.manifesto-page {
+  min-height: 100vh;
+  background-color: var(--navy);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.manifesto-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--nav-height) var(--page-padding) 60px;
+}
+
+.manifesto-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--navy) 0%, #1a2a3a 50%, var(--bleu-clair) 100%);
+  z-index: 0;
+}
+
+.manifesto-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, var(--navy) 70%);
+  opacity: 0.6;
+}
+
+.manifesto-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+}
+
+.manifesto-hero-title {
+  font-family: var(--font-primary);
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  margin-bottom: 32px;
+  color: var(--white);
+}
+
+.manifesto-hero-line {
+  width: 120px;
+  height: 1px;
+  background: var(--vert-doux);
+  margin: 0 auto 40px;
+  transform-origin: center;
+}
+
+.manifesto-hero-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Content Sections */
+.manifesto-section {
+  position: relative;
+  padding: 120px var(--page-padding);
+  overflow: hidden;
+}
+
+.manifesto-section:nth-child(odd) {
+  background: var(--navy);
+}
+
+.manifesto-section:nth-child(even) {
+  background: linear-gradient(180deg, var(--navy) 0%, #0a141f 100%);
+}
+
+.manifesto-section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.section-left .manifesto-section-inner {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.section-right .manifesto-section-inner {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.section-right .manifesto-image-wrapper {
+  order: 2;
+}
+
+.section-right .manifesto-content-wrapper {
+  order: 1;
+}
+
+/* Image Styling */
+.manifesto-image-wrapper {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+
+.manifesto-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.manifesto-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(42, 108, 174, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Content Styling */
+.manifesto-content-wrapper {
+  padding: 20px 0;
+}
+
+.manifesto-section-number {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--vert-doux);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.manifesto-section-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.manifesto-section-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 400;
+  color: var(--vert-doux);
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.manifesto-section-text {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.manifesto-section-subtext {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.manifesto-section-source {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gris-acier);
+  font-style: italic;
+}
+
+/* Structure Section */
+.manifesto-structure-section {
+  position: relative;
+  padding: 140px var(--page-padding);
+  background: linear-gradient(180deg, #0a141f 0%, var(--navy) 100%);
+  text-align: center;
+}
+
+.manifesto-structure-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.manifesto-structure-section .manifesto-section-number {
+  margin-bottom: 24px;
+}
+
+.manifesto-structure-section .manifesto-section-title {
+  margin-bottom: 20px;
+}
+
+.manifesto-structure-section .manifesto-section-subtitle {
+  margin-bottom: 32px;
+}
+
+.manifesto-structure-section .manifesto-section-text,
+.manifesto-structure-section .manifesto-section-subtext {
+  text-align: center;
+}
+
+/* Conviction Section */
+.conviction-section {
+  position: relative;
+  padding: 160px var(--page-padding);
+  background: var(--vert-fonce);
+}
+
+.conviction-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.conviction-content {
+  text-align: center;
+}
+
+.conviction-emblem {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 48px;
+}
+
+.conviction-emblem img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.2);
+}
+
+.conviction-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
+}
+
+.conviction-text {
+  font-family: var(--font-primary);
+  font-size: 1.125rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.conviction-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Closing Section */
+.closing-section {
+  position: relative;
+  padding: 200px var(--page-padding);
+  background: var(--navy);
+  text-align: center;
+}
+
+.closing-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.closing-statement {
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+/* Manifesto Mobile Responsive */
+@media (max-width: 1024px) {
+  .manifesto-section-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  
+  .section-left .manifesto-section-inner,
+  .section-right .manifesto-section-inner {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-right .manifesto-image-wrapper,
+  .section-right .manifesto-content-wrapper {
+    order: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .manifesto-hero {
+    padding: var(--nav-height) var(--page-padding-mobile) 40px;
+  }
+  
+  .manifesto-hero-title {
+    letter-spacing: 0.2em;
+  }
+  
+  .manifesto-section {
+    padding: 80px var(--page-padding-mobile);
+  }
+  
+  .manifesto-structure-section {
+    padding: 100px var(--page-padding-mobile);
+  }
+  
+  .conviction-section {
+    padding: 100px var(--page-padding-mobile);
+  }
+  
+  .closing-section {
+    padding: 120px var(--page-padding-mobile);
+  }
+}
+
+/* ============================================
+   END MANIFESTO PAGE
+   ============================================ */
+
 .scroll-card-container {
   height: 100vh;
   display: flex;
