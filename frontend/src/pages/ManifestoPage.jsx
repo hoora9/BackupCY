@@ -1,38 +1,250 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import PageBackground from '../components/PageBackground';
-import { brandAssets, manifestoContent, pageBackgrounds } from '../data/mock';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ManifestoPage = () => {
+  const containerRef = useRef(null);
+  
+  // Manifesto content sections
+  const sections = [
+    {
+      title: "A Decisive Decade",
+      subtitle: "Low-carbon infrastructure investment is entering a decisive decade",
+      content: "Climate transition will be built through real infrastructure. Decisions made this decade will lock in emissions pathways and economic outcomes for decades to come.",
+      subContent: "Climate challenges are now inseparable from economic, industrial, and financial realities. Low-carbon infrastructure sits at the intersection of these forces, shaping how capital, industry, and climate objectives converge over the long term.",
+      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/c3b032cfaed16cbeeb06910d34e928d08887c448cb244107505e08899e46dd9f.png"
+    },
+    {
+      title: "Unprecedented Capital Needs",
+      subtitle: "Capital needs are unprecedented and time-bound",
+      content: "Clean energy and low-carbon infrastructure investment in emerging and developing economies must reach approximately USD 2 trillion per year by 2030 to meet climate and development goals.",
+      subContent: "Despite growing momentum, current investment levels remain far below what is required. Much of the infrastructure that will define the next decades has yet to be built, making this period structurally decisive.",
+      source: "IEA, 2023",
+      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/b97821e5ef789d89473529641018ac597a6e6af371099f6917d0cb830aee592f.png"
+    },
+    {
+      title: "Capital Follows Returns",
+      subtitle: "Capital only scales where projects deliver attractive, long-term returns",
+      content: "Ambition alone does not mobilise capital. Investment flows when risk, governance, and cash-flow visibility are clearly structured to meet investor expectations.",
+      subContent: "Closing the gap will require more than USD 1 trillion per year in additional infrastructure investment in the Global South, with private capital playing a critical role alongside public funding. Demonstrating that climate-aligned infrastructure can deliver attractive, long-term returns is essential to unlocking sustained private investment at scale.",
+      source: "World Bank, 2023",
+      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/edde7d5f35e822eb2a283e98c28ff8b5307e356a53c45ad72c3def088c149e29.png"
+    },
+    {
+      title: "Overlooked Opportunities",
+      subtitle: "The most critical opportunities are often overlooked",
+      content: "Small- and mid-scale low-carbon infrastructure projects are essential to the transition, yet frequently bypassed by large institutions due to complexity, fragmentation, and structuring constraints.",
+      subContent: "Private capital currently accounts for a small fraction of climate finance in emerging markets, underscoring the scale of unmet investment needs.",
+      source: "IFC, World Bank Group, 2023",
+      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/d84976a06a406199e7b7d4ad7cff1ac3bc07c7dd47677dcce7e696e220556d9d.png"
+    }
+  ];
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Hero section animation
+      gsap.from('.manifesto-hero-title', {
+        y: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        delay: 0.3
+      });
+      
+      gsap.from('.manifesto-hero-subtitle', {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.6
+      });
+
+      gsap.from('.manifesto-hero-line', {
+        scaleX: 0,
+        duration: 1.2,
+        ease: 'power3.inOut',
+        delay: 0.8
+      });
+
+      // Section animations on scroll
+      gsap.utils.toArray('.manifesto-section').forEach((section, i) => {
+        const image = section.querySelector('.manifesto-image-wrapper');
+        const content = section.querySelector('.manifesto-content-wrapper');
+        const title = section.querySelector('.manifesto-section-title');
+        const subtitle = section.querySelector('.manifesto-section-subtitle');
+        const text = section.querySelector('.manifesto-section-text');
+        const subtext = section.querySelector('.manifesto-section-subtext');
+        
+        // Image parallax and reveal
+        gsap.from(image, {
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'top 20%',
+            scrub: 1
+          },
+          y: 100,
+          opacity: 0.3,
+          scale: 1.1
+        });
+
+        // Content reveal
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          }
+        });
+
+        tl.from(title, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        })
+        .from(subtitle, {
+          y: 20,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out'
+        }, '-=0.4')
+        .from(text, {
+          y: 20,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out'
+        }, '-=0.4')
+        .from(subtext, {
+          y: 20,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out'
+        }, '-=0.3');
+      });
+
+      // Conviction section animation
+      gsap.from('.conviction-content', {
+        scrollTrigger: {
+          trigger: '.conviction-section',
+          start: 'top 60%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out'
+      });
+
+      // Closing statement animation
+      gsap.from('.closing-statement', {
+        scrollTrigger: {
+          trigger: '.closing-section',
+          start: 'top 70%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 40,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.out'
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <PageBackground imageUrl={pageBackgrounds.manifesto} className="manifesto-page">
+    <div className="manifesto-page" ref={containerRef}>
       <Navigation />
       
-      <div className="page-inner-content">
-        <div className="bottom-overlay-section">
-          <h1 className="page-heading animate-slide-up">{manifestoContent.heading}</h1>
-          
-          <h2 className="page-subheading italic animate-slide-up delay-1">
-            {manifestoContent.subheading}
-          </h2>
-          
-          <div className="content-columns">
-            {manifestoContent.blocks.map((block, index) => (
-              <div 
-                key={index} 
-                className={`overlay-box animate-slide-up delay-${index + 2}`}
-              >
-                <p>{block}</p>
-              </div>
-            ))}
+      {/* Hero Section */}
+      <section className="manifesto-hero">
+        <div className="manifesto-hero-bg">
+          <div className="manifesto-hero-overlay"></div>
+        </div>
+        <div className="manifesto-hero-content">
+          <h1 className="manifesto-hero-title">MANIFESTO</h1>
+          <div className="manifesto-hero-line"></div>
+          <p className="manifesto-hero-subtitle">
+            Low-carbon infrastructure investment is entering a decisive decade
+          </p>
+        </div>
+      </section>
+
+      {/* Content Sections */}
+      {sections.map((section, index) => (
+        <section 
+          key={index} 
+          className={`manifesto-section ${index % 2 === 0 ? 'section-left' : 'section-right'}`}
+        >
+          <div className="manifesto-section-inner">
+            <div className="manifesto-image-wrapper">
+              <img src={section.image} alt={section.title} className="manifesto-image" />
+              <div className="manifesto-image-overlay"></div>
+            </div>
+            <div className="manifesto-content-wrapper">
+              <span className="manifesto-section-number">0{index + 1}</span>
+              <h2 className="manifesto-section-title">{section.title}</h2>
+              <h3 className="manifesto-section-subtitle">{section.subtitle}</h3>
+              <p className="manifesto-section-text">{section.content}</p>
+              <p className="manifesto-section-subtext">{section.subContent}</p>
+              {section.source && (
+                <span className="manifesto-section-source">— {section.source}</span>
+              )}
+            </div>
           </div>
-          
-          <div className="tagline-closing animate-slide-up delay-6">
-            <span>{brandAssets.tagline}</span>
+        </section>
+      ))}
+
+      {/* Structure Section */}
+      <section className="manifesto-structure-section">
+        <div className="manifesto-structure-inner">
+          <span className="manifesto-section-number">05</span>
+          <h2 className="manifesto-section-title">Structure Creates Value</h2>
+          <h3 className="manifesto-section-subtitle">Structure and integrity create durable value</h3>
+          <p className="manifesto-section-text">
+            Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.
+          </p>
+          <p className="manifesto-section-subtext">
+            Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.
+          </p>
+        </div>
+      </section>
+
+      {/* Conviction Section */}
+      <section className="conviction-section">
+        <div className="conviction-inner">
+          <div className="conviction-content">
+            <div className="conviction-emblem">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/qthqqaee_Climate%20Yield%20Emblem%20Green%20Logo%20.png" 
+                alt="Climate Yield Emblem" 
+              />
+            </div>
+            <h2 className="conviction-title">Our conviction is simple.</h2>
+            <p className="conviction-text">
+              The climate transition becomes investable only when it is grounded in reality — in the constraints of the field, the logic of capital, and a deep understanding of environmental and carbon market systems.
+            </p>
+            <p className="conviction-text">
+              Climate Yield exists to transform complexity into credible, investment-ready low-carbon infrastructure capable of supporting sustained capital deployment.
+            </p>
           </div>
         </div>
-      </div>
-    </PageBackground>
+      </section>
+
+      {/* Closing Section */}
+      <section className="closing-section">
+        <div className="closing-inner">
+          <p className="closing-statement">
+            Structured for trust. Built for results.
+          </p>
+        </div>
+      </section>
+    </div>
   );
 };
 
