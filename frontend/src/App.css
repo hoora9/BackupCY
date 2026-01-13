@@ -1045,118 +1045,154 @@ img {
 }
 
 /* ============================================
-   EXPERTISE PAGE - NEW VALUES SECTION
+   EXPERTISE PAGE - TOPOGRAPHIC WAVE VALUES
    ============================================ */
 
-.values-section-new {
-  padding: 80px 0 300px;
-  margin-top: 60px;
+.topographic-wave-section {
   position: relative;
-}
-
-/* Add dark overlay for better text contrast */
-.values-section-new::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 20, 31, 0.75);
-  pointer-events: none;
-}
-
-.values-list {
+  min-height: 100vh;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-  position: relative;
-  z-index: 1;
-}
-
-.value-word-container {
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
-.value-word {
-  display: inline-block;
-  font-family: var(--font-primary);
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  font-weight: 300;
-  color: var(--white);
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  position: relative;
-}
-
-.value-first-letter {
-  font-weight: 500;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.value-rest {
-  color: var(--white);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Hover effects */
-.value-word:hover {
-  transform: translateX(20px);
-}
-
-.value-word:hover .value-first-letter {
-  transform: scale(1.1);
-  text-shadow: 0 0 30px currentColor;
-}
-
-.value-word:hover .value-rest {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Alternating colors for variety */
-.value-word-container:nth-child(odd) .value-word:hover {
-  color: var(--bleu-clair);
-}
-
-.value-word-container:nth-child(even) .value-word:hover {
-  color: var(--vert-doux);
-}
-
-/* Underline effect on hover */
-.value-word::after {
-  content: '';
+/* SVG Topographic Waves */
+.topographic-waves-svg {
   position: absolute;
-  bottom: -4px;
+  top: 0;
   left: 0;
-  width: 0;
-  height: 2px;
-  background: currentColor;
-  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.value-word:hover::after {
   width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
+.wave-path {
+  will-change: transform;
+}
+
+/* Values Display Container */
+.values-display-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 40px;
+  min-height: 60vh;
+}
+
+/* Individual Value Items */
+.value-item {
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: transparent;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-shadow: none;
+  /* Gradient text matching background colors */
+  background: linear-gradient(
+    135deg,
+    #1a3d2f 0%,
+    #2d5a3d 25%,
+    #a8cfb9 50%,
+    #d4c9a8 75%,
+    #e8e0c8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.value-item.visible {
+  opacity: 1;
+  color: transparent;
+  transform: translateY(0) scale(1);
+  text-shadow: 
+    0 2px 20px rgba(168, 207, 185, 0.3),
+    0 4px 40px rgba(26, 61, 47, 0.2);
+}
+
+/* Stagger animation delays for each value */
+.value-item:nth-child(1).visible { transition-delay: 0s; }
+.value-item:nth-child(2).visible { transition-delay: 0.1s; }
+.value-item:nth-child(3).visible { transition-delay: 0.2s; }
+.value-item:nth-child(4).visible { transition-delay: 0.3s; }
+.value-item:nth-child(5).visible { transition-delay: 0.4s; }
+.value-item:nth-child(6).visible { transition-delay: 0.5s; }
+
+/* Hover effect on visible values */
+.value-item.visible:hover {
+  transform: scale(1.05);
+  text-shadow: 
+    0 4px 30px rgba(168, 207, 185, 0.5),
+    0 8px 60px rgba(26, 61, 47, 0.3);
+}
+
+/* Scroll hint */
+.wave-scroll-hint {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: fadeInOut 2s ease-in-out infinite;
+}
+
+.scroll-arrow-wave {
+  font-size: 1.5rem;
+  animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .values-section-new {
-    padding: 60px 0;
+  .topographic-wave-section {
+    min-height: 80vh;
   }
   
-  .values-list {
+  .values-display-container {
     gap: 16px;
+    padding: 40px 20px;
   }
   
-  .value-word {
-    font-size: clamp(1.8rem, 10vw, 3rem);
+  .value-item {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    letter-spacing: 0.1em;
   }
   
-  .value-word:hover {
-    transform: translateX(10px);
+  .wave-scroll-hint {
+    bottom: 40px;
   }
 }
 
 /* ============================================
-   END EXPERTISE VALUES SECTION
+   END EXPERTISE TOPOGRAPHIC WAVE VALUES
    ============================================ */
 
 /* Manifesto Mobile Responsive */
