@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
-import { pageBackgrounds } from '../data/mock';
+import { pageBackgrounds, brandAssets } from '../data/mock';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// New emblem SVG URL
+const emblemSvg = "https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/kedm1qew_CY-EMBLEM-REMOVED%20%281%29.svg";
 
 const ManifestoPage = () => {
   const containerRef = useRef(null);
@@ -64,17 +67,18 @@ const ManifestoPage = () => {
         const text = section.querySelector('.manifesto-section-text');
         const subtext = section.querySelector('.manifesto-section-subtext');
         
-        // Image parallax and reveal
+        // Image parallax and reveal with ease in/out
         gsap.from(image, {
           scrollTrigger: {
             trigger: section,
-            start: 'top 80%',
-            end: 'top 20%',
+            start: 'top 85%',
+            end: 'top 15%',
             scrub: 1
           },
-          y: 100,
-          opacity: 0.3,
-          scale: 1.1
+          y: 80,
+          opacity: 0,
+          scale: 1.05,
+          ease: 'power2.inOut'
         });
 
         // Content reveal
@@ -90,25 +94,25 @@ const ManifestoPage = () => {
           y: 30,
           opacity: 0,
           duration: 0.8,
-          ease: 'power3.out'
+          ease: 'power2.inOut'
         })
         .from(subtitle, {
           y: 20,
           opacity: 0,
           duration: 0.7,
-          ease: 'power3.out'
+          ease: 'power2.inOut'
         }, '-=0.4')
         .from(text, {
           y: 20,
           opacity: 0,
           duration: 0.7,
-          ease: 'power3.out'
+          ease: 'power2.inOut'
         }, '-=0.4')
         .from(subtext, {
           y: 20,
           opacity: 0,
           duration: 0.7,
-          ease: 'power3.out'
+          ease: 'power2.inOut'
         }, '-=0.3');
       });
 
@@ -122,7 +126,7 @@ const ManifestoPage = () => {
         y: 60,
         opacity: 0,
         duration: 1,
-        ease: 'power3.out'
+        ease: 'power2.inOut'
       });
 
       // Closing statement animation
@@ -135,7 +139,7 @@ const ManifestoPage = () => {
         y: 40,
         opacity: 0,
         duration: 1.2,
-        ease: 'power3.out'
+        ease: 'power2.inOut'
       });
 
     }, containerRef);
@@ -144,14 +148,19 @@ const ManifestoPage = () => {
   }, []);
 
   return (
-    <PageBackground imageUrl={pageBackgrounds.mission} className="manifesto-page-styled" ref={containerRef}>
+    <div className="manifesto-page-styled" ref={containerRef}>
       <Navigation />
       
-      {/* Hero Section - Blue Box like Mission page */}
-      <div className="manifesto-blue-box">
-        <div className="manifesto-blue-content">
-          <div className="branded-quote-block-new">
-            <h1 className="manifesto-hero-heading">MANIFESTO</h1>
+      {/* Hero Section with branded heading */}
+      <div className="manifesto-hero-section" data-testid="manifesto-hero">
+        {/* Branded Heading - Same style as Mission page */}
+        <div className="manifesto-branded-heading">
+          <div className="emblem-side">
+            <img src={emblemSvg} alt="" className="heading-emblem" />
+          </div>
+          <h1 className="manifesto-hero-heading">MANIFESTO</h1>
+          <div className="emblem-side">
+            <img src={emblemSvg} alt="" className="heading-emblem flipped" />
           </div>
         </div>
       </div>
@@ -202,7 +211,7 @@ const ManifestoPage = () => {
             <div className="conviction-content">
               <div className="conviction-emblem">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/1xgk01cq_emblem-01.svg" 
+                  src={emblemSvg}
                   alt="Climate Yield Emblem" 
                 />
               </div>
@@ -226,7 +235,7 @@ const ManifestoPage = () => {
           </div>
         </section>
       </div>
-    </PageBackground>
+    </div>
   );
 };
 
