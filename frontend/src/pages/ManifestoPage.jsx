@@ -211,7 +211,7 @@ const ManifestoPage = () => {
             <div className="conviction-content">
               <div className="conviction-emblem">
                 <img 
-                  src={emblemSvg}
+                  src={emblemUrl}
                   alt="Climate Yield Emblem" 
                 />
               </div>
