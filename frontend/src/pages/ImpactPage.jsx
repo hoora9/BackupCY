@@ -1,62 +1,347 @@
 import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import PageBackground from '../components/PageBackground';
 import { pageBackgrounds } from '../data/mock';
-import Splitting from 'splitting';
-import 'splitting/dist/splitting.css';
-import { CardsParallax } from '../components/ui/scroll-cards';
-
-// Impact gallery images - only images, no text overlay
-const impactImages = [
-  {
-    src: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg",
-  },
-  {
-    src: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg",
-  },
-  {
-    src: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg",
-  },
-  {
-    src: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG",
-  },
-  {
-    src: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg",
-  },
-];
 
 const ImpactPage = () => {
-  const impactHeadingRef = useRef(null);
-  const impactSplitRef = useRef(null);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    // Initialize Splitting on the IMPACT heading (breathing animation)
-    if (impactHeadingRef.current && !impactSplitRef.current) {
-      impactSplitRef.current = Splitting({
-        target: impactHeadingRef.current,
-        by: 'chars'
-      });
+    if (initialized.current) return;
+    initialized.current = true;
+
+    let velocity = 0;
+    const ease = 0.12;
+    const friction = 0.92;
+    const sections = document.querySelectorAll(".scroll-section");
+    const sectionsLen = sections.length;
+    const wrappers = [];
+    const comparatorData = [];
+    let i, s, w, c, p;
+
+    for (i = 0; i < sectionsLen; i++) {
+      s = sections[i];
+      w = s.querySelector(".comparator-wrapper");
+      if (w) wrappers.push({ section: s, wrapper: w });
+      c = s.querySelector(".comparator");
+      if (!c) continue;
+      p = c.querySelector(".comparison-percentage");
+      if (p) {
+        const layers = c.querySelectorAll(".image-layer");
+        comparatorData.push({
+          comp: c,
+          pct: p,
+          section: s,
+          layerCount: layers.length,
+          wrapper: w
+        });
+      }
     }
+
+    const wrappersLen = wrappers.length;
+    const compLen = comparatorData.length;
+    let d, v;
+
+    function createStageIndicators() {
+      for (i = 0; i < compLen; i++) {
+        d = comparatorData[i];
+        const nav = document.createElement("div");
+        nav.className = "stage-nav";
+
+        const indicators = [];
+        for (let j = 0; j < d.layerCount; j++) {
+          const indicator = document.createElement("button");
+          indicator.className = "stage-indicator";
+          indicator.setAttribute("aria-label", `Go to stage ${j + 1}`);
+          indicator.dataset.stage = j;
+          indicator.dataset.comparatorIndex = i;
+          indicators.push(indicator);
+          nav.appendChild(indicator);
+        }
+
+        d.comp.appendChild(nav);
+        d.indicators = indicators;
+      }
+    }
+
+    function getComparatorDuration() {
+      const style = getComputedStyle(document.documentElement);
+      const duration = style.getPropertyValue("--comparator-duration").trim();
+      return (parseFloat(duration) * window.innerHeight) / 100;
+    }
+
+    let targetScrollPosition = null;
+    const scrollEase = 0.08;
+
+    function scrollToStage(comparatorIndex, stageIndex) {
+      const data = comparatorData[comparatorIndex];
+      if (!data) return;
+
+      const offset = data.section.offsetTop;
+      const duration = getComparatorDuration();
+      const stageCount = data.layerCount;
+
+      stageIndex = Math.max(0, Math.min(stageIndex, stageCount - 1));
+
+      const stageDuration = duration / (stageCount - 1);
+      targetScrollPosition = offset + stageDuration * stageIndex;
+    }
+
+    function onIndicatorClick(e) {
+      const btn = e.target.closest(".stage-indicator");
+      if (!btn) return;
+
+      const stage = parseInt(btn.dataset.stage, 10);
+      const compIndex = parseInt(btn.dataset.comparatorIndex, 10);
+
+      scrollToStage(compIndex, stage);
+    }
+
+    function updateOffsets() {
+      for (let i = 0; i < wrappersLen; i++) {
+        const w = wrappers[i];
+        w.wrapper.style.setProperty(
+          "--comparator-offset",
+          w.section.offsetTop + "px"
+        );
+      }
+    }
+
+    function onWheel(e) {
+      e.preventDefault();
+      targetScrollPosition = null;
+      velocity += e.deltaY;
+    }
+
+    let resizeTimeout;
+
+    function onResize() {
+      targetScrollPosition = null;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        updateOffsets();
+      }, 150);
+    }
+
+    function onMouseDown(e) {
+      if (!e.target.closest(".comparator-wrapper")) {
+        targetScrollPosition = null;
+      }
+    }
+
+    function frame() {
+      if (targetScrollPosition !== null) {
+        const current = window.scrollY;
+        const delta = targetScrollPosition - current;
+
+        if (Math.abs(delta) > 1) {
+          window.scrollBy(0, delta * scrollEase);
+        } else {
+          targetScrollPosition = null;
+        }
+      }
+
+      velocity *= friction;
+      if (velocity > 0.2 || velocity < -0.2) {
+        window.scrollBy(0, velocity * ease);
+      }
+
+      for (let i = 0; i < compLen; i++) {
+        const d = comparatorData[i];
+        const v =
+          parseFloat(
+            getComputedStyle(d.comp).getPropertyValue("--scroll-progress")
+          ) || 0;
+        d.pct.textContent = (Math.round(v) + "").padStart(2, "0") + "%";
+
+        const currentStage = Math.round((v / 100) * (d.layerCount - 1));
+        d.indicators.forEach((indicator, idx) => {
+          indicator.classList.toggle("active", idx === currentStage);
+        });
+      }
+      requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("mousedown", onMouseDown, { passive: true });
+    document.addEventListener("click", onIndicatorClick);
+
+    createStageIndicators();
+    updateOffsets();
+    requestAnimationFrame(frame);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("click", onIndicatorClick);
+    };
   }, []);
 
   return (
-    <PageBackground imageUrl={pageBackgrounds.expertise} className="impact-page" overlay={false}>
+    <div className="impact-page-wrapper">
       <Navigation />
-      
-      <div className="impact-page-content">
-        {/* Breathing Animation Title */}
-        <div className="impact-header">
-          <h1 className="impact-breathing-heading" ref={impactHeadingRef} data-splitting>
-            Impact
-          </h1>
-        </div>
-        
-        {/* Image Gallery */}
-        <div className="impact-gallery-section">
-          <CardsParallax items={impactImages} />
-        </div>
-      </div>
-    </PageBackground>
+      <main className="impact-main">
+        <article>
+          <section className="intro">
+            <h1>WORK IN ACTION</h1>
+            <p></p>
+          </section>
+          
+          <section>
+            <p className="scroll-indicator">ACOM ↓</p>
+          </section>
+          
+          <section className="scroll-section">
+            <div className="comparator-container">
+              <div className="comparator-wrapper">
+                <div className="comparator">
+                  <div className="comparison-percentage"></div>
+                  <div className="image-layers">
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" />
+                        <img src="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" decoding="async" alt="Stage 1" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 1</span>
+                        <div className="image-text">
+                          <h2>Clean water</h2>
+                          <h3>— Community access</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" decoding="async" alt="Stage 2" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 2</span>
+                        <div className="image-text">
+                          <h2>Infrastructure</h2>
+                          <h3>— Building capacity</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" decoding="async" alt="Stage 3" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 3</span>
+                        <div className="image-text">
+                          <h2>Technical Support</h2>
+                          <h3>— Monitoring systems</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" decoding="async" alt="Stage 4" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 4</span>
+                        <div className="image-text">
+                          <h2>Sustainable Impact</h2>
+                          <h3>— Long-term growth</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="divider-lines">
+                    <div className="divider-line"></div>
+                    <div className="divider-line"></div>
+                    <div className="divider-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <section>
+            <p className="scroll-indicator">VASUNDHARA ↓</p>
+          </section>
+          
+          <section className="scroll-section">
+            <div className="comparator-container">
+              <div className="comparator-wrapper flip-reverse">
+                <div className="comparator">
+                  <div className="comparison-percentage"></div>
+                  <div className="image-layers">
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" decoding="async" loading="lazy" alt="Stage 1" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 1</span>
+                        <div className="image-text">
+                          <h2>Sun House</h2>
+                          <h3>— Quiet heat</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" />
+                        <img src="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" decoding="async" loading="lazy" alt="Stage 2" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 2</span>
+                        <div className="image-text">
+                          <h2>Rain Siege</h2>
+                          <h3>— Rough weather</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" />
+                        <img src="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" decoding="async" loading="lazy" alt="Stage 3" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 3</span>
+                        <div className="image-text">
+                          <h2>Fault Line</h2>
+                          <h3>— Breaking point</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="image-layer">
+                      <picture>
+                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" />
+                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" decoding="async" loading="lazy" alt="Stage 4" />
+                      </picture>
+                      <div className="comparator-overlay">
+                        <span className="label">Stage 4</span>
+                        <div className="image-text">
+                          <h2>White Surge</h2>
+                          <h3>— Carried away</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="divider-lines">
+                    <div className="divider-line"></div>
+                    <div className="divider-line"></div>
+                    <div className="divider-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          <section>
+            <p className="scroll-indicator">Scroll up ↑</p>
+          </section>
+          
+          <section className="spacer"></section>
+        </article>
+      </main>
+    </div>
   );
 };
 
