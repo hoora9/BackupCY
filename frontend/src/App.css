@@ -2103,6 +2103,8 @@ img {
   position: relative;
   padding-left: 2.5em;
   padding-top: 0.5em;
+  padding-right: 1.5em;
+  display: inline-block;
 }
 
 /* Opening emblem - TOP LEFT, hanging punctuation style */
@@ -2121,12 +2123,12 @@ img {
   transform: translateY(-5%);
 }
 
-/* Closing emblem - BOTTOM RIGHT, rotated 180° */
+/* Closing emblem - BOTTOM RIGHT, almost next to the word */
 .branded-quote-block::after {
   content: '';
   position: absolute;
-  right: -1em;
-  bottom: 0.2em;
+  right: 0;
+  bottom: 0.15em;
   width: 1.2em;
   height: 1.2em;
   background-image: url('https://customer-assets.emergentagent.com/job_climatefinance/artifacts/knu1eee2_EMB.png');
