@@ -56,11 +56,14 @@ const ServicesPage = () => {
                   <ChevronDown className={`accordion-icon-new ${openAccordion === index ? 'rotate' : ''}`} size={20} />
                 </button>
                 <div className="accordion-content-new">
-                  <ul className="accordion-list-new">
+                  {service.subtitle && (
+                    <p className="accordion-subtitle">{service.subtitle}</p>
+                  )}
+                  <div className="accordion-description">
                     {service.description.map((item, i) => (
-                      <li key={i}>{item}</li>
+                      <p key={i}>{item}</p>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
             ))}
