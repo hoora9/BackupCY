@@ -1933,11 +1933,13 @@ img {
 /* Left Box - Teal background */
 .company-box-left {
   flex: 1;
-  background-color: #4fadb3;
+  background-color: rgba(79, 173, 179, 0.5);
   display: flex;
   align-items: center;
   padding: 60px;
   animation: slideFromTopLeft 0.675s ease-out forwards;
+  border: 100px solid transparent;
+  box-sizing: border-box;
 }
 
 .company-left-content {
