@@ -1096,7 +1096,7 @@ img {
 .value-item {
   font-family: var(--font-primary);
   font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.1);
@@ -1112,14 +1112,17 @@ img {
 
 .value-item.visible {
   opacity: 1;
-  color: #1a3d2f;
+  color: #ffffff;
   transform: translateY(0);
   text-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.8),
-    0 0 40px rgba(255, 255, 255, 0.5),
-    0 2px 8px rgba(255, 255, 255, 0.6),
-    1px 1px 0 rgba(255, 255, 255, 0.9),
-    -1px -1px 0 rgba(255, 255, 255, 0.9);
+    /* Outline effect for contrast on all backgrounds */
+    -2px -2px 0 rgba(26, 61, 47, 0.5),
+    2px -2px 0 rgba(26, 61, 47, 0.5),
+    -2px 2px 0 rgba(26, 61, 47, 0.5),
+    2px 2px 0 rgba(26, 61, 47, 0.5),
+    /* Soft glow */
+    0 0 30px rgba(26, 61, 47, 0.4),
+    0 0 60px rgba(168, 207, 185, 0.3);
   background: transparent !important;
 }
 
