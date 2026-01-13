@@ -2503,8 +2503,34 @@ img {
 }
 
 .accordion-item-new.open .accordion-content-new {
-  max-height: 300px;
+  max-height: 400px;
   padding-bottom: 20px;
+}
+
+/* Accordion Subtitle */
+.accordion-subtitle {
+  font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 500;
+  color: var(--teal);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  padding-left: 32px;
+}
+
+/* Accordion Description */
+.accordion-description {
+  padding-left: 32px;
+}
+
+.accordion-description p {
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 8px;
+}
+
+.accordion-description p:last-child {
+  margin-bottom: 0;
 }
 
 .accordion-list-new {
