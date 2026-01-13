@@ -331,6 +331,11 @@ img {
   max-width: 1100px;
 }
 
+/* Ensure expertise layout has enough height for all values */
+.expertise-layout {
+  min-height: 200vh;
+}
+
 .page-heading {
   font-size: clamp(42px, 7vw, 80px);
   font-weight: 700;
