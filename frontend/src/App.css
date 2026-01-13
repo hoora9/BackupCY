@@ -1325,7 +1325,8 @@ img {
   margin-bottom: 50px;
 }
 
-.value-item {
+/* Old values grid item - no longer used */
+.values-grid .value-grid-item {
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -1335,7 +1336,7 @@ img {
   transition: border-color 0.3s ease;
 }
 
-.value-item:hover {
+.values-grid .value-grid-item:hover {
   border-color: var(--teal);
 }
 
