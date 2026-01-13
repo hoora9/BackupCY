@@ -156,11 +156,11 @@ const ManifestoPage = () => {
         {/* Branded Heading - Same style as Mission page */}
         <div className="manifesto-branded-heading">
           <div className="emblem-side">
-            <img src={emblemSvg} alt="" className="heading-emblem" />
+            <img src={emblemUrl} alt="" className="heading-emblem" />
           </div>
           <h1 className="manifesto-hero-heading">MANIFESTO</h1>
           <div className="emblem-side">
-            <img src={emblemSvg} alt="" className="heading-emblem flipped" />
+            <img src={emblemUrl} alt="" className="heading-emblem flipped" />
           </div>
         </div>
       </div>
