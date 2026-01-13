@@ -49,20 +49,28 @@ const ImpactPage = () => {
       }
     });
 
+    function getOffsetTop(element) {
+      let offsetTop = 0;
+      while (element) {
+        offsetTop += element.offsetTop;
+        element = element.offsetParent;
+      }
+      return offsetTop;
+    }
+
     function updateComparators() {
       const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
 
       comparators.forEach((comp, compIndex) => {
-        const sectionTop = comp.section.offsetTop;
+        // Get the actual top position relative to the document
+        const sectionTop = getOffsetTop(comp.section);
         const sectionHeight = comp.section.offsetHeight;
         
         // Calculate how far we've scrolled into this section
-        // Start counting when section top reaches viewport top
         const scrollIntoSection = scrollY - sectionTop;
         
         // The scrollable range is the section height minus viewport height
-        // This is how much we can scroll while the sticky container is pinned
         const scrollableRange = sectionHeight - viewportHeight;
         
         // Calculate progress (0 to 1)
@@ -129,9 +137,6 @@ const ImpactPage = () => {
         // Apply 3D transform based on scroll position
         if (comp.wrapper) {
           const isReverse = comp.wrapper.classList.contains('flip-reverse');
-          
-          // Calculate how far into the section we are for the 3D effect
-          // Use a normalized position based on the sticky container
           let transformProgress = progress;
 
           let rotateX, rotateY, rotateZ, scale, opacity;
@@ -189,7 +194,7 @@ const ImpactPage = () => {
       const comp = comparators[sectionIndex];
       
       if (comp) {
-        const sectionTop = comp.section.offsetTop;
+        const sectionTop = getOffsetTop(comp.section);
         const sectionHeight = comp.section.offsetHeight;
         const viewportHeight = window.innerHeight;
         const scrollableRange = sectionHeight - viewportHeight;
