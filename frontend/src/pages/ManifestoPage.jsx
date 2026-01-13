@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ManifestoPage = () => {
   const containerRef = useRef(null);
   
-  // Manifesto content sections
+  // Manifesto content sections - using user's uploaded images
   const sections = [
     {
       title: "A Decisive Decade",
@@ -23,7 +23,7 @@ const ManifestoPage = () => {
       content: "Clean energy and low-carbon infrastructure investment in emerging and developing economies must reach approximately USD 2 trillion per year by 2030 to meet climate and development goals.",
       subContent: "Despite growing momentum, current investment levels remain far below what is required. Much of the infrastructure that will define the next decades has yet to be built, making this period structurally decisive.",
       source: "IEA, 2023",
-      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/b97821e5ef789d89473529641018ac597a6e6af371099f6917d0cb830aee592f.png"
+      image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/9t9vgtv7_Screenshot%202026-01-13%20at%2012.17.48.png"
     },
     {
       title: "Capital Follows Returns",
@@ -31,7 +31,7 @@ const ManifestoPage = () => {
       content: "Ambition alone does not mobilise capital. Investment flows when risk, governance, and cash-flow visibility are clearly structured to meet investor expectations.",
       subContent: "Closing the gap will require more than USD 1 trillion per year in additional infrastructure investment in the Global South, with private capital playing a critical role alongside public funding. Demonstrating that climate-aligned infrastructure can deliver attractive, long-term returns is essential to unlocking sustained private investment at scale.",
       source: "World Bank, 2023",
-      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/edde7d5f35e822eb2a283e98c28ff8b5307e356a53c45ad72c3def088c149e29.png"
+      image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/cbva806x_Screenshot%202026-01-13%20at%2012.18.11.png"
     },
     {
       title: "Overlooked Opportunities",
@@ -39,7 +39,7 @@ const ManifestoPage = () => {
       content: "Small- and mid-scale low-carbon infrastructure projects are essential to the transition, yet frequently bypassed by large institutions due to complexity, fragmentation, and structuring constraints.",
       subContent: "Private capital currently accounts for a small fraction of climate finance in emerging markets, underscoring the scale of unmet investment needs.",
       source: "IFC, World Bank Group, 2023",
-      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/d84976a06a406199e7b7d4ad7cff1ac3bc07c7dd47677dcce7e696e220556d9d.png"
+      image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/0i8qyepy_Screenshot%202026-01-13%20at%2012.18.25.png"
     }
   ];
 
@@ -53,26 +53,17 @@ const ManifestoPage = () => {
         ease: 'power3.out',
         delay: 0.3
       });
-      
-      gsap.from('.manifesto-hero-subtitle', {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        delay: 0.6
-      });
 
       gsap.from('.manifesto-hero-line', {
         scaleX: 0,
         duration: 1.2,
         ease: 'power3.inOut',
-        delay: 0.8
+        delay: 0.6
       });
 
       // Section animations on scroll
       gsap.utils.toArray('.manifesto-section').forEach((section, i) => {
         const image = section.querySelector('.manifesto-image-wrapper');
-        const content = section.querySelector('.manifesto-content-wrapper');
         const title = section.querySelector('.manifesto-section-title');
         const subtitle = section.querySelector('.manifesto-section-subtitle');
         const text = section.querySelector('.manifesto-section-text');
@@ -167,11 +158,8 @@ const ManifestoPage = () => {
           <div className="manifesto-hero-overlay"></div>
         </div>
         <div className="manifesto-hero-content">
-          <h1 className="manifesto-hero-title">MANIFESTO</h1>
+          <h1 className="manifesto-hero-title mission-heading">MANIFESTO</h1>
           <div className="manifesto-hero-line"></div>
-          <p className="manifesto-hero-subtitle">
-            Low-carbon infrastructure investment is entering a decisive decade
-          </p>
         </div>
       </section>
 
@@ -187,7 +175,6 @@ const ManifestoPage = () => {
               <div className="manifesto-image-overlay"></div>
             </div>
             <div className="manifesto-content-wrapper">
-              <span className="manifesto-section-number">0{index + 1}</span>
               <h2 className="manifesto-section-title">{section.title}</h2>
               <h3 className="manifesto-section-subtitle">{section.subtitle}</h3>
               <p className="manifesto-section-text">{section.content}</p>
@@ -203,7 +190,6 @@ const ManifestoPage = () => {
       {/* Structure Section */}
       <section className="manifesto-structure-section">
         <div className="manifesto-structure-inner">
-          <span className="manifesto-section-number">05</span>
           <h2 className="manifesto-section-title">Structure Creates Value</h2>
           <h3 className="manifesto-section-subtitle">Structure and integrity create durable value</h3>
           <p className="manifesto-section-text">
@@ -221,7 +207,7 @@ const ManifestoPage = () => {
           <div className="conviction-content">
             <div className="conviction-emblem">
               <img 
-                src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/qthqqaee_Climate%20Yield%20Emblem%20Green%20Logo%20.png" 
+                src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/1xgk01cq_emblem-01.svg" 
                 alt="Climate Yield Emblem" 
               />
             </div>
@@ -239,7 +225,7 @@ const ManifestoPage = () => {
       {/* Closing Section */}
       <section className="closing-section">
         <div className="closing-inner">
-          <p className="closing-statement">
+          <p className="closing-statement home-tagline">
             Structured for trust. Built for results.
           </p>
         </div>
