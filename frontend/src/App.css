@@ -1099,10 +1099,15 @@ img {
   font-weight: 200;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(232, 224, 200, 0.15);
+  color: rgba(232, 224, 200, 0.1);
   opacity: 0;
   transform: translateY(40px);
   transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  padding: 0;
+  margin: 0;
 }
 
 .value-item.visible {
@@ -1113,6 +1118,7 @@ img {
     0 2px 30px rgba(168, 207, 185, 0.4),
     0 4px 60px rgba(26, 61, 47, 0.3),
     0 0 80px rgba(232, 224, 200, 0.2);
+  background: transparent !important;
 }
 
 /* Stagger animation delays for each value */
