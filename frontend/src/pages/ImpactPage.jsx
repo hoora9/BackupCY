@@ -257,8 +257,11 @@ const ImpactPage = () => {
       <Navigation />
       <main className="impact-main">
         <article>
-          <section className="intro">
-            <h1>WORK IN ACTION</h1>
+          {/* Header Section with branded quote block - same as Mission */}
+          <section className="impact-header-section">
+            <div className="branded-quote-block">
+              <h1 className="impact-heading-branded">DEPLOYMENTS</h1>
+            </div>
           </section>
           
           <section className="section-title">
