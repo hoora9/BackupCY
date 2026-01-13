@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
+import PageBackground from '../components/PageBackground';
+import { pageBackgrounds } from '../data/mock';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -46,19 +48,12 @@ const ManifestoPage = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Hero section animation
-      gsap.from('.manifesto-hero-title', {
+      gsap.from('.manifesto-hero-heading', {
         y: 60,
         opacity: 0,
         duration: 1.2,
         ease: 'power3.out',
         delay: 0.3
-      });
-
-      gsap.from('.manifesto-hero-line', {
-        scaleX: 0,
-        duration: 1.2,
-        ease: 'power3.inOut',
-        delay: 0.6
       });
 
       // Section animations on scroll
@@ -149,88 +144,89 @@ const ManifestoPage = () => {
   }, []);
 
   return (
-    <div className="manifesto-page" ref={containerRef}>
+    <PageBackground imageUrl={pageBackgrounds.mission} className="manifesto-page-styled" ref={containerRef}>
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="manifesto-hero">
-        <div className="manifesto-hero-bg">
-          <div className="manifesto-hero-overlay"></div>
+      {/* Hero Section - Blue Box like Mission page */}
+      <div className="manifesto-blue-box">
+        <div className="manifesto-blue-content">
+          <div className="branded-quote-block-new">
+            <h1 className="manifesto-hero-heading">MANIFESTO</h1>
+          </div>
         </div>
-        <div className="manifesto-hero-content">
-          <h1 className="manifesto-hero-title mission-heading">MANIFESTO</h1>
-          <div className="manifesto-hero-line"></div>
-        </div>
-      </section>
+      </div>
 
-      {/* Content Sections */}
-      {sections.map((section, index) => (
-        <section 
-          key={index} 
-          className={`manifesto-section ${index % 2 === 0 ? 'section-left' : 'section-right'}`}
-        >
-          <div className="manifesto-section-inner">
-            <div className="manifesto-image-wrapper">
-              <img src={section.image} alt={section.title} className="manifesto-image" />
-              <div className="manifesto-image-overlay"></div>
+      {/* Scrollable Content */}
+      <div className="manifesto-scroll-content">
+        {/* Content Sections */}
+        {sections.map((section, index) => (
+          <section 
+            key={index} 
+            className={`manifesto-section ${index % 2 === 0 ? 'section-left' : 'section-right'}`}
+          >
+            <div className="manifesto-section-inner">
+              <div className="manifesto-image-wrapper">
+                <img src={section.image} alt={section.title} className="manifesto-image" />
+                <div className="manifesto-image-overlay"></div>
+              </div>
+              <div className="manifesto-content-wrapper">
+                <h2 className="manifesto-section-title">{section.title}</h2>
+                <h3 className="manifesto-section-subtitle">{section.subtitle}</h3>
+                <p className="manifesto-section-text">{section.content}</p>
+                <p className="manifesto-section-subtext">{section.subContent}</p>
+                {section.source && (
+                  <span className="manifesto-section-source">— {section.source}</span>
+                )}
+              </div>
             </div>
-            <div className="manifesto-content-wrapper">
-              <h2 className="manifesto-section-title">{section.title}</h2>
-              <h3 className="manifesto-section-subtitle">{section.subtitle}</h3>
-              <p className="manifesto-section-text">{section.content}</p>
-              <p className="manifesto-section-subtext">{section.subContent}</p>
-              {section.source && (
-                <span className="manifesto-section-source">— {section.source}</span>
-              )}
+          </section>
+        ))}
+
+        {/* Structure Section */}
+        <section className="manifesto-structure-section">
+          <div className="manifesto-structure-inner">
+            <h2 className="manifesto-section-title">Structure Creates Value</h2>
+            <h3 className="manifesto-section-subtitle">Structure and integrity create durable value</h3>
+            <p className="manifesto-section-text">
+              Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.
+            </p>
+            <p className="manifesto-section-subtext">
+              Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.
+            </p>
+          </div>
+        </section>
+
+        {/* Conviction Section */}
+        <section className="conviction-section">
+          <div className="conviction-inner">
+            <div className="conviction-content">
+              <div className="conviction-emblem">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/1xgk01cq_emblem-01.svg" 
+                  alt="Climate Yield Emblem" 
+                />
+              </div>
+              <h2 className="conviction-title">Our conviction is simple.</h2>
+              <p className="conviction-text">
+                The climate transition becomes investable only when it is grounded in reality — in the constraints of the field, the logic of capital, and a deep understanding of environmental and carbon market systems.
+              </p>
+              <p className="conviction-text">
+                Climate Yield exists to transform complexity into credible, investment-ready low-carbon infrastructure capable of supporting sustained capital deployment.
+              </p>
             </div>
           </div>
         </section>
-      ))}
 
-      {/* Structure Section */}
-      <section className="manifesto-structure-section">
-        <div className="manifesto-structure-inner">
-          <h2 className="manifesto-section-title">Structure Creates Value</h2>
-          <h3 className="manifesto-section-subtitle">Structure and integrity create durable value</h3>
-          <p className="manifesto-section-text">
-            Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.
-          </p>
-          <p className="manifesto-section-subtext">
-            Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.
-          </p>
-        </div>
-      </section>
-
-      {/* Conviction Section */}
-      <section className="conviction-section">
-        <div className="conviction-inner">
-          <div className="conviction-content">
-            <div className="conviction-emblem">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/1xgk01cq_emblem-01.svg" 
-                alt="Climate Yield Emblem" 
-              />
-            </div>
-            <h2 className="conviction-title">Our conviction is simple.</h2>
-            <p className="conviction-text">
-              The climate transition becomes investable only when it is grounded in reality — in the constraints of the field, the logic of capital, and a deep understanding of environmental and carbon market systems.
-            </p>
-            <p className="conviction-text">
-              Climate Yield exists to transform complexity into credible, investment-ready low-carbon infrastructure capable of supporting sustained capital deployment.
+        {/* Closing Section */}
+        <section className="closing-section">
+          <div className="closing-inner">
+            <p className="closing-statement home-tagline">
+              Structured for trust. Built for results.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Closing Section */}
-      <section className="closing-section">
-        <div className="closing-inner">
-          <p className="closing-statement home-tagline">
-            Structured for trust. Built for results.
-          </p>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </PageBackground>
   );
 };
 
