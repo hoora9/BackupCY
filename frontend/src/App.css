@@ -1253,161 +1253,197 @@ img {
    ============================================ */
 
 /* ============================================
-   EXPERTISE PAGE - TOPOGRAPHIC WAVE VALUES
+   EXPERTISE PAGE - ANIMATED WAVE VALUES
    ============================================ */
 
-.topographic-wave-section {
+/* Values Wave Section */
+.values-wave-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
   margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  background: transparent !important;
-  backdrop-filter: none !important;
 }
 
-/* SVG Topographic Waves */
-.topographic-waves-svg {
+/* Animated Wave Container - Parallax overlay */
+.wave-animation-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  overflow: visible;
-}
-
-.wave-path {
-  will-change: transform;
-  transition: transform 0.15s ease-out;
-}
-
-/* Values Display Container */
-.values-display-container {
-  position: relative;
   z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 80px 40px;
-  min-height: 60vh;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  border: none !important;
+  pointer-events: none;
+  transition: transform 0.3s ease-out;
 }
 
-/* Individual Value Items */
-.value-item {
-  font-family: var(--font-primary);
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  background: transparent !important;
-  backdrop-filter: none !important;
-  border: none !important;
-  padding: 0;
-  margin: 0;
+.wave-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.value-item.visible {
+/* Wave path animations */
+.wave-path {
+  animation: waveAnim 7s linear infinite;
+}
+
+.wave-path.wave-2 {
+  animation-delay: 1s;
+}
+
+.wave-path.wave-3 {
+  animation-delay: 3s;
+}
+
+.wave-path.wave-4 {
+  animation-delay: 5s;
+}
+
+@keyframes waveAnim {
+  0% {
+    d: path("M0, 192 C220, 100, 440, 100, 660, 192 C880, 290, 1100, 290, 1320, 192 L1320 500 L0 500");
+  }
+  25% {
+    d: path("M0, 100 C220, 100, 440, 292, 660, 292 C880, 292, 1100, 100, 1320, 102 L1320 500 L0 500");
+  }
+  50% {
+    d: path("M0, 192 C220, 290, 440, 290, 660, 192 C880, 100, 1100, 100, 1320, 192 L1320 500 L0 500");
+  }
+  75% {
+    d: path("M0, 292 C220, 292, 440, 100, 660, 100 C880, 100, 1100, 292, 1320, 192 L1320 500 L0 500");
+  }
+  100% {
+    d: path("M0, 192 C220, 100, 440, 100, 660, 192 C880, 290, 1100, 290, 1320, 192 L1320 500 L0 500");
+  }
+}
+
+/* Values Content Area */
+.values-content-area {
+  position: relative;
+  z-index: 5;
+  padding: 60px 0;
+  opacity: 0.3;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.values-content-area.revealed {
   opacity: 1;
-  color: #ffffff;
   transform: translateY(0);
-  text-shadow: 
-    /* Outline effect for contrast on all backgrounds */
-    -2px -2px 0 rgba(26, 61, 47, 0.5),
-    2px -2px 0 rgba(26, 61, 47, 0.5),
-    -2px 2px 0 rgba(26, 61, 47, 0.5),
-    2px 2px 0 rgba(26, 61, 47, 0.5),
-    /* Soft glow */
-    0 0 30px rgba(26, 61, 47, 0.4),
-    0 0 60px rgba(168, 207, 185, 0.3);
-  background: transparent !important;
 }
 
-/* Stagger animation delays for each value */
-.value-item:nth-child(1).visible { transition-delay: 0s; }
-.value-item:nth-child(2).visible { transition-delay: 0.1s; }
-.value-item:nth-child(3).visible { transition-delay: 0.2s; }
-.value-item:nth-child(4).visible { transition-delay: 0.3s; }
-.value-item:nth-child(5).visible { transition-delay: 0.4s; }
-.value-item:nth-child(6).visible { transition-delay: 0.5s; }
-
-/* Hover effect on visible values */
-.value-item.visible:hover {
-  transform: scale(1.05);
-  text-shadow: 
-    0 4px 30px rgba(168, 207, 185, 0.5),
-    0 8px 60px rgba(26, 61, 47, 0.3);
+/* Values Section Heading */
+.values-heading-block {
+  margin-bottom: 40px;
 }
 
-/* Scroll hint */
-.wave-scroll-hint {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+.values-section-heading {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 0.95;
+}
+
+/* Values Accordion */
+.values-accordion {
   display: flex;
   flex-direction: column;
+  max-width: 800px;
+}
+
+.value-accordion-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.value-accordion-item:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.value-accordion-header {
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 12px;
-  color: rgba(255, 255, 255, 0.7);
-  font-family: var(--font-primary);
-  font-size: 0.875rem;
-  letter-spacing: 0.1em;
+  gap: 16px;
+  padding: 20px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.value-accordion-header:hover {
+  opacity: 0.8;
+}
+
+.value-number {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal);
+  flex-shrink: 0;
+  min-width: 30px;
+}
+
+.value-label {
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  text-align: left;
+  flex: 1;
   text-transform: uppercase;
-  animation: fadeInOut 2s ease-in-out infinite;
 }
 
-.scroll-arrow-wave {
-  font-size: 1.5rem;
-  animation: bounceDown 1.5s ease-in-out infinite;
+.value-icon {
+  color: var(--white);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
-@keyframes fadeInOut {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+.value-icon.rotate {
+  transform: rotate(180deg);
 }
 
-@keyframes bounceDown {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+.value-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.value-accordion-item.open .value-accordion-content {
+  max-height: 200px;
+  padding-bottom: 20px;
+}
+
+.value-accordion-content p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  padding-left: 46px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .topographic-wave-section {
-    min-height: 80vh;
+  .values-wave-section {
+    min-height: 60vh;
   }
   
-  .values-display-container {
-    gap: 16px;
-    padding: 40px 20px;
+  .values-content-area {
+    padding: 40px 0;
   }
   
-  .value-item {
-    font-size: clamp(1.5rem, 8vw, 2.5rem);
-    letter-spacing: 0.1em;
+  .value-accordion-header {
+    padding: 16px 0;
   }
   
-  .wave-scroll-hint {
-    bottom: 40px;
+  .value-accordion-content p {
+    padding-left: 0;
   }
 }
 
 /* ============================================
-   END EXPERTISE TOPOGRAPHIC WAVE VALUES
+   END EXPERTISE ANIMATED WAVE VALUES
    ============================================ */
 
 /* Manifesto Mobile Responsive */
