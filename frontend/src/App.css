@@ -1082,8 +1082,7 @@ img {
   width: 60px;
   height: 60px;
   object-fit: contain;
-  opacity: 0.9;
-  filter: brightness(0) invert(1);
+  opacity: 0.85;
 }
 
 .heading-emblem.flipped {
