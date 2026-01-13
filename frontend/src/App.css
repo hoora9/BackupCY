@@ -528,8 +528,8 @@ img {
 /* ---------- NEW Impact Page - Scroll Comparator ---------- */
 .impact-page-wrapper {
   --impact-color-light: #fafafa;
-  --impact-color-dark: #2a6cae;
-  --impact-color-accent: color-mix(in oklch, #2a6cae, #fff 75%);
+  --impact-color-dark: #a8cfb9; /* Changed to Vert doux */
+  --impact-color-accent: color-mix(in oklch, #a8cfb9, #fff 75%);
   
   --space-md: 1rem;
   --space-lg: 1.5rem;
@@ -540,15 +540,11 @@ img {
   --ts-xl: clamp(1.582rem, 6cqw + 0.35rem, 2.0215rem);
   --ts-xxxl: clamp(2.4719rem, 12cqw + 0.35rem, 3.1586rem);
   
-  --comparator-max-width: 56.25rem;
+  --comparator-max-width: 500px; /* Changed to 500px max */
   --comparator-aspect-ratio: 4/3;
   
   min-height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    var(--impact-color-dark),
-    color-mix(in oklch, var(--impact-color-dark), var(--impact-color-light) 20%)
-  );
+  background: #a8cfb9; /* Solid Vert doux color */
   color: var(--impact-color-light);
 }
 
