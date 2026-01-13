@@ -60,7 +60,7 @@ const ServicesPage = () => {
         </div>
       </div>
       
-      {/* Right Box - Video Background */}
+      {/* Right Box - Teal Background with Video on top */}
       <div className="services-box-right services-video-box" data-testid="services-video-box">
         <video
           ref={videoRef}
@@ -72,7 +72,7 @@ const ServicesPage = () => {
           data-testid="services-video"
         >
           <source 
-            src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/0qr8xanp_Services%20video%20%281%29.mp4" 
+            src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/ntai7yt3_Untitled%20%281%29.mp4" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.
