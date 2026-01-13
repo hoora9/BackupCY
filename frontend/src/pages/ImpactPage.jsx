@@ -8,170 +8,224 @@ const ImpactPage = () => {
     if (initialized.current) return;
     initialized.current = true;
 
-    let velocity = 0;
-    const ease = 0.12;
-    const friction = 0.92;
     const sections = document.querySelectorAll(".scroll-section");
-    const sectionsLen = sections.length;
-    const wrappers = [];
-    const comparatorData = [];
-    let i, s, w, c, p;
+    const comparators = [];
 
-    for (i = 0; i < sectionsLen; i++) {
-      s = sections[i];
-      w = s.querySelector(".comparator-wrapper");
-      if (w) wrappers.push({ section: s, wrapper: w });
-      c = s.querySelector(".comparator");
-      if (!c) continue;
-      p = c.querySelector(".comparison-percentage");
-      if (p) {
-        const layers = c.querySelectorAll(".image-layer");
-        comparatorData.push({
-          comp: c,
-          pct: p,
-          section: s,
-          layerCount: layers.length,
-          wrapper: w
-        });
-      }
-    }
-
-    const wrappersLen = wrappers.length;
-    const compLen = comparatorData.length;
-
-    function createStageIndicators() {
-      for (let i = 0; i < compLen; i++) {
-        const d = comparatorData[i];
+    sections.forEach((section, sectionIndex) => {
+      const wrapper = section.querySelector(".comparator-wrapper");
+      const comparator = section.querySelector(".comparator");
+      const percentage = section.querySelector(".comparison-percentage");
+      const layers = section.querySelectorAll(".image-layer");
+      const dividers = section.querySelectorAll(".divider-line");
+      
+      if (comparator && layers.length > 0) {
+        // Create stage indicators
         const nav = document.createElement("div");
         nav.className = "stage-nav";
-
         const indicators = [];
-        for (let j = 0; j < d.layerCount; j++) {
+        
+        for (let j = 0; j < layers.length; j++) {
           const indicator = document.createElement("button");
           indicator.className = "stage-indicator";
+          if (j === 0) indicator.classList.add("active");
           indicator.setAttribute("aria-label", `Go to stage ${j + 1}`);
           indicator.dataset.stage = j;
-          indicator.dataset.comparatorIndex = i;
+          indicator.dataset.sectionIndex = sectionIndex;
           indicators.push(indicator);
           nav.appendChild(indicator);
         }
+        comparator.appendChild(nav);
 
-        d.comp.appendChild(nav);
-        d.indicators = indicators;
+        comparators.push({
+          section,
+          wrapper,
+          comparator,
+          percentage,
+          layers: Array.from(layers),
+          dividers: Array.from(dividers),
+          indicators,
+          layerCount: layers.length
+        });
       }
+    });
+
+    function updateComparators() {
+      comparators.forEach((comp, compIndex) => {
+        const rect = comp.section.getBoundingClientRect();
+        const sectionHeight = comp.section.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        
+        // Calculate progress within this section (0 to 1)
+        // Start when section top reaches viewport top, end when section bottom leaves
+        const scrollableHeight = sectionHeight - viewportHeight;
+        const scrolled = -rect.top;
+        let progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+        
+        // Update percentage display
+        if (comp.percentage) {
+          const pct = Math.round(progress * 100);
+          comp.percentage.textContent = String(pct).padStart(2, '0') + '%';
+        }
+
+        // Update layer clip-paths based on progress
+        const layerCount = comp.layerCount;
+        comp.layers.forEach((layer, layerIndex) => {
+          if (layerIndex < layerCount - 1) {
+            // Calculate when this layer should start and end revealing
+            const layerStart = layerIndex / (layerCount - 1);
+            const layerEnd = (layerIndex + 1) / (layerCount - 1);
+            
+            // Calculate clip progress for this layer
+            let clipProgress = 0;
+            if (progress >= layerEnd) {
+              clipProgress = 1; // Fully revealed (clipped away)
+            } else if (progress > layerStart) {
+              clipProgress = (progress - layerStart) / (layerEnd - layerStart);
+            }
+            
+            // Apply clip-path (revealing from right to left)
+            const clipValue = clipProgress * 100;
+            layer.style.clipPath = `inset(0 ${clipValue}% 0 0)`;
+          }
+        });
+
+        // Update divider lines
+        comp.dividers.forEach((divider, dividerIndex) => {
+          const dividerStart = dividerIndex / (layerCount - 1);
+          const dividerEnd = (dividerIndex + 1) / (layerCount - 1);
+          
+          let dividerProgress = 0;
+          let opacity = 0;
+          
+          if (progress > dividerStart && progress < dividerEnd) {
+            dividerProgress = (progress - dividerStart) / (dividerEnd - dividerStart);
+            opacity = dividerProgress < 0.02 ? 0 : (dividerProgress > 0.98 ? 0 : 1);
+          }
+          
+          const leftPosition = 100 - (dividerProgress * 100);
+          divider.style.left = `${leftPosition}%`;
+          divider.style.opacity = opacity;
+        });
+
+        // Update stage indicators
+        const currentStage = Math.min(
+          Math.floor(progress * layerCount),
+          layerCount - 1
+        );
+        comp.indicators.forEach((indicator, idx) => {
+          indicator.classList.toggle("active", idx === currentStage);
+        });
+
+        // Apply 3D transform based on scroll position
+        if (comp.wrapper) {
+          const isReverse = comp.wrapper.classList.contains('flip-reverse');
+          let transformProgress = 0;
+          
+          // Calculate transform progress (0 at start, 0.5 in middle, 1 at end)
+          if (rect.top > viewportHeight * 0.5) {
+            // Before section is centered
+            transformProgress = 0;
+          } else if (rect.bottom < viewportHeight * 0.5) {
+            // After section has passed center
+            transformProgress = 1;
+          } else {
+            // Section is in view
+            const centerOffset = (viewportHeight * 0.5 - rect.top) / sectionHeight;
+            transformProgress = Math.max(0, Math.min(1, centerOffset));
+          }
+
+          let rotateX, rotateY, rotateZ, scale, opacity;
+          
+          if (transformProgress < 0.15) {
+            // Entry animation
+            const t = transformProgress / 0.15;
+            if (isReverse) {
+              rotateX = -10 + (10 * t);
+              rotateY = 10 - (10 * t);
+              rotateZ = 3 - (3 * t);
+            } else {
+              rotateX = 10 - (10 * t);
+              rotateY = -10 + (10 * t);
+              rotateZ = -3 + (3 * t);
+            }
+            scale = 0.85 + (0.15 * t);
+            opacity = 0.75 + (0.25 * t);
+          } else if (transformProgress > 0.85) {
+            // Exit animation
+            const t = (transformProgress - 0.85) / 0.15;
+            if (isReverse) {
+              rotateX = 10 * t;
+              rotateY = -10 * t;
+              rotateZ = -3 * t;
+            } else {
+              rotateX = -10 * t;
+              rotateY = 10 * t;
+              rotateZ = 3 * t;
+            }
+            scale = 1 - (0.15 * t);
+            opacity = 1 - (0.25 * t);
+          } else {
+            // Middle - flat
+            rotateX = 0;
+            rotateY = 0;
+            rotateZ = 0;
+            scale = 1;
+            opacity = 1;
+          }
+
+          comp.wrapper.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+          comp.wrapper.style.opacity = opacity;
+        }
+      });
     }
 
-    function getComparatorDuration() {
-      const style = getComputedStyle(document.documentElement);
-      const duration = style.getPropertyValue("--comparator-duration").trim();
-      return (parseFloat(duration) * window.innerHeight) / 100;
-    }
-
-    let targetScrollPosition = null;
-    const scrollEase = 0.08;
-
-    function scrollToStage(comparatorIndex, stageIndex) {
-      const data = comparatorData[comparatorIndex];
-      if (!data) return;
-
-      const offset = data.section.offsetTop;
-      const duration = getComparatorDuration();
-      const stageCount = data.layerCount;
-
-      stageIndex = Math.max(0, Math.min(stageIndex, stageCount - 1));
-
-      const stageDuration = duration / (stageCount - 1);
-      targetScrollPosition = offset + stageDuration * stageIndex;
-    }
-
+    // Handle indicator clicks
     function onIndicatorClick(e) {
       const btn = e.target.closest(".stage-indicator");
       if (!btn) return;
 
       const stage = parseInt(btn.dataset.stage, 10);
-      const compIndex = parseInt(btn.dataset.comparatorIndex, 10);
-
-      scrollToStage(compIndex, stage);
-    }
-
-    function updateOffsets() {
-      for (let i = 0; i < wrappersLen; i++) {
-        const w = wrappers[i];
-        w.wrapper.style.setProperty(
-          "--comparator-offset",
-          w.section.offsetTop + "px"
-        );
-      }
-    }
-
-    function onWheel(e) {
-      e.preventDefault();
-      targetScrollPosition = null;
-      velocity += e.deltaY;
-    }
-
-    let resizeTimeout;
-
-    function onResize() {
-      targetScrollPosition = null;
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        updateOffsets();
-      }, 150);
-    }
-
-    function onMouseDown(e) {
-      if (!e.target.closest(".comparator-wrapper")) {
-        targetScrollPosition = null;
-      }
-    }
-
-    function frame() {
-      if (targetScrollPosition !== null) {
-        const current = window.scrollY;
-        const delta = targetScrollPosition - current;
-
-        if (Math.abs(delta) > 1) {
-          window.scrollBy(0, delta * scrollEase);
-        } else {
-          targetScrollPosition = null;
-        }
-      }
-
-      velocity *= friction;
-      if (velocity > 0.2 || velocity < -0.2) {
-        window.scrollBy(0, velocity * ease);
-      }
-
-      for (let i = 0; i < compLen; i++) {
-        const d = comparatorData[i];
-        const v =
-          parseFloat(
-            getComputedStyle(d.comp).getPropertyValue("--scroll-progress")
-          ) || 0;
-        d.pct.textContent = (Math.round(v) + "").padStart(2, "0") + "%";
-
-        const currentStage = Math.round((v / 100) * (d.layerCount - 1));
-        d.indicators.forEach((indicator, idx) => {
-          indicator.classList.toggle("active", idx === currentStage);
+      const sectionIndex = parseInt(btn.dataset.sectionIndex, 10);
+      const comp = comparators[sectionIndex];
+      
+      if (comp) {
+        const sectionTop = comp.section.offsetTop;
+        const sectionHeight = comp.section.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollableHeight = sectionHeight - viewportHeight;
+        
+        const targetProgress = stage / (comp.layerCount - 1);
+        const targetScroll = sectionTop + (scrollableHeight * targetProgress);
+        
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
         });
       }
-      requestAnimationFrame(frame);
     }
 
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("resize", onResize, { passive: true });
-    window.addEventListener("mousedown", onMouseDown, { passive: true });
+    // Throttled scroll handler
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateComparators();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", updateComparators, { passive: true });
     document.addEventListener("click", onIndicatorClick);
 
-    createStageIndicators();
-    updateOffsets();
-    requestAnimationFrame(frame);
+    // Initial update
+    updateComparators();
 
     return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("resize", onResize);
-      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", updateComparators);
       document.removeEventListener("click", onIndicatorClick);
     };
   }, []);
@@ -185,7 +239,7 @@ const ImpactPage = () => {
             <h1>WORK IN ACTION</h1>
           </section>
           
-          <section>
+          <section className="section-title">
             <p className="scroll-indicator">ACOM ↓</p>
           </section>
           
@@ -193,31 +247,19 @@ const ImpactPage = () => {
             <div className="comparator-container">
               <div className="comparator-wrapper">
                 <div className="comparator">
-                  <div className="comparison-percentage"></div>
+                  <div className="comparison-percentage">00%</div>
                   <div className="image-layers">
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" />
-                        <img src="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" decoding="async" alt="" />
-                      </picture>
+                      <img src="https://i.postimg.cc/kDcMcW4Q/20121022-DSC-5096.jpg" decoding="async" alt="" />
                     </div>
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" decoding="async" alt="" />
-                      </picture>
+                      <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/xbfdsfjo_20130823_11.19.45_DSC_9188.jpg" decoding="async" alt="" />
                     </div>
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" decoding="async" alt="" />
-                      </picture>
+                      <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/57pjot59_GPG-39.jpg" decoding="async" alt="" />
                     </div>
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" decoding="async" alt="" />
-                      </picture>
+                      <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/lvjlpl52_station%20in%20the%20morning%20framed%20by%20tree_1.686.1.jpg" decoding="async" alt="" />
                     </div>
                   </div>
                   <div className="divider-lines">
@@ -230,7 +272,7 @@ const ImpactPage = () => {
             </div>
           </section>
           
-          <section>
+          <section className="section-title">
             <p className="scroll-indicator">VASUNDHARA ↓</p>
           </section>
           
@@ -238,31 +280,19 @@ const ImpactPage = () => {
             <div className="comparator-container">
               <div className="comparator-wrapper flip-reverse">
                 <div className="comparator">
-                  <div className="comparison-percentage"></div>
+                  <div className="comparison-percentage">00%</div>
                   <div className="image-layers">
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" decoding="async" loading="lazy" alt="" />
-                      </picture>
+                      <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/a6tkeyv3_360%20Thumbnail%20First%20Part_2.164.1.jpg" decoding="async" loading="lazy" alt="" />
                     </div>
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" />
-                        <img src="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" decoding="async" loading="lazy" alt="" />
-                      </picture>
+                      <img src="https://i.postimg.cc/vDz8z5B9/Boy-with-Headset-at-house-2-3-1.jpg" decoding="async" loading="lazy" alt="" />
                     </div>
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" />
-                        <img src="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" decoding="async" loading="lazy" alt="" />
-                      </picture>
+                      <img src="https://i.postimg.cc/9zpXpyMt/eaerly-morning-families-3-11-2.jpg" decoding="async" loading="lazy" alt="" />
                     </div>
                     <div className="image-layer">
-                      <picture>
-                        <source media="(max-width: 48em)" srcSet="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" />
-                        <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" decoding="async" loading="lazy" alt="" />
-                      </picture>
+                      <img src="https://customer-assets.emergentagent.com/job_climate-finance/artifacts/j2miocs8_IMG_2021.JPG" decoding="async" loading="lazy" alt="" />
                     </div>
                   </div>
                   <div className="divider-lines">
@@ -275,7 +305,7 @@ const ImpactPage = () => {
             </div>
           </section>
           
-          <section>
+          <section className="section-title">
             <p className="scroll-indicator">Scroll up ↑</p>
           </section>
           
