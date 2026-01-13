@@ -885,14 +885,7 @@ img {
   padding: 20px 0;
 }
 
-.manifesto-section-number {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  color: var(--vert-doux);
-  letter-spacing: 0.1em;
-  margin-bottom: 16px;
-}
+/* Removed section number styling */
 
 .manifesto-section-title {
   font-family: var(--font-primary);
