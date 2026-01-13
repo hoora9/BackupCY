@@ -1579,15 +1579,8 @@ img {
   margin-bottom: 40px;
 }
 
-/* Team Branded Heading - Same style as Mission page */
-.team-branded-heading {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-bottom: 16px;
-}
-
-.team-main-heading {
+/* Team Heading - Mission Style */
+.team-heading-mission-style {
   font-size: clamp(48px, 7vw, 80px);
   font-weight: 700;
   letter-spacing: -2px;
@@ -1603,8 +1596,7 @@ img {
   color: rgba(255, 255, 255, 0.9);
   max-width: 700px;
   margin-bottom: 28px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  padding-bottom: 16px;
+  margin-top: 20px;
 }
 
 .team-section-overlay .section-heading {
