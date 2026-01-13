@@ -99,7 +99,7 @@ const ExpertisePage = () => {
             <div className="team-branded-heading">
               <div className="emblem-side">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/kedm1qew_CY-EMBLEM-REMOVED%20%281%29.svg" 
+                  src="https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png" 
                   alt="" 
                   className="heading-emblem" 
                 />
@@ -109,7 +109,7 @@ const ExpertisePage = () => {
               </h2>
               <div className="emblem-side">
                 <img 
-                  src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/kedm1qew_CY-EMBLEM-REMOVED%20%281%29.svg" 
+                  src="https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png" 
                   alt="" 
                   className="heading-emblem flipped" 
                 />
