@@ -1,19 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import PageBackground from '../components/PageBackground';
-import { pageBackgrounds, brandAssets } from '../data/mock';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Emblem URL from brand assets
-const emblemUrl = "https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png";
-
 const ManifestoPage = () => {
   const containerRef = useRef(null);
   
-  // Manifesto content sections - using user's uploaded images
+  // Manifesto content sections
   const sections = [
     {
       title: "A Decisive Decade",
@@ -51,7 +46,7 @@ const ManifestoPage = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Hero section animation
-      gsap.from('.manifesto-hero-heading', {
+      gsap.from('.manifesto-heading-branded', {
         y: 60,
         opacity: 0,
         duration: 1.2,
@@ -60,66 +55,46 @@ const ManifestoPage = () => {
       });
 
       // Section animations on scroll
-      gsap.utils.toArray('.manifesto-section').forEach((section, i) => {
-        const image = section.querySelector('.manifesto-image-wrapper');
-        const title = section.querySelector('.manifesto-section-title');
-        const subtitle = section.querySelector('.manifesto-section-subtitle');
-        const text = section.querySelector('.manifesto-section-text');
-        const subtext = section.querySelector('.manifesto-section-subtext');
+      gsap.utils.toArray('.manifesto-content-section').forEach((section) => {
+        const image = section.querySelector('.manifesto-img-wrapper');
+        const content = section.querySelector('.manifesto-text-content');
         
-        // Image parallax and reveal with ease in/out
-        gsap.from(image, {
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            end: 'top 15%',
-            scrub: 1
-          },
-          y: 80,
-          opacity: 0,
-          scale: 1.05,
-          ease: 'power2.inOut'
-        });
+        // Image ease in/out
+        if (image) {
+          gsap.from(image, {
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 85%',
+              end: 'top 20%',
+              scrub: 1
+            },
+            y: 60,
+            opacity: 0,
+            scale: 1.03,
+            ease: 'power2.inOut'
+          });
+        }
 
         // Content reveal
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 70%',
-            toggleActions: 'play none none reverse'
-          }
-        });
-
-        tl.from(title, {
-          y: 30,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.inOut'
-        })
-        .from(subtitle, {
-          y: 20,
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power2.inOut'
-        }, '-=0.4')
-        .from(text, {
-          y: 20,
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power2.inOut'
-        }, '-=0.4')
-        .from(subtext, {
-          y: 20,
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power2.inOut'
-        }, '-=0.3');
+        if (content) {
+          gsap.from(content, {
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 75%',
+              toggleActions: 'play none none reverse'
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.9,
+            ease: 'power2.inOut'
+          });
+        }
       });
 
       // Conviction section animation
-      gsap.from('.conviction-content', {
+      gsap.from('.conviction-block', {
         scrollTrigger: {
-          trigger: '.conviction-section',
+          trigger: '.conviction-block',
           start: 'top 60%',
           toggleActions: 'play none none reverse'
         },
@@ -129,111 +104,81 @@ const ManifestoPage = () => {
         ease: 'power2.inOut'
       });
 
-      // Closing statement animation
-      gsap.from('.closing-statement', {
-        scrollTrigger: {
-          trigger: '.closing-section',
-          start: 'top 70%',
-          toggleActions: 'play none none reverse'
-        },
-        y: 40,
-        opacity: 0,
-        duration: 1.2,
-        ease: 'power2.inOut'
-      });
-
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="manifesto-page-styled" ref={containerRef}>
+    <div className="manifesto-page-navy" ref={containerRef}>
       <Navigation />
       
-      {/* Hero Section with branded heading */}
-      <div className="manifesto-hero-section" data-testid="manifesto-hero">
-        {/* Branded Heading - Same style as Mission page */}
-        <div className="manifesto-branded-heading">
-          <div className="emblem-side">
-            <img src={emblemUrl} alt="" className="heading-emblem" />
-          </div>
-          <h1 className="manifesto-hero-heading">MANIFESTO</h1>
-          <div className="emblem-side">
-            <img src={emblemUrl} alt="" className="heading-emblem flipped" />
+      {/* Hero Section - Same style as Mission left box */}
+      <div className="manifesto-header-section">
+        <div className="manifesto-header-content">
+          <div className="branded-quote-block">
+            <h1 className="manifesto-heading-branded">MANIFESTO</h1>
           </div>
         </div>
       </div>
 
-      {/* Scrollable Content */}
-      <div className="manifesto-scroll-content">
-        {/* Content Sections */}
+      {/* Content Sections - No extra spacing */}
+      <div className="manifesto-content-flow">
         {sections.map((section, index) => (
-          <section 
+          <div 
             key={index} 
-            className={`manifesto-section ${index % 2 === 0 ? 'section-left' : 'section-right'}`}
+            className={`manifesto-content-section ${index % 2 === 0 ? 'img-left' : 'img-right'}`}
           >
-            <div className="manifesto-section-inner">
-              <div className="manifesto-image-wrapper">
-                <img src={section.image} alt={section.title} className="manifesto-image" />
-                <div className="manifesto-image-overlay"></div>
-              </div>
-              <div className="manifesto-content-wrapper">
-                <h2 className="manifesto-section-title">{section.title}</h2>
-                <h3 className="manifesto-section-subtitle">{section.subtitle}</h3>
-                <p className="manifesto-section-text">{section.content}</p>
-                <p className="manifesto-section-subtext">{section.subContent}</p>
-                {section.source && (
-                  <span className="manifesto-section-source">— {section.source}</span>
-                )}
-              </div>
+            <div className="manifesto-img-wrapper">
+              <img src={section.image} alt={section.title} className="manifesto-img" />
             </div>
-          </section>
+            <div className="manifesto-text-content">
+              <h2 className="manifesto-title">{section.title}</h2>
+              <h3 className="manifesto-subtitle">{section.subtitle}</h3>
+              <p className="manifesto-text">{section.content}</p>
+              <p className="manifesto-subtext">{section.subContent}</p>
+              {section.source && (
+                <span className="manifesto-source">— {section.source}</span>
+              )}
+            </div>
+          </div>
         ))}
 
         {/* Structure Section */}
-        <section className="manifesto-structure-section">
-          <div className="manifesto-structure-inner">
-            <h2 className="manifesto-section-title">Structure Creates Value</h2>
-            <h3 className="manifesto-section-subtitle">Structure and integrity create durable value</h3>
-            <p className="manifesto-section-text">
-              Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.
-            </p>
-            <p className="manifesto-section-subtext">
-              Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.
-            </p>
-          </div>
-        </section>
+        <div className="manifesto-structure-block">
+          <h2 className="manifesto-title">Structure Creates Value</h2>
+          <h3 className="manifesto-subtitle">Structure and integrity create durable value</h3>
+          <p className="manifesto-text">
+            Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.
+          </p>
+          <p className="manifesto-subtext">
+            Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.
+          </p>
+        </div>
 
         {/* Conviction Section */}
-        <section className="conviction-section">
-          <div className="conviction-inner">
-            <div className="conviction-content">
-              <div className="conviction-emblem">
-                <img 
-                  src={emblemUrl}
-                  alt="Climate Yield Emblem" 
-                />
-              </div>
-              <h2 className="conviction-title">Our conviction is simple.</h2>
-              <p className="conviction-text">
-                The climate transition becomes investable only when it is grounded in reality — in the constraints of the field, the logic of capital, and a deep understanding of environmental and carbon market systems.
-              </p>
-              <p className="conviction-text">
-                Climate Yield exists to transform complexity into credible, investment-ready low-carbon infrastructure capable of supporting sustained capital deployment.
-              </p>
-            </div>
+        <div className="conviction-block">
+          <div className="conviction-emblem-icon">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png"
+              alt="Climate Yield Emblem" 
+            />
           </div>
-        </section>
+          <h2 className="conviction-heading">Our conviction is simple.</h2>
+          <p className="conviction-paragraph">
+            The climate transition becomes investable only when it is grounded in reality — in the constraints of the field, the logic of capital, and a deep understanding of environmental and carbon market systems.
+          </p>
+          <p className="conviction-paragraph">
+            Climate Yield exists to transform complexity into credible, investment-ready low-carbon infrastructure capable of supporting sustained capital deployment.
+          </p>
+        </div>
 
         {/* Closing Section */}
-        <section className="closing-section">
-          <div className="closing-inner">
-            <p className="closing-statement home-tagline">
-              Structured for trust. Built for results.
-            </p>
-          </div>
-        </section>
+        <div className="manifesto-closing-block">
+          <p className="manifesto-tagline">
+            structured for trust. built for results.
+          </p>
+        </div>
       </div>
     </div>
   );
