@@ -1045,115 +1045,148 @@ img {
 }
 
 /* ============================================
-   MANIFESTO PAGE - STYLED WITH BRAND COLORS
+   MANIFESTO PAGE - NAVY BACKGROUND (Like Mission Left Box)
    ============================================ */
 
-.manifesto-page-styled {
+.manifesto-page-navy {
   min-height: 100vh;
-  background-color: rgba(42, 108, 174, 0.5); /* Bleu clair lumineux 50% opacity */
+  background-color: rgba(42, 108, 174, 0.5); /* Same as Mission left box */
 }
 
-/* Hero Section with branded heading */
-.manifesto-hero-section {
-  position: relative;
-  min-height: 30vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: calc(var(--nav-height) + 40px);
-  padding-bottom: 40px;
+/* Hero Section - Matches Mission style */
+.manifesto-header-section {
+  padding: calc(var(--nav-height) + 60px) var(--page-padding) 40px;
 }
 
-/* Branded Heading with emblems */
-.manifesto-branded-heading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
+.manifesto-header-content {
+  max-width: 800px;
 }
 
-.emblem-side {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.heading-emblem {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  opacity: 0.85;
-  filter: brightness(0) invert(1);
-}
-
-.heading-emblem.flipped {
-  transform: scaleX(-1);
-}
-
-.manifesto-hero-heading {
+.manifesto-heading-branded {
   font-size: clamp(56px, 8vw, 96px);
   font-weight: 700;
   letter-spacing: -3px;
   text-transform: uppercase;
   color: var(--white);
   line-height: 0.9;
-  text-align: center;
 }
 
-/* Override section backgrounds with brand colors */
-.manifesto-page-styled .manifesto-section:nth-child(1) {
-  background: var(--bleu-clair); /* #2a6cae */
+/* Content Flow - No extra spacing */
+.manifesto-content-flow {
+  padding: 0 var(--page-padding);
 }
 
-.manifesto-page-styled .manifesto-section:nth-child(2) {
-  background: var(--vert-doux); /* #a8cfb9 */
+/* Content Sections */
+.manifesto-content-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 60px 0;
+  align-items: center;
 }
 
-.manifesto-page-styled .manifesto-section:nth-child(3) {
-  background: var(--gris-acier); /* #5b6770 */
+.manifesto-content-section.img-right {
+  direction: rtl;
 }
 
-.manifesto-page-styled .manifesto-section:nth-child(4) {
-  background: var(--teal); /* #4fadb3 - Entre le vert et le bleu */
+.manifesto-content-section.img-right > * {
+  direction: ltr;
 }
 
-/* Structure section */
-.manifesto-page-styled .manifesto-structure-section {
-  background: var(--vert-fonce); /* #1a3d2f */
-}
-
-/* Conviction section */
-.manifesto-page-styled .conviction-section {
-  background: var(--bleu-clair); /* #2a6cae */
-}
-
-/* Closing section */
-.manifesto-page-styled .closing-section {
-  background: var(--navy); /* #0f1c2e */
-}
-
-/* Image ease in/out transitions */
-.manifesto-page-styled .manifesto-image {
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-              opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.manifesto-page-styled .manifesto-image-wrapper {
+/* Image Styling */
+.manifesto-img-wrapper {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
   transition: transform 0.6s ease-in-out;
 }
 
-.manifesto-page-styled .manifesto-image-wrapper:hover .manifesto-image {
+.manifesto-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.manifesto-img-wrapper:hover .manifesto-img {
   transform: scale(1.03);
 }
 
-/* Conviction emblem styling */
-.manifesto-page-styled .conviction-emblem {
-  width: 100px;
-  height: 100px;
+/* Text Content */
+.manifesto-text-content {
+  padding: 20px 0;
+}
+
+.manifesto-title {
+  font-family: var(--font-primary);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.manifesto-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 400;
+  color: var(--vert-doux);
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.manifesto-text {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.manifesto-subtext {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.manifesto-source {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gris-acier);
+  font-style: italic;
+}
+
+/* Structure Block */
+.manifesto-structure-block {
+  text-align: center;
+  padding: 80px 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Conviction Block */
+.conviction-block {
+  text-align: center;
+  padding: 100px 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.conviction-emblem-icon {
+  width: 80px;
+  height: 80px;
   margin: 0 auto 48px;
 }
 
-.manifesto-page-styled .conviction-emblem img {
+.conviction-emblem-icon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1161,23 +1194,67 @@ img {
   opacity: 0.9;
 }
 
-/* Text colors for light backgrounds */
-.manifesto-page-styled .manifesto-section:nth-child(2) .manifesto-section-title,
-.manifesto-page-styled .manifesto-section:nth-child(2) .manifesto-section-text {
-  color: var(--navy);
+.conviction-heading {
+  font-family: var(--font-primary);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 40px;
+  letter-spacing: 0.02em;
 }
 
-.manifesto-page-styled .manifesto-section:nth-child(2) .manifesto-section-subtitle {
-  color: var(--vert-fonce);
+.conviction-paragraph {
+  font-family: var(--font-primary);
+  font-size: 1.125rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+  margin-bottom: 24px;
 }
 
-.manifesto-page-styled .manifesto-section:nth-child(2) .manifesto-section-subtext {
-  color: rgba(15, 28, 46, 0.8);
+.conviction-paragraph:last-child {
+  margin-bottom: 0;
 }
 
-.manifesto-page-styled .manifesto-section:nth-child(2) .manifesto-section-source {
-  color: var(--gris-acier);
+/* Closing Block */
+.manifesto-closing-block {
+  text-align: center;
+  padding: 120px 0;
 }
+
+.manifesto-tagline {
+  font-family: var(--font-primary);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .manifesto-content-section {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 0;
+  }
+  
+  .manifesto-content-section.img-right {
+    direction: ltr;
+  }
+  
+  .manifesto-header-section {
+    padding: calc(var(--nav-height) + 40px) var(--page-padding-mobile) 30px;
+  }
+  
+  .manifesto-content-flow {
+    padding: 0 var(--page-padding-mobile);
+  }
+}
+
+/* ============================================
+   END MANIFESTO PAGE NAVY
+   ============================================ */
 
 /* ============================================
    EXPERTISE PAGE - TOPOGRAPHIC WAVE VALUES
