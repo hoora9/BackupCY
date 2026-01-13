@@ -2092,11 +2092,13 @@ img {
   left: 0;
   width: 50%;
   height: calc(100vh - var(--nav-height));
-  background-color: #0f1c2e;
+  background-color: rgba(15, 28, 46, 0.5);
   display: flex;
   align-items: center;
   animation: slideFromTopLeft 0.675s ease-out forwards;
   overflow: hidden;
+  border: 100px solid transparent;
+  box-sizing: border-box;
 }
 
 .services-left-content {
