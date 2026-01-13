@@ -1795,13 +1795,15 @@ img {
   left: 0;
   width: 100%;
   height: calc(100vh - var(--nav-height));
-  background-color: #2a6cae;
+  background-color: rgba(42, 108, 174, 0.5);
   z-index: 1;
   display: flex;
   align-items: center;
   /* Animation: slides from top-left corner - 25% faster */
   animation: slideFromTopLeft 0.675s ease-out forwards;
   overflow: hidden;
+  border: 100px solid transparent;
+  box-sizing: border-box;
 }
 
 .mission-blue-content {
