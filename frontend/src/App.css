@@ -1502,6 +1502,34 @@ img {
   margin-bottom: 40px;
 }
 
+/* Team Branded Heading - Same style as Mission page */
+.team-branded-heading {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.team-main-heading {
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 0.9;
+}
+
+.team-subheading-bold {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin-bottom: 28px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 16px;
+}
+
 .team-section-overlay .section-heading {
   font-size: clamp(24px, 3vw, 32px);
   font-weight: 700;
