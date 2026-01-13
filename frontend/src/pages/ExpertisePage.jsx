@@ -3,88 +3,60 @@ import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { expertiseContent, pageBackgrounds } from '../data/mock';
 import { ChevronDown } from 'lucide-react';
-import Splitting from 'splitting';
-import 'splitting/dist/splitting.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Values data with colors for first letter
+const valuesData = [
+  { label: 'Integrity', color: '#2a6cae' },      // Blue
+  { label: 'Discipline', color: '#78a890' },     // Vert-doux
+  { label: 'Agility', color: '#2a6cae' },        // Blue
+  { label: 'Mastery', color: '#78a890' },        // Vert-doux
+  { label: 'Real Impact', color: '#2a6cae' },    // Blue
+  { label: 'Collaboration', color: '#78a890' }   // Vert-doux
+];
 
 const ExpertisePage = () => {
-  const containerRef = useRef(null);
-  const headingRef = useRef(null);
-  const expertiseHeadingRef = useRef(null);
-  const splitRef = useRef(null);
-  const expertiseSplitRef = useRef(null);
+  const valuesRef = useRef(null);
   
   const scrollToValues = () => {
-    const valuesSection = document.querySelector('.values-section');
+    const valuesSection = document.querySelector('.values-section-new');
     if (valuesSection) {
       valuesSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   useEffect(() => {
-    // Initialize Splitting on the EXPERTISE heading (breathing animation)
-    if (expertiseHeadingRef.current && !expertiseSplitRef.current) {
-      expertiseSplitRef.current = Splitting({
-        target: expertiseHeadingRef.current,
-        by: 'chars'
+    const ctx = gsap.context(() => {
+      // Animate values on scroll
+      gsap.utils.toArray('.value-word').forEach((word, i) => {
+        gsap.from(word, {
+          scrollTrigger: {
+            trigger: '.values-section-new',
+            start: 'top 70%',
+            toggleActions: 'play none none reverse'
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          delay: i * 0.15,
+          ease: 'power3.out'
+        });
       });
-    }
-    
-    // Initialize Splitting on the CLIMATE YIELD VALUES heading (wave animation)
-    if (headingRef.current && !splitRef.current) {
-      splitRef.current = Splitting({
-        target: headingRef.current,
-        by: 'chars',
-        whitespace: true
-      });
-      
-      // Update function for responsive scaling
-      const update = () => {
-        const container = containerRef.current;
-        const el = headingRef.current;
-        
-        if (!container || !el) return;
-        
-        const originalPathWidth = el.clientWidth;
-        const m = container.clientWidth / originalPathWidth;
-        
-        // If same width, do nothing
-        if (m === 1) return;
-        
-        // Scale
-        el.style.setProperty('--x', m);
-        
-        // Set transform origin
-        if (container.clientWidth < originalPathWidth) {
-          el.style.setProperty('--o', 'left');
-        } else {
-          el.style.setProperty('--o', 'center');
-        }
-      };
-      
-      // Set up ResizeObserver
-      const observer = new ResizeObserver(update);
-      observer.observe(containerRef.current);
-      
-      // Initial update
-      update();
-      
-      return () => {
-        observer.disconnect();
-      };
-    }
+    }, valuesRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <PageBackground imageUrl={pageBackgrounds.expertise} className="expertise-page" overlay={false}>
       <Navigation />
       
-      <div className="page-inner-content scrollable">
+      <div className="page-inner-content scrollable" ref={valuesRef}>
         <div className="bottom-overlay-section expertise-layout">
-          <h1 className="expertise-breathing-heading animate-slide-up" ref={expertiseHeadingRef} data-splitting>
-            Expertise
-          </h1>
-          
-          {/* Team Section FIRST - with overlay animation */}
+          {/* Team Section */}
           <div className="team-section-overlay animate-slide-up delay-1">
             <h2 className="section-heading">
               {expertiseContent.teamHeading}
@@ -116,20 +88,17 @@ const ExpertisePage = () => {
             </div>
           </div>
           
-          {/* Animated "CLIMATE YIELD VALUES" text */}
-          <div className="splitting-container" ref={containerRef}>
-            <h2 className="splitting-heading" ref={headingRef} data-splitting>
-              CLIMATE YIELD VALUES
-            </h2>
-          </div>
-          
-          {/* Values Grid AFTER team */}
-          <div className="values-section animate-slide-up delay-6">
-            <div className="values-grid">
-              {expertiseContent.values.map((value, index) => (
-                <div key={index} className="value-item">
-                  <h3 className="value-label">{value.label}</h3>
-                  <p className="value-description">{value.description}</p>
+          {/* New Values Section - Imperative Style */}
+          <div className="values-section-new">
+            <div className="values-list">
+              {valuesData.map((value, index) => (
+                <div key={index} className="value-word-container">
+                  <span className="value-word">
+                    <span className="value-first-letter" style={{ color: value.color }}>
+                      {value.label.charAt(0)}
+                    </span>
+                    <span className="value-rest">{value.label.slice(1)}</span>
+                  </span>
                 </div>
               ))}
             </div>
