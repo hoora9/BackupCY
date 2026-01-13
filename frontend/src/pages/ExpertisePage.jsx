@@ -95,10 +95,27 @@ const ExpertisePage = () => {
         <div className="bottom-overlay-section expertise-layout">
           {/* Team Section */}
           <div className="team-section-overlay animate-slide-up delay-1">
-            <h2 className="section-heading">
-              {expertiseContent.teamHeading}
-            </h2>
-            <p className="team-subheading">
+            {/* Branded Heading with emblems - same style as Mission */}
+            <div className="team-branded-heading">
+              <div className="emblem-side">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/kedm1qew_CY-EMBLEM-REMOVED%20%281%29.svg" 
+                  alt="" 
+                  className="heading-emblem" 
+                />
+              </div>
+              <h2 className="team-main-heading">
+                {expertiseContent.teamHeading}
+              </h2>
+              <div className="emblem-side">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/kedm1qew_CY-EMBLEM-REMOVED%20%281%29.svg" 
+                  alt="" 
+                  className="heading-emblem flipped" 
+                />
+              </div>
+            </div>
+            <p className="team-subheading-bold">
               {expertiseContent.teamSubheading}
             </p>
             
