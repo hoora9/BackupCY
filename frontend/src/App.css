@@ -1096,7 +1096,7 @@ img {
 .value-item {
   font-family: var(--font-primary);
   font-size: clamp(2.5rem, 7vw, 5rem);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.1);
@@ -1108,20 +1108,19 @@ img {
   border: none !important;
   padding: 0;
   margin: 0;
-  -webkit-text-stroke: 0.5px rgba(26, 61, 47, 0.3);
 }
 
 .value-item.visible {
   opacity: 1;
-  color: #ffffff;
+  color: #1a3d2f;
   transform: translateY(0);
   text-shadow: 
-    0 2px 4px rgba(15, 28, 46, 0.8),
-    0 4px 12px rgba(15, 28, 46, 0.6),
-    0 8px 24px rgba(26, 61, 47, 0.4),
-    0 0 60px rgba(168, 207, 185, 0.3);
+    0 0 20px rgba(255, 255, 255, 0.8),
+    0 0 40px rgba(255, 255, 255, 0.5),
+    0 2px 8px rgba(255, 255, 255, 0.6),
+    1px 1px 0 rgba(255, 255, 255, 0.9),
+    -1px -1px 0 rgba(255, 255, 255, 0.9);
   background: transparent !important;
-  -webkit-text-stroke: 0.5px rgba(26, 61, 47, 0.2);
 }
 
 /* Stagger animation delays for each value */
