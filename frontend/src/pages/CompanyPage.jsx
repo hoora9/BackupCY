@@ -34,26 +34,6 @@ const CompanyPage = () => {
           </div>
         </div>
       </div>
-      
-      {/* Manifesto Section - underneath */}
-      <div className="manifesto-section">
-        <div className="manifesto-header">
-          <div className="branded-quote-block manifesto-quote">
-            <h2 className="manifesto-heading">{companyContent.manifesto.heading}</h2>
-          </div>
-          <p className="manifesto-subheading">{companyContent.manifesto.subheading}</p>
-        </div>
-        
-        <div className="manifesto-grid">
-          {companyContent.manifesto.sections.map((section, index) => (
-            <div key={index} className="manifesto-item">
-              <span className="manifesto-number">{section.number}</span>
-              <h3 className="manifesto-title">{section.title}</h3>
-              <p className="manifesto-text">{section.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </PageBackground>
   );
 };
