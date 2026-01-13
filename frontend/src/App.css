@@ -303,13 +303,27 @@ img {
   margin: 0;
 }
 
+/* Centered tagline variant */
+.tagline.tagline-centered {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  padding: 0 var(--page-padding);
+  box-sizing: border-box;
+}
+
 .tagline-text {
   font-size: clamp(40px, 5vw, 61px);
   font-weight: 700;
   letter-spacing: -1px;
   color: var(--white);
-  text-transform: lowercase;
   line-height: 1.1;
+}
+
+/* Capitalized tagline - not lowercase */
+.tagline-centered .tagline-text {
+  text-transform: none; /* Allows "Structured for Trust. Built for Results." */
 }
 
 /* ---------- Inner Pages - Bottom Overlay Section ---------- */
