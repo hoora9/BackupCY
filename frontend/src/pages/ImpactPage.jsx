@@ -11,6 +11,7 @@ const ImpactPage = () => {
     const sections = document.querySelectorAll(".scroll-section");
     const comparators = [];
 
+    // Store initial positions (calculated once on load)
     sections.forEach((section, sectionIndex) => {
       const wrapper = section.querySelector(".comparator-wrapper");
       const comparator = section.querySelector(".comparator");
@@ -36,6 +37,14 @@ const ImpactPage = () => {
         }
         comparator.appendChild(nav);
 
+        // Calculate initial top position from document start
+        let offsetTop = 0;
+        let element = section;
+        while (element) {
+          offsetTop += element.offsetTop;
+          element = element.offsetParent;
+        }
+
         comparators.push({
           section,
           wrapper,
@@ -44,22 +53,34 @@ const ImpactPage = () => {
           layers: Array.from(layers),
           dividers: Array.from(dividers),
           indicators,
-          layerCount: layers.length
+          layerCount: layers.length,
+          sectionTop: offsetTop, // Store initial position
+          sectionHeight: section.offsetHeight
         });
       }
     });
+
+    function updatePositions() {
+      // Recalculate positions on resize
+      comparators.forEach((comp) => {
+        let offsetTop = 0;
+        let element = comp.section;
+        while (element) {
+          offsetTop += element.offsetTop;
+          element = element.offsetParent;
+        }
+        comp.sectionTop = offsetTop;
+        comp.sectionHeight = comp.section.offsetHeight;
+      });
+    }
 
     function updateComparators() {
       const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
 
       comparators.forEach((comp, compIndex) => {
-        // Use getBoundingClientRect for accurate position
-        const rect = comp.section.getBoundingClientRect();
-        const sectionHeight = comp.section.offsetHeight;
-        
-        // Calculate the section's top relative to the document
-        const sectionTop = scrollY + rect.top;
+        const sectionTop = comp.sectionTop;
+        const sectionHeight = comp.sectionHeight;
         
         // Calculate how far we've scrolled into this section
         const scrollIntoSection = scrollY - sectionTop;
@@ -182,14 +203,11 @@ const ImpactPage = () => {
       const comp = comparators[sectionIndex];
       
       if (comp) {
-        const rect = comp.section.getBoundingClientRect();
-        const sectionTop = window.scrollY + rect.top;
-        const sectionHeight = comp.section.offsetHeight;
         const viewportHeight = window.innerHeight;
-        const scrollableRange = sectionHeight - viewportHeight;
+        const scrollableRange = comp.sectionHeight - viewportHeight;
         
         const targetProgress = stage / (comp.layerCount - 1);
-        const targetScroll = sectionTop + (scrollableRange * targetProgress);
+        const targetScroll = comp.sectionTop + (scrollableRange * targetProgress);
         
         window.scrollTo({
           top: targetScroll,
@@ -210,16 +228,24 @@ const ImpactPage = () => {
       }
     }
 
+    function onResize() {
+      updatePositions();
+      updateComparators();
+    }
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", updateComparators, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     document.addEventListener("click", onIndicatorClick);
 
-    // Initial update
-    updateComparators();
+    // Initial update after a short delay to ensure layout is complete
+    setTimeout(() => {
+      updatePositions();
+      updateComparators();
+    }, 100);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", updateComparators);
+      window.removeEventListener("resize", onResize);
       document.removeEventListener("click", onIndicatorClick);
     };
   }, []);
