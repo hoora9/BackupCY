@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { servicesContent, pageBackgrounds } from '../data/mock';
 import { ChevronDown } from 'lucide-react';
 
 const ServicesPage = () => {
-  const [openAccordion, setOpenAccordion] = useState(0);
+  const [openAccordion, setOpenAccordion] = React.useState(0);
+  const videoRef = useRef(null);
+
+  // Autoplay video when component mounts
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log('Video autoplay was prevented:', error);
+      });
+    }
+  }, []);
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? -1 : index);
@@ -50,20 +60,23 @@ const ServicesPage = () => {
         </div>
       </div>
       
-      {/* Right Box - Teal background */}
-      <div className="services-box-right">
-        <div className="services-right-content">
-          <div className="services-highlight-new">
-            <span className="highlight-number-new">{servicesContent.highlightNumber}</span>
-            <span className="highlight-label-new">{servicesContent.highlightLabel}</span>
-          </div>
-          
-          <div className="services-side-text-new">
-            <p>{servicesContent.sideText}</p>
-          </div>
-          
-          <div className="services-accent-line-new"></div>
-        </div>
+      {/* Right Box - Video Background */}
+      <div className="services-box-right services-video-box" data-testid="services-video-box">
+        <video
+          ref={videoRef}
+          className="services-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          data-testid="services-video"
+        >
+          <source 
+            src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/0qr8xanp_Services%20video%20%281%29.mp4" 
+            type="video/mp4" 
+          />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </PageBackground>
   );
