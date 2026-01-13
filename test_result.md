@@ -105,6 +105,18 @@
 user_problem_statement: "Build a high-end, agency-quality website for Climate Yield Advisory with complex animations and professional design inspired by Tikehau Capital. Frontend-only React application."
 
 frontend:
+  - task: "Manifesto Page - Complete page with GSAP animations"
+    implemented: true
+    working: true
+    file: "src/pages/ManifestoPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "COMPREHENSIVE TESTING COMPLETED - All functionality working perfectly: 1) Hero section with 'MANIFESTO' title (letter spacing), subtitle, and GSAP animations (title fade in, line scale, subtitle fade). 2) All 4 content sections with proper alternating layouts: Section 01 'A Decisive Decade' (solar farm image left), Section 02 'Unprecedented Capital Needs' (wind turbines image right), Section 03 'Capital Follows Returns' (city skyline image left), Section 04 'Overlooked Opportunities' (engineers image right). Each section has title, subtitle, body text, source citations, and images load properly. GSAP scroll animations trigger correctly. 3) Structure Section (05) with centered layout and 'Structure Creates Value' title. 4) Conviction section with dark green background, Climate Yield emblem, 'Our conviction is simple.' title, and two paragraphs. 5) Closing section with 'Structured for trust. Built for results.' statement in large typography. 6) Navigation includes 'MANIFESTO' link (active state) and navigation works between pages. Minor: Layout classes show 'manifesto-section-inner' instead of expected 'section-left/right' but visual layout is correct."
+
   - task: "Homepage - Content boxes and tagline"
     implemented: true
     working: "NA"
