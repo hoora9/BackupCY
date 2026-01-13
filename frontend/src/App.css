@@ -2267,6 +2267,19 @@ img {
   box-sizing: border-box;
 }
 
+/* Video variant for services right box */
+.services-box-right.services-video-box {
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.services-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Removed monogram for Services */
 
 .services-right-content {
