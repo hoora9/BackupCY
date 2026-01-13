@@ -7,8 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// New emblem SVG URL
-const emblemSvg = "https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/kedm1qew_CY-EMBLEM-REMOVED%20%281%29.svg";
+// Emblem URL from brand assets
+const emblemUrl = "https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png";
 
 const ManifestoPage = () => {
   const containerRef = useRef(null);
