@@ -49,23 +49,17 @@ const ImpactPage = () => {
       }
     });
 
-    function getOffsetTop(element) {
-      let offsetTop = 0;
-      while (element) {
-        offsetTop += element.offsetTop;
-        element = element.offsetParent;
-      }
-      return offsetTop;
-    }
-
     function updateComparators() {
       const scrollY = window.scrollY;
       const viewportHeight = window.innerHeight;
 
       comparators.forEach((comp, compIndex) => {
-        // Get the actual top position relative to the document
-        const sectionTop = getOffsetTop(comp.section);
+        // Use getBoundingClientRect for accurate position
+        const rect = comp.section.getBoundingClientRect();
         const sectionHeight = comp.section.offsetHeight;
+        
+        // Calculate the section's top relative to the document
+        const sectionTop = scrollY + rect.top;
         
         // Calculate how far we've scrolled into this section
         const scrollIntoSection = scrollY - sectionTop;
@@ -89,19 +83,16 @@ const ImpactPage = () => {
         const layerCount = comp.layerCount;
         comp.layers.forEach((layer, layerIndex) => {
           if (layerIndex < layerCount - 1) {
-            // Calculate when this layer should start and end revealing
             const layerStart = layerIndex / (layerCount - 1);
             const layerEnd = (layerIndex + 1) / (layerCount - 1);
             
-            // Calculate clip progress for this layer
             let clipProgress = 0;
             if (progress >= layerEnd) {
-              clipProgress = 1; // Fully revealed (clipped away)
+              clipProgress = 1;
             } else if (progress > layerStart) {
               clipProgress = (progress - layerStart) / (layerEnd - layerStart);
             }
             
-            // Apply clip-path (revealing from right to left)
             const clipValue = clipProgress * 100;
             layer.style.clipPath = `inset(0 ${clipValue}% 0 0)`;
           }
@@ -134,7 +125,7 @@ const ImpactPage = () => {
           indicator.classList.toggle("active", idx === currentStage);
         });
 
-        // Apply 3D transform based on scroll position
+        // Apply 3D transform
         if (comp.wrapper) {
           const isReverse = comp.wrapper.classList.contains('flip-reverse');
           let transformProgress = progress;
@@ -142,7 +133,6 @@ const ImpactPage = () => {
           let rotateX, rotateY, rotateZ, scale, opacity;
           
           if (transformProgress < 0.1) {
-            // Entry animation
             const t = transformProgress / 0.1;
             if (isReverse) {
               rotateX = -8 + (8 * t);
@@ -156,7 +146,6 @@ const ImpactPage = () => {
             scale = 0.9 + (0.1 * t);
             opacity = 0.8 + (0.2 * t);
           } else if (transformProgress > 0.9) {
-            // Exit animation
             const t = (transformProgress - 0.9) / 0.1;
             if (isReverse) {
               rotateX = 8 * t;
@@ -170,7 +159,6 @@ const ImpactPage = () => {
             scale = 1 - (0.1 * t);
             opacity = 1 - (0.2 * t);
           } else {
-            // Middle - flat
             rotateX = 0;
             rotateY = 0;
             rotateZ = 0;
@@ -194,7 +182,8 @@ const ImpactPage = () => {
       const comp = comparators[sectionIndex];
       
       if (comp) {
-        const sectionTop = getOffsetTop(comp.section);
+        const rect = comp.section.getBoundingClientRect();
+        const sectionTop = window.scrollY + rect.top;
         const sectionHeight = comp.section.offsetHeight;
         const viewportHeight = window.innerHeight;
         const scrollableRange = sectionHeight - viewportHeight;
@@ -209,7 +198,7 @@ const ImpactPage = () => {
       }
     }
 
-    // Throttled scroll handler
+    // Scroll handler
     let ticking = false;
     function onScroll() {
       if (!ticking) {
