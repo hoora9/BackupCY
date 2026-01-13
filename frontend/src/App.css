@@ -333,7 +333,8 @@ img {
 
 /* Ensure expertise layout has enough height for all values */
 .expertise-layout {
-  min-height: 200vh;
+  min-height: 250vh;
+  padding-bottom: 400px;
 }
 
 .page-heading {
