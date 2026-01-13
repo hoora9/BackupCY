@@ -8,246 +8,243 @@ const ImpactPage = () => {
     if (initialized.current) return;
     initialized.current = true;
 
-    const sections = document.querySelectorAll(".scroll-section");
-    const comparators = [];
+    // Wait for layout to complete
+    const init = () => {
+      const sections = document.querySelectorAll(".scroll-section");
+      const comparators = [];
 
-    // Store initial positions (calculated once on load)
-    sections.forEach((section, sectionIndex) => {
-      const wrapper = section.querySelector(".comparator-wrapper");
-      const comparator = section.querySelector(".comparator");
-      const percentage = section.querySelector(".comparison-percentage");
-      const layers = section.querySelectorAll(".image-layer");
-      const dividers = section.querySelectorAll(".divider-line");
-      
-      if (comparator && layers.length > 0) {
-        // Create stage indicators
-        const nav = document.createElement("div");
-        nav.className = "stage-nav";
-        const indicators = [];
+      sections.forEach((section, sectionIndex) => {
+        const wrapper = section.querySelector(".comparator-wrapper");
+        const comparator = section.querySelector(".comparator");
+        const percentage = section.querySelector(".comparison-percentage");
+        const layers = section.querySelectorAll(".image-layer");
+        const dividers = section.querySelectorAll(".divider-line");
         
-        for (let j = 0; j < layers.length; j++) {
-          const indicator = document.createElement("button");
-          indicator.className = "stage-indicator";
-          if (j === 0) indicator.classList.add("active");
-          indicator.setAttribute("aria-label", `Go to stage ${j + 1}`);
-          indicator.dataset.stage = j;
-          indicator.dataset.sectionIndex = sectionIndex;
-          indicators.push(indicator);
-          nav.appendChild(indicator);
-        }
-        comparator.appendChild(nav);
+        if (comparator && layers.length > 0) {
+          // Create stage indicators
+          const nav = document.createElement("div");
+          nav.className = "stage-nav";
+          const indicators = [];
+          
+          for (let j = 0; j < layers.length; j++) {
+            const indicator = document.createElement("button");
+            indicator.className = "stage-indicator";
+            if (j === 0) indicator.classList.add("active");
+            indicator.setAttribute("aria-label", `Go to stage ${j + 1}`);
+            indicator.dataset.stage = j;
+            indicator.dataset.sectionIndex = sectionIndex;
+            indicators.push(indicator);
+            nav.appendChild(indicator);
+          }
+          comparator.appendChild(nav);
 
-        // Calculate initial top position from document start
-        let offsetTop = 0;
-        let element = section;
-        while (element) {
-          offsetTop += element.offsetTop;
-          element = element.offsetParent;
-        }
+          // Calculate initial position - must be done when scroll is at 0
+          // Use getBoundingClientRect which gives position relative to viewport
+          // Since we're at scroll=0, this is the document position
+          const rect = section.getBoundingClientRect();
+          const currentScroll = window.scrollY;
+          const sectionTop = rect.top + currentScroll;
+          
+          console.log(`Section ${sectionIndex}: top=${sectionTop}, height=${section.offsetHeight}`);
 
-        comparators.push({
-          section,
-          wrapper,
-          comparator,
-          percentage,
-          layers: Array.from(layers),
-          dividers: Array.from(dividers),
-          indicators,
-          layerCount: layers.length,
-          sectionTop: offsetTop, // Store initial position
-          sectionHeight: section.offsetHeight
+          comparators.push({
+            section,
+            wrapper,
+            comparator,
+            percentage,
+            layers: Array.from(layers),
+            dividers: Array.from(dividers),
+            indicators,
+            layerCount: layers.length,
+            sectionTop: sectionTop,
+            sectionHeight: section.offsetHeight
+          });
+        }
+      });
+
+      function updatePositions() {
+        // Recalculate positions - need to scroll to top first for accurate measurement
+        // But since this is expensive, we'll use a different approach
+        comparators.forEach((comp, idx) => {
+          comp.sectionHeight = comp.section.offsetHeight;
         });
       }
-    });
 
-    function updatePositions() {
-      // Recalculate positions on resize
-      comparators.forEach((comp) => {
-        let offsetTop = 0;
-        let element = comp.section;
-        while (element) {
-          offsetTop += element.offsetTop;
-          element = element.offsetParent;
-        }
-        comp.sectionTop = offsetTop;
-        comp.sectionHeight = comp.section.offsetHeight;
-      });
-    }
-
-    function updateComparators() {
-      const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
-
-      comparators.forEach((comp, compIndex) => {
-        const sectionTop = comp.sectionTop;
-        const sectionHeight = comp.sectionHeight;
-        
-        // Calculate how far we've scrolled into this section
-        const scrollIntoSection = scrollY - sectionTop;
-        
-        // The scrollable range is the section height minus viewport height
-        const scrollableRange = sectionHeight - viewportHeight;
-        
-        // Calculate progress (0 to 1)
-        let progress = 0;
-        if (scrollIntoSection > 0 && scrollableRange > 0) {
-          progress = Math.min(1, Math.max(0, scrollIntoSection / scrollableRange));
-        }
-        
-        // Update percentage display
-        if (comp.percentage) {
-          const pct = Math.round(progress * 100);
-          comp.percentage.textContent = String(pct).padStart(2, '0') + '%';
-        }
-
-        // Update layer clip-paths based on progress
-        const layerCount = comp.layerCount;
-        comp.layers.forEach((layer, layerIndex) => {
-          if (layerIndex < layerCount - 1) {
-            const layerStart = layerIndex / (layerCount - 1);
-            const layerEnd = (layerIndex + 1) / (layerCount - 1);
-            
-            let clipProgress = 0;
-            if (progress >= layerEnd) {
-              clipProgress = 1;
-            } else if (progress > layerStart) {
-              clipProgress = (progress - layerStart) / (layerEnd - layerStart);
-            }
-            
-            const clipValue = clipProgress * 100;
-            layer.style.clipPath = `inset(0 ${clipValue}% 0 0)`;
-          }
-        });
-
-        // Update divider lines
-        comp.dividers.forEach((divider, dividerIndex) => {
-          const dividerStart = dividerIndex / (layerCount - 1);
-          const dividerEnd = (dividerIndex + 1) / (layerCount - 1);
-          
-          let dividerProgress = 0;
-          let opacity = 0;
-          
-          if (progress > dividerStart && progress < dividerEnd) {
-            dividerProgress = (progress - dividerStart) / (dividerEnd - dividerStart);
-            opacity = dividerProgress < 0.02 ? 0 : (dividerProgress > 0.98 ? 0 : 1);
-          }
-          
-          const leftPosition = 100 - (dividerProgress * 100);
-          divider.style.left = `${leftPosition}%`;
-          divider.style.opacity = opacity;
-        });
-
-        // Update stage indicators
-        const currentStage = Math.min(
-          Math.floor(progress * layerCount),
-          layerCount - 1
-        );
-        comp.indicators.forEach((indicator, idx) => {
-          indicator.classList.toggle("active", idx === currentStage);
-        });
-
-        // Apply 3D transform
-        if (comp.wrapper) {
-          const isReverse = comp.wrapper.classList.contains('flip-reverse');
-          let transformProgress = progress;
-
-          let rotateX, rotateY, rotateZ, scale, opacity;
-          
-          if (transformProgress < 0.1) {
-            const t = transformProgress / 0.1;
-            if (isReverse) {
-              rotateX = -8 + (8 * t);
-              rotateY = 8 - (8 * t);
-              rotateZ = 2 - (2 * t);
-            } else {
-              rotateX = 8 - (8 * t);
-              rotateY = -8 + (8 * t);
-              rotateZ = -2 + (2 * t);
-            }
-            scale = 0.9 + (0.1 * t);
-            opacity = 0.8 + (0.2 * t);
-          } else if (transformProgress > 0.9) {
-            const t = (transformProgress - 0.9) / 0.1;
-            if (isReverse) {
-              rotateX = 8 * t;
-              rotateY = -8 * t;
-              rotateZ = -2 * t;
-            } else {
-              rotateX = -8 * t;
-              rotateY = 8 * t;
-              rotateZ = 2 * t;
-            }
-            scale = 1 - (0.1 * t);
-            opacity = 1 - (0.2 * t);
-          } else {
-            rotateX = 0;
-            rotateY = 0;
-            rotateZ = 0;
-            scale = 1;
-            opacity = 1;
-          }
-
-          comp.wrapper.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
-          comp.wrapper.style.opacity = opacity;
-        }
-      });
-    }
-
-    // Handle indicator clicks
-    function onIndicatorClick(e) {
-      const btn = e.target.closest(".stage-indicator");
-      if (!btn) return;
-
-      const stage = parseInt(btn.dataset.stage, 10);
-      const sectionIndex = parseInt(btn.dataset.sectionIndex, 10);
-      const comp = comparators[sectionIndex];
-      
-      if (comp) {
+      function updateComparators() {
+        const scrollY = window.scrollY;
         const viewportHeight = window.innerHeight;
-        const scrollableRange = comp.sectionHeight - viewportHeight;
-        
-        const targetProgress = stage / (comp.layerCount - 1);
-        const targetScroll = comp.sectionTop + (scrollableRange * targetProgress);
-        
-        window.scrollTo({
-          top: targetScroll,
-          behavior: 'smooth'
+
+        comparators.forEach((comp, compIndex) => {
+          const sectionTop = comp.sectionTop;
+          const sectionHeight = comp.sectionHeight;
+          
+          // How far have we scrolled past the start of this section?
+          const scrollIntoSection = scrollY - sectionTop;
+          
+          // Total scrollable distance within this section
+          const scrollableRange = sectionHeight - viewportHeight;
+          
+          // Calculate progress (0 to 1)
+          let progress = 0;
+          if (scrollableRange > 0 && scrollIntoSection > 0) {
+            progress = Math.min(1, scrollIntoSection / scrollableRange);
+          }
+          
+          // Update percentage display
+          if (comp.percentage) {
+            const pct = Math.round(progress * 100);
+            comp.percentage.textContent = String(pct).padStart(2, '0') + '%';
+          }
+
+          // Update layer clip-paths
+          const layerCount = comp.layerCount;
+          comp.layers.forEach((layer, layerIndex) => {
+            if (layerIndex < layerCount - 1) {
+              const layerStart = layerIndex / (layerCount - 1);
+              const layerEnd = (layerIndex + 1) / (layerCount - 1);
+              
+              let clipProgress = 0;
+              if (progress >= layerEnd) {
+                clipProgress = 1;
+              } else if (progress > layerStart) {
+                clipProgress = (progress - layerStart) / (layerEnd - layerStart);
+              }
+              
+              const clipValue = clipProgress * 100;
+              layer.style.clipPath = `inset(0 ${clipValue}% 0 0)`;
+            }
+          });
+
+          // Update divider lines
+          comp.dividers.forEach((divider, dividerIndex) => {
+            const dividerStart = dividerIndex / (layerCount - 1);
+            const dividerEnd = (dividerIndex + 1) / (layerCount - 1);
+            
+            let dividerProgress = 0;
+            let opacity = 0;
+            
+            if (progress > dividerStart && progress < dividerEnd) {
+              dividerProgress = (progress - dividerStart) / (dividerEnd - dividerStart);
+              opacity = dividerProgress < 0.02 ? 0 : (dividerProgress > 0.98 ? 0 : 1);
+            }
+            
+            const leftPosition = 100 - (dividerProgress * 100);
+            divider.style.left = `${leftPosition}%`;
+            divider.style.opacity = opacity;
+          });
+
+          // Update stage indicators
+          const currentStage = Math.min(
+            Math.floor(progress * layerCount),
+            layerCount - 1
+          );
+          comp.indicators.forEach((indicator, idx) => {
+            indicator.classList.toggle("active", idx === currentStage);
+          });
+
+          // Apply 3D transform
+          if (comp.wrapper) {
+            const isReverse = comp.wrapper.classList.contains('flip-reverse');
+            let transformProgress = progress;
+
+            let rotateX, rotateY, rotateZ, scale, opacity;
+            
+            if (transformProgress < 0.1) {
+              const t = transformProgress / 0.1;
+              if (isReverse) {
+                rotateX = -8 + (8 * t);
+                rotateY = 8 - (8 * t);
+                rotateZ = 2 - (2 * t);
+              } else {
+                rotateX = 8 - (8 * t);
+                rotateY = -8 + (8 * t);
+                rotateZ = -2 + (2 * t);
+              }
+              scale = 0.9 + (0.1 * t);
+              opacity = 0.8 + (0.2 * t);
+            } else if (transformProgress > 0.9) {
+              const t = (transformProgress - 0.9) / 0.1;
+              if (isReverse) {
+                rotateX = 8 * t;
+                rotateY = -8 * t;
+                rotateZ = -2 * t;
+              } else {
+                rotateX = -8 * t;
+                rotateY = 8 * t;
+                rotateZ = 2 * t;
+              }
+              scale = 1 - (0.1 * t);
+              opacity = 1 - (0.2 * t);
+            } else {
+              rotateX = 0;
+              rotateY = 0;
+              rotateZ = 0;
+              scale = 1;
+              opacity = 1;
+            }
+
+            comp.wrapper.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+            comp.wrapper.style.opacity = opacity;
+          }
         });
       }
-    }
 
-    // Scroll handler
-    let ticking = false;
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateComparators();
-          ticking = false;
-        });
-        ticking = true;
+      // Handle indicator clicks
+      function onIndicatorClick(e) {
+        const btn = e.target.closest(".stage-indicator");
+        if (!btn) return;
+
+        const stage = parseInt(btn.dataset.stage, 10);
+        const sectionIndex = parseInt(btn.dataset.sectionIndex, 10);
+        const comp = comparators[sectionIndex];
+        
+        if (comp) {
+          const viewportHeight = window.innerHeight;
+          const scrollableRange = comp.sectionHeight - viewportHeight;
+          
+          const targetProgress = stage / (comp.layerCount - 1);
+          const targetScroll = comp.sectionTop + (scrollableRange * targetProgress);
+          
+          window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        }
       }
-    }
 
-    function onResize() {
-      updatePositions();
+      // Scroll handler
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateComparators();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      function onResize() {
+        updatePositions();
+        updateComparators();
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onResize, { passive: true });
+      document.addEventListener("click", onIndicatorClick);
+
+      // Initial update
       updateComparators();
-    }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize, { passive: true });
-    document.addEventListener("click", onIndicatorClick);
-
-    // Initial update after a short delay to ensure layout is complete
-    setTimeout(() => {
-      updatePositions();
-      updateComparators();
-    }, 100);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-      document.removeEventListener("click", onIndicatorClick);
+      return () => {
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onResize);
+        document.removeEventListener("click", onIndicatorClick);
+      };
     };
+
+    // Wait for images and layout to settle
+    setTimeout(init, 200);
   }, []);
 
   return (
