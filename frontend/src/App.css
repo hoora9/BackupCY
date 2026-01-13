@@ -1059,7 +1059,7 @@ img {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 20, 31, 0.7) 0%, rgba(10, 20, 31, 0.85) 100%);
+  background: rgba(10, 20, 31, 0.75);
   pointer-events: none;
 }
 
