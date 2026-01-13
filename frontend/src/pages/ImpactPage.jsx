@@ -50,16 +50,26 @@ const ImpactPage = () => {
     });
 
     function updateComparators() {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+
       comparators.forEach((comp, compIndex) => {
-        const rect = comp.section.getBoundingClientRect();
+        const sectionTop = comp.section.offsetTop;
         const sectionHeight = comp.section.offsetHeight;
-        const viewportHeight = window.innerHeight;
         
-        // Calculate progress within this section (0 to 1)
-        // Start when section top reaches viewport top, end when section bottom leaves
-        const scrollableHeight = sectionHeight - viewportHeight;
-        const scrolled = -rect.top;
-        let progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+        // Calculate how far we've scrolled into this section
+        // Start counting when section top reaches viewport top
+        const scrollIntoSection = scrollY - sectionTop;
+        
+        // The scrollable range is the section height minus viewport height
+        // This is how much we can scroll while the sticky container is pinned
+        const scrollableRange = sectionHeight - viewportHeight;
+        
+        // Calculate progress (0 to 1)
+        let progress = 0;
+        if (scrollIntoSection > 0 && scrollableRange > 0) {
+          progress = Math.min(1, Math.max(0, scrollIntoSection / scrollableRange));
+        }
         
         // Update percentage display
         if (comp.percentage) {
@@ -119,51 +129,41 @@ const ImpactPage = () => {
         // Apply 3D transform based on scroll position
         if (comp.wrapper) {
           const isReverse = comp.wrapper.classList.contains('flip-reverse');
-          let transformProgress = 0;
           
-          // Calculate transform progress (0 at start, 0.5 in middle, 1 at end)
-          if (rect.top > viewportHeight * 0.5) {
-            // Before section is centered
-            transformProgress = 0;
-          } else if (rect.bottom < viewportHeight * 0.5) {
-            // After section has passed center
-            transformProgress = 1;
-          } else {
-            // Section is in view
-            const centerOffset = (viewportHeight * 0.5 - rect.top) / sectionHeight;
-            transformProgress = Math.max(0, Math.min(1, centerOffset));
-          }
+          // Calculate how far into the section we are for the 3D effect
+          // Use a normalized position based on the sticky container
+          let transformProgress = progress;
 
           let rotateX, rotateY, rotateZ, scale, opacity;
           
-          if (transformProgress < 0.15) {
+          if (transformProgress < 0.1) {
             // Entry animation
-            const t = transformProgress / 0.15;
+            const t = transformProgress / 0.1;
             if (isReverse) {
-              rotateX = -10 + (10 * t);
-              rotateY = 10 - (10 * t);
-              rotateZ = 3 - (3 * t);
+              rotateX = -8 + (8 * t);
+              rotateY = 8 - (8 * t);
+              rotateZ = 2 - (2 * t);
             } else {
-              rotateX = 10 - (10 * t);
-              rotateY = -10 + (10 * t);
-              rotateZ = -3 + (3 * t);
+              rotateX = 8 - (8 * t);
+              rotateY = -8 + (8 * t);
+              rotateZ = -2 + (2 * t);
             }
-            scale = 0.85 + (0.15 * t);
-            opacity = 0.75 + (0.25 * t);
-          } else if (transformProgress > 0.85) {
+            scale = 0.9 + (0.1 * t);
+            opacity = 0.8 + (0.2 * t);
+          } else if (transformProgress > 0.9) {
             // Exit animation
-            const t = (transformProgress - 0.85) / 0.15;
+            const t = (transformProgress - 0.9) / 0.1;
             if (isReverse) {
-              rotateX = 10 * t;
-              rotateY = -10 * t;
-              rotateZ = -3 * t;
+              rotateX = 8 * t;
+              rotateY = -8 * t;
+              rotateZ = -2 * t;
             } else {
-              rotateX = -10 * t;
-              rotateY = 10 * t;
-              rotateZ = 3 * t;
+              rotateX = -8 * t;
+              rotateY = 8 * t;
+              rotateZ = 2 * t;
             }
-            scale = 1 - (0.15 * t);
-            opacity = 1 - (0.25 * t);
+            scale = 1 - (0.1 * t);
+            opacity = 1 - (0.2 * t);
           } else {
             // Middle - flat
             rotateX = 0;
@@ -192,10 +192,10 @@ const ImpactPage = () => {
         const sectionTop = comp.section.offsetTop;
         const sectionHeight = comp.section.offsetHeight;
         const viewportHeight = window.innerHeight;
-        const scrollableHeight = sectionHeight - viewportHeight;
+        const scrollableRange = sectionHeight - viewportHeight;
         
         const targetProgress = stage / (comp.layerCount - 1);
-        const targetScroll = sectionTop + (scrollableHeight * targetProgress);
+        const targetScroll = sectionTop + (scrollableRange * targetProgress);
         
         window.scrollTo({
           top: targetScroll,
