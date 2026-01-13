@@ -2483,35 +2483,36 @@ img {
   color: #4fadb3;
 }
 
-/* Right Box - Teal */
+/* Right Box - Teal with Video */
 .services-box-right {
   position: absolute;
   top: var(--nav-height);
   right: 0;
   width: 50%;
   height: calc(100vh - var(--nav-height));
-  background-color: rgba(79, 173, 179, 0.5);
+  background-color: rgba(79, 173, 179, 0.5); /* #4fadb3 at 50% opacity */
   display: flex;
   align-items: center;
+  justify-content: center;
   animation: slideFromRight 0.675s ease-out forwards;
   animation-delay: 0.19s;
   opacity: 0;
   overflow: hidden;
-  border: 100px solid transparent;
   box-sizing: border-box;
 }
 
-/* Video variant for services right box */
+/* Video variant for services right box - keeps teal background */
 .services-box-right.services-video-box {
   padding: 0;
-  border: 0;
-  background-color: transparent;
+  background-color: rgba(79, 173, 179, 0.5); /* #4fadb3 at 50% opacity */
 }
 
 .services-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 1;
 }
 
 /* Removed monogram for Services */
