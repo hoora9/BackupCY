@@ -74,23 +74,23 @@ const ManifestoPage = () => {
         delay: 0.3
       });
 
-      // Animate each section - EXTENDED VISIBILITY for reading time
+      // Animate each section - EXTENDED VISIBILITY with OVERLAP
       gsap.utils.toArray('.cascade-section').forEach((section, index) => {
         const image = section.querySelector('.cascade-image');
         const emblem = section.querySelector('.cascade-emblem');
         const textContent = section.querySelector('.cascade-text-content');
         const textLines = section.querySelectorAll('.cascade-text-line');
         
-        // Image fades in early and stays visible much longer
+        // Image fades in very early - starts before section enters viewport
         if (image) {
           gsap.fromTo(image,
-            { opacity: 0, scale: 1.03 },
+            { opacity: 0, scale: 1.02 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 100%',
-                end: 'top 50%',
-                scrub: 3
+                start: 'top 120%', // Start even earlier
+                end: 'top 40%',
+                scrub: 2
               },
               opacity: 1,
               scale: 1,
@@ -98,13 +98,13 @@ const ManifestoPage = () => {
             }
           );
           
-          // Image stays visible much longer before fading
+          // Image stays visible MUCH longer - fades very late
           gsap.to(image, {
             scrollTrigger: {
               trigger: section,
-              start: 'bottom 60%',
-              end: 'bottom -20%',
-              scrub: 3
+              start: 'bottom 80%', // Much later fade out
+              end: 'bottom 0%',
+              scrub: 2
             },
             opacity: 0,
             scale: 0.98,
@@ -119,9 +119,9 @@ const ManifestoPage = () => {
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 95%',
-                end: 'top 45%',
-                scrub: 3
+                start: 'top 110%',
+                end: 'top 35%',
+                scrub: 2
               },
               opacity: 1,
               scale: 1,
@@ -129,13 +129,13 @@ const ManifestoPage = () => {
             }
           );
           
-          // Emblem fades out while text is already appearing (overlap)
+          // Emblem fades out while text appears (overlap)
           gsap.to(emblem, {
             scrollTrigger: {
               trigger: section,
-              start: 'top 35%',
-              end: 'top 0%',
-              scrub: 3
+              start: 'top 30%',
+              end: 'top -5%',
+              scrub: 2
             },
             opacity: 0,
             scale: 0.9,
@@ -144,16 +144,16 @@ const ManifestoPage = () => {
           });
         }
 
-        // Text appears earlier and overlaps with emblem fade
+        // Text appears earlier to overlap with emblem
         if (textContent) {
           gsap.fromTo(textContent,
             { opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 40%',
-                end: 'top 5%',
-                scrub: 3
+                start: 'top 35%',
+                end: 'top 0%',
+                scrub: 2
               },
               opacity: 1,
               ease: 'power1.inOut'
@@ -161,21 +161,21 @@ const ManifestoPage = () => {
           );
         }
 
-        // Text lines appear with stagger - stay visible longer
+        // Text lines appear and STAY visible long
         textLines.forEach((line, i) => {
           gsap.fromTo(line,
-            { y: 25, opacity: 0 },
+            { y: 20, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 35%',
-                end: 'top 0%',
-                scrub: 3
+                start: 'top 30%',
+                end: 'top -5%',
+                scrub: 2
               },
               y: 0,
               opacity: 1,
               ease: 'power1.out',
-              delay: i * 0.05
+              delay: i * 0.03
             }
           );
         });
