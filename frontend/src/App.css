@@ -1316,9 +1316,19 @@ img {
   transition: all 0.3s ease;
 }
 
+/* Teal background variant for bento boxes */
+.value-bento-box.value-bento-teal {
+  background-color: rgba(79, 173, 179, 0.5);
+  border-color: rgba(79, 173, 179, 0.7);
+}
+
 .value-bento-box:hover {
   border-color: var(--white);
   transform: translateY(-4px);
+}
+
+.value-bento-box.value-bento-teal:hover {
+  background-color: rgba(79, 173, 179, 0.7);
 }
 
 /* Bento Box Content */
