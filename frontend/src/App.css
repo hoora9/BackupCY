@@ -1487,19 +1487,20 @@ img {
   margin-bottom: 0;
 }
 
-/* Closing Block */
+/* Closing Block - Match Homepage Tagline */
 .manifesto-closing-block {
   text-align: center;
-  padding: 120px 0;
+  padding: 120px var(--page-padding);
 }
 
 .manifesto-tagline {
   font-family: var(--font-primary);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 400;
+  font-size: clamp(40px, 5vw, 61px);
+  font-weight: 700;
   color: var(--white);
-  letter-spacing: 0.02em;
-  text-transform: lowercase;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-transform: none;
 }
 
 /* Mobile Responsive */
