@@ -1252,7 +1252,11 @@ img {
   display: flex;
   min-height: 90vh;
   padding: 60px var(--page-padding);
-  margin-bottom: -10vh; /* Overlap sections */
+  margin-bottom: -20vh; /* More overlap between sections */
+}
+
+.cascade-section:last-of-type {
+  margin-bottom: 0;
 }
 
 /* Image Left Layout */
