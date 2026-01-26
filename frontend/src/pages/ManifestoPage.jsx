@@ -8,15 +8,13 @@ gsap.registerPlugin(ScrollTrigger);
 const ManifestoPage = () => {
   const containerRef = useRef(null);
   
-  // Manifesto content sections
+  // First section - Combined in one bento box with colored parts
+  const heroSection = {
+    image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/c3b032cfaed16cbeeb06910d34e928d08887c448cb244107505e08899e46dd9f.png"
+  };
+  
+  // Remaining sections
   const sections = [
-    {
-      title: "A Decisive Decade",
-      subtitle: "Low-carbon infrastructure investment is entering a decisive decade",
-      content: "Climate transition will be built through real infrastructure. Decisions made this decade will lock in emissions pathways and economic outcomes for decades to come.",
-      subContent: "Climate challenges are now inseparable from economic, industrial, and financial realities. Low-carbon infrastructure sits at the intersection of these forces, shaping how capital, industry, and climate objectives converge over the long term.",
-      image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/c3b032cfaed16cbeeb06910d34e928d08887c448cb244107505e08899e46dd9f.png"
-    },
     {
       title: "Unprecedented Capital Needs",
       subtitle: "Capital needs are unprecedented and time-bound",
@@ -54,17 +52,113 @@ const ManifestoPage = () => {
         delay: 0.3
       });
 
-      // Section animations on scroll - images fade out as scrolling down
-      gsap.utils.toArray('.manifesto-bento-section').forEach((section) => {
+      // Cascading shapes animation
+      gsap.utils.toArray('.cascade-shape').forEach((shape, i) => {
+        gsap.fromTo(shape, 
+          { 
+            y: -100,
+            opacity: 0,
+            scale: 0.5,
+            rotation: -15
+          },
+          {
+            scrollTrigger: {
+              trigger: '.cascade-container',
+              start: 'top 80%',
+              end: 'center center',
+              scrub: 1
+            },
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            ease: 'power2.out',
+            delay: i * 0.1
+          }
+        );
+      });
+
+      // Hero section image - fade in then fade out
+      const heroImage = document.querySelector('.hero-bento-section .manifesto-bento-image');
+      if (heroImage) {
+        // Fade in
+        gsap.fromTo(heroImage,
+          { opacity: 0, scale: 1.05 },
+          {
+            scrollTrigger: {
+              trigger: '.hero-bento-section',
+              start: 'top 90%',
+              end: 'top 40%',
+              scrub: 1
+            },
+            opacity: 1,
+            scale: 1,
+            ease: 'power2.out'
+          }
+        );
+        // Fade out
+        gsap.to(heroImage, {
+          scrollTrigger: {
+            trigger: '.hero-bento-section',
+            start: 'center center',
+            end: 'bottom 20%',
+            scrub: 1
+          },
+          opacity: 0,
+          scale: 0.95,
+          ease: 'power2.inOut'
+        });
+      }
+
+      // Hero bento box - lines ease in with scroll
+      gsap.utils.toArray('.hero-bento-line').forEach((line, i) => {
+        gsap.fromTo(line,
+          { 
+            y: 40,
+            opacity: 0
+          },
+          {
+            scrollTrigger: {
+              trigger: '.hero-bento-section',
+              start: 'top 60%',
+              end: 'center center',
+              scrub: 0.5
+            },
+            y: 0,
+            opacity: 1,
+            ease: 'power2.out',
+            delay: i * 0.15
+          }
+        );
+      });
+
+      // Section animations on scroll - images fade in then fade out
+      gsap.utils.toArray('.manifesto-bento-section:not(.hero-bento-section):not(.structure-section)').forEach((section) => {
         const image = section.querySelector('.manifesto-bento-image');
         const boxes = section.querySelectorAll('.manifesto-bento-box');
         
-        // Image fades OUT as you scroll down
+        // Image fades IN then OUT as you scroll
         if (image) {
+          // Fade in
+          gsap.fromTo(image,
+            { opacity: 0, scale: 1.05 },
+            {
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 90%',
+                end: 'top 40%',
+                scrub: 1
+              },
+              opacity: 1,
+              scale: 1,
+              ease: 'power2.out'
+            }
+          );
+          // Fade out
           gsap.to(image, {
             scrollTrigger: {
               trigger: section,
-              start: 'top 50%',
+              start: 'center center',
               end: 'bottom 20%',
               scrub: 1
             },
@@ -74,20 +168,23 @@ const ManifestoPage = () => {
           });
         }
 
-        // Bento boxes reveal
+        // Bento boxes reveal with ease
         boxes.forEach((box, i) => {
-          gsap.from(box, {
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 75%',
-              toggleActions: 'play none none reverse'
-            },
-            y: 30,
-            opacity: 0,
-            duration: 0.6,
-            delay: i * 0.1,
-            ease: 'power2.out'
-          });
+          gsap.fromTo(box,
+            { y: 50, opacity: 0 },
+            {
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 70%',
+                end: 'top 30%',
+                scrub: 0.5
+              },
+              y: 0,
+              opacity: 1,
+              ease: 'power2.out',
+              delay: i * 0.1
+            }
+          );
         });
       });
 
