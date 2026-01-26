@@ -345,10 +345,10 @@ img {
   max-width: 1100px;
 }
 
-/* Ensure expertise layout has enough height for all values */
+/* Expertise layout - no extra space at bottom */
 .expertise-layout {
-  min-height: 250vh;
-  padding-bottom: 400px;
+  min-height: auto;
+  padding-bottom: 60px;
 }
 
 .page-heading {
