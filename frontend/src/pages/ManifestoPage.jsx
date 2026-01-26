@@ -320,10 +320,10 @@ const ManifestoPage = () => {
           </p>
         </div>
 
-        {/* Closing Section */}
+        {/* Closing Section - Same as Homepage Tagline */}
         <div className="manifesto-closing-block">
           <p className="manifesto-tagline">
-            structured for trust. built for results.
+            Structured for Trust. Built for Results.
           </p>
         </div>
       </div>
