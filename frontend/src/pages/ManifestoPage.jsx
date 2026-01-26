@@ -5,10 +5,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Emblem image URL (same as conviction section)
+const EMBLEM_URL = "https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png";
+
 const ManifestoPage = () => {
   const containerRef = useRef(null);
   
-  // All sections with their content
+  // All sections with their content - emblem sizes decrease as you scroll down
   const sections = [
     {
       title: "A Decisive Decade",
@@ -16,7 +19,8 @@ const ManifestoPage = () => {
       content: "Climate transition will be built through real infrastructure. Decisions made this decade will lock in emissions pathways and economic outcomes for decades to come.",
       subContent: "Climate challenges are now inseparable from economic, industrial, and financial realities. Low-carbon infrastructure sits at the intersection of these forces, shaping how capital, industry, and climate objectives converge over the long term.",
       image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/c3b032cfaed16cbeeb06910d34e928d08887c448cb244107505e08899e46dd9f.png",
-      emblemPosition: { top: '15%', offset: '10%' }
+      emblemPosition: { top: '10%', offset: '5%' },
+      emblemSize: 180 // Largest
     },
     {
       title: "Unprecedented Capital Needs",
@@ -25,7 +29,8 @@ const ManifestoPage = () => {
       subContent: "Despite growing momentum, current investment levels remain far below what is required. Much of the infrastructure that will define the next decades has yet to be built, making this period structurally decisive.",
       source: "IEA, 2023",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/9t9vgtv7_Screenshot%202026-01-13%20at%2012.17.48.png",
-      emblemPosition: { top: '25%', offset: '15%' }
+      emblemPosition: { top: '20%', offset: '12%' },
+      emblemSize: 150
     },
     {
       title: "Capital Follows Returns",
@@ -34,7 +39,8 @@ const ManifestoPage = () => {
       subContent: "Closing the gap will require more than USD 1 trillion per year in additional infrastructure investment in the Global South, with private capital playing a critical role alongside public funding. Demonstrating that climate-aligned infrastructure can deliver attractive, long-term returns is essential to unlocking sustained private investment at scale.",
       source: "World Bank, 2023",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/cbva806x_Screenshot%202026-01-13%20at%2012.18.11.png",
-      emblemPosition: { top: '8%', offset: '20%' }
+      emblemPosition: { top: '8%', offset: '18%' },
+      emblemSize: 120
     },
     {
       title: "Overlooked Opportunities",
@@ -43,7 +49,8 @@ const ManifestoPage = () => {
       subContent: "Private capital currently accounts for a small fraction of climate finance in emerging markets, underscoring the scale of unmet investment needs.",
       source: "IFC, World Bank Group, 2023",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/0i8qyepy_Screenshot%202026-01-13%20at%2012.18.25.png",
-      emblemPosition: { top: '20%', offset: '8%' }
+      emblemPosition: { top: '15%', offset: '8%' },
+      emblemSize: 100
     },
     {
       title: "Structure Creates Value",
@@ -51,7 +58,8 @@ const ManifestoPage = () => {
       content: "Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.",
       subContent: "Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/cbva806x_Screenshot%202026-01-13%20at%2012.18.11.png",
-      emblemPosition: { top: '12%', offset: '18%' }
+      emblemPosition: { top: '12%', offset: '15%' },
+      emblemSize: 80 // Smallest
     }
   ];
 
@@ -61,154 +69,135 @@ const ManifestoPage = () => {
       gsap.from('.manifesto-heading-branded', {
         y: 60,
         opacity: 0,
-        duration: 1.2,
+        duration: 1.5,
         ease: 'power3.out',
         delay: 0.3
       });
 
-      // Animate each section
+      // Animate each section with SLOWER, SMOOTHER transitions
       gsap.utils.toArray('.cascade-section').forEach((section, index) => {
         const image = section.querySelector('.cascade-image');
         const emblem = section.querySelector('.cascade-emblem');
         const textContent = section.querySelector('.cascade-text-content');
         const textLines = section.querySelectorAll('.cascade-text-line');
         
-        // Image fades in first
+        // Image fades in first - SLOWER ease
         if (image) {
           gsap.fromTo(image,
-            { opacity: 0, scale: 1.08 },
+            { opacity: 0, scale: 1.05 },
+            {
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 90%',
+                end: 'top 20%',
+                scrub: 2 // Slower scrub
+              },
+              opacity: 1,
+              scale: 1,
+              ease: 'power1.inOut' // Smoother ease
+            }
+          );
+          
+          // Image fades out - SLOWER
+          gsap.to(image, {
+            scrollTrigger: {
+              trigger: section,
+              start: 'center 10%',
+              end: 'bottom -30%',
+              scrub: 2.5 // Even slower fade out
+            },
+            opacity: 0,
+            scale: 0.97,
+            ease: 'power1.inOut'
+          });
+        }
+
+        // Emblem appears with image - SLOWER, SMOOTHER
+        if (emblem) {
+          gsap.fromTo(emblem,
+            { opacity: 0, scale: 0.7 },
             {
               scrollTrigger: {
                 trigger: section,
                 start: 'top 85%',
-                end: 'top 35%',
-                scrub: 1
+                end: 'top 25%',
+                scrub: 2
               },
               opacity: 1,
               scale: 1,
-              ease: 'power2.out'
+              ease: 'power1.inOut'
             }
           );
           
-          // Image fades out as you continue scrolling
-          gsap.to(image, {
-            scrollTrigger: {
-              trigger: section,
-              start: 'center 20%',
-              end: 'bottom -10%',
-              scrub: 1
-            },
-            opacity: 0,
-            scale: 0.95,
-            ease: 'power2.inOut'
-          });
-        }
-
-        // Emblem appears with image, then fades out
-        if (emblem) {
-          gsap.fromTo(emblem,
-            { opacity: 0, scale: 0.6, rotation: -10 },
-            {
-              scrollTrigger: {
-                trigger: section,
-                start: 'top 80%',
-                end: 'top 40%',
-                scrub: 1
-              },
-              opacity: 1,
-              scale: 1,
-              rotation: 0,
-              ease: 'back.out(1.7)'
-            }
-          );
-          
-          // Emblem fades out as text comes in
+          // Emblem fades out as text comes in - SLOWER
           gsap.to(emblem, {
             scrollTrigger: {
               trigger: section,
-              start: 'top 30%',
-              end: 'top 0%',
-              scrub: 1
+              start: 'top 20%',
+              end: 'top -15%',
+              scrub: 2.5
             },
             opacity: 0,
-            scale: 0.8,
-            y: -30,
-            ease: 'power2.in'
+            scale: 0.85,
+            y: -20,
+            ease: 'power1.inOut'
           });
         }
 
-        // Text content fades in as emblem fades out
+        // Text content fades in as emblem fades out - SLOWER
         if (textContent) {
           gsap.fromTo(textContent,
             { opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 25%',
-                end: 'top -5%',
-                scrub: 1
+                start: 'top 15%',
+                end: 'top -20%',
+                scrub: 2
               },
               opacity: 1,
-              ease: 'power2.out'
+              ease: 'power1.inOut'
             }
           );
         }
 
-        // Individual text lines cascade in
+        // Individual text lines cascade in - SLOWER
         textLines.forEach((line, i) => {
           gsap.fromTo(line,
-            { y: 40, opacity: 0 },
+            { y: 30, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 20%',
-                end: 'top -10%',
-                scrub: 1
+                start: 'top 10%',
+                end: 'top -25%',
+                scrub: 2
               },
               y: 0,
               opacity: 1,
-              ease: 'power2.out',
-              delay: i * 0.05
+              ease: 'power1.out',
+              delay: i * 0.08
             }
           );
         });
       });
 
-      // Conviction section animation
+      // Conviction section animation - SLOWER
       gsap.from('.conviction-block', {
         scrollTrigger: {
           trigger: '.conviction-block',
-          start: 'top 60%',
+          start: 'top 70%',
           toggleActions: 'play none none reverse'
         },
-        y: 60,
+        y: 50,
         opacity: 0,
-        duration: 1,
-        ease: 'power2.inOut'
+        duration: 1.5,
+        ease: 'power1.inOut'
       });
 
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
-
-  // Emblem SVG component
-  const Emblem = ({ className, style }) => (
-    <svg 
-      className={className} 
-      style={style}
-      viewBox="0 0 60 60" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path 
-        d="M8 8 L8 20 M8 8 L20 8 M52 8 L52 20 M52 8 L40 8 M8 52 L8 40 M8 52 L20 52 M52 52 L52 40 M52 52 L40 52" 
-        stroke="rgba(255,255,255,0.7)" 
-        strokeWidth="3" 
-        strokeLinecap="square"
-      />
-    </svg>
-  );
 
   return (
     <div className="manifesto-page-navy" ref={containerRef}>
@@ -241,12 +230,16 @@ const ManifestoPage = () => {
               
               {/* Content Side - Emblem transforms to Text */}
               <div className="cascade-content-wrapper">
-                {/* Emblem - appears first, in cascading positions */}
-                <Emblem 
+                {/* Actual Emblem Image - decreasing sizes */}
+                <img 
+                  src={EMBLEM_URL}
+                  alt="Climate Yield Emblem"
                   className="cascade-emblem" 
                   style={{
                     top: section.emblemPosition.top,
-                    [isEven ? 'left' : 'right']: section.emblemPosition.offset
+                    [isEven ? 'left' : 'right']: section.emblemPosition.offset,
+                    width: `${section.emblemSize}px`,
+                    height: `${section.emblemSize}px`
                   }}
                 />
                 
@@ -269,7 +262,7 @@ const ManifestoPage = () => {
         <div className="conviction-block">
           <div className="conviction-emblem-icon">
             <img 
-              src="https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/yy9ogq3b_EMB.png"
+              src={EMBLEM_URL}
               alt="Climate Yield Emblem" 
             />
           </div>
