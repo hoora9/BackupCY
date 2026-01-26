@@ -1285,6 +1285,13 @@ img {
   opacity: 0;
 }
 
+/* Reduce image size by 20% for all sections except the first */
+.cascade-section:not(:first-child) .cascade-image {
+  width: 80%;
+  height: 80%;
+  min-height: 360px;
+}
+
 .cascade-image img {
   width: 100%;
   height: 100%;
