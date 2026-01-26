@@ -1684,6 +1684,22 @@ img {
 .member-info .member-title {
   font-size: 12px;
   color: var(--vert-doux);
+  margin-bottom: 8px;
+}
+
+/* LinkedIn Link */
+.member-linkedin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  padding: 4px;
+}
+
+.member-linkedin:hover {
+  color: #0A66C2;
+  transform: scale(1.1);
 }
 
 /* Values Section */
