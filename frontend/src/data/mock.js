@@ -149,27 +149,22 @@ export const expertiseContent = {
     { label: 'COLLABORATION', description: 'Collaborative approach with governments, developers, investors' }
   ],
   teamHeading: 'THE TEAM',
-  teamSubheading: '+10 years of experience in carbon markets, trading, and project structuring. Proven track record with large transaction volumes, hedged structures, and institutional counterparties.',
+  teamSubheading: '',
   team: [
     {
       name: 'Victor Coulon',
       title: 'Partner',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/3ocovp0l_9cc24e78-bdd0-42c7-a7b0-25d68dbd79d7.png'
+      photo: 'https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/v8asoa0v_3.png'
     },
     {
       name: 'Samuel Jaudel',
       title: 'Partner',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/mqde0i45_297a3022-e560-4ff9-8647-be75807e6bd2.png'
+      photo: 'https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/eel5aozw_1.png'
     },
     {
       name: 'Guillaume Benhamou',
       title: 'Adviser',
-      photo: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/8hqd5v20_a43df25d-a63a-4fb0-98b9-1139ed378ee3.png'
-    },
-    {
-      name: 'Alexandra Soezer',
-      title: 'Technical Advisor',
-      photo: 'https://customer-assets.emergentagent.com/job_b30097b0-7b42-4a84-b144-4f0c8388eca4/artifacts/0l82ls4u_51f35997-e872-4bdc-96e7-bd330acc9e1e.png'
+      photo: 'https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/vzftnewa_2.png'
     }
   ]
 };
