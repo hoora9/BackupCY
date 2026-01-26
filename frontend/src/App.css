@@ -1296,24 +1296,26 @@ img {
   transform: scale(1.02);
 }
 
-/* Content Wrapper - Contains Emblem and Text */
+/* Content Wrapper - Contains Emblem ABOVE Text */
 .cascade-content-wrapper {
   flex: 0 0 50%;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px;
 }
 
-/* Cascading Emblem - Now using actual image */
+/* Cascading Emblem - Positioned ABOVE text */
 .cascade-emblem {
-  position: absolute;
+  position: relative;
   opacity: 0;
   z-index: 2;
   filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.25));
   transition: filter 0.5s ease;
   object-fit: contain;
+  margin-bottom: 40px;
 }
 
 .cascade-emblem:hover {
