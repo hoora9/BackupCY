@@ -61,7 +61,7 @@ const ServicesPage = () => {
             <span className="expertise-label">Years of Expertise</span>
           </div>
           <p className="expertise-description">
-            10+ years of experience at the intersection of infrastructure and environmental markets. Climate Yield applies deep regulatory and market expertise to structure low-carbon infrastructure projects through dedicated project companies, robust governance, and clearly defined operational and revenue frameworks.
+            <strong>10+ years of experience at the intersection of infrastructure and environmental markets.</strong> Climate Yield applies deep regulatory and market expertise to structure low-carbon infrastructure projects through dedicated project companies, robust governance, and clearly defined operational and revenue frameworks.
           </p>
         </div>
       </div>
