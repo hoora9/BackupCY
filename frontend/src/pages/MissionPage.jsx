@@ -11,7 +11,7 @@ const MissionPage = () => {
       {/* Blue Box - Background layer, slides from top-left */}
       <div className="mission-blue-box">
         <div className="mission-blue-content">
-          <div className="branded-quote-block">
+          <div className="branded-quote-block mission-quote-block">
             <h1 className="mission-heading">MISSION</h1>
           </div>
           {missionContent.leftContent.map((text, index) => (
