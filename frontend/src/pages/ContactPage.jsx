@@ -4,11 +4,26 @@ import PageBackground from '../components/PageBackground';
 import { contactContent, pageBackgrounds } from '../data/mock';
 import { MapPin, Phone, Globe, Send } from 'lucide-react';
 
+// Dropdown options
+const contactTypeOptions = [
+  'Government',
+  'Investors',
+  'Project Developers',
+  'Other'
+];
+
+const subjectOptions = [
+  'Explore a low-carbon infrastructure project',
+  'Prepare my project for financing',
+  'General enquiry'
+];
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
+    contactType: '',
     subject: '',
     message: ''
   });
@@ -26,7 +41,7 @@ const ContactPage = () => {
     console.log('Form submitted:', formData);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+    setFormData({ name: '', email: '', company: '', contactType: '', subject: '', message: '' });
   };
 
   return (
@@ -114,6 +129,24 @@ const ContactPage = () => {
                   />
                 </div>
                 <div className="form-group">
+                  <label htmlFor="contactType">Who is contacting us? *</label>
+                  <select
+                    id="contactType"
+                    name="contactType"
+                    value={formData.contactType}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select an option</option>
+                    {contactTypeOptions.map((option, index) => (
+                      <option key={index} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group full-width">
                   <label htmlFor="subject">Subject *</label>
                   <select
                     id="subject"
@@ -123,7 +156,7 @@ const ContactPage = () => {
                     required
                   >
                     <option value="">Select a subject</option>
-                    {contactContent.subjectOptions.map((option, index) => (
+                    {subjectOptions.map((option, index) => (
                       <option key={index} value={option}>{option}</option>
                     ))}
                   </select>
