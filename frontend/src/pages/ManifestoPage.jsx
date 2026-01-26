@@ -74,54 +74,23 @@ const ManifestoPage = () => {
         delay: 0.3
       });
 
-      // Animate each section with SLOWER, SMOOTHER transitions
+      // Animate each section - EXTENDED VISIBILITY for reading time
       gsap.utils.toArray('.cascade-section').forEach((section, index) => {
         const image = section.querySelector('.cascade-image');
         const emblem = section.querySelector('.cascade-emblem');
         const textContent = section.querySelector('.cascade-text-content');
         const textLines = section.querySelectorAll('.cascade-text-line');
         
-        // Image fades in first - SLOWER ease
+        // Image fades in early and stays visible much longer
         if (image) {
           gsap.fromTo(image,
-            { opacity: 0, scale: 1.05 },
+            { opacity: 0, scale: 1.03 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 90%',
-                end: 'top 20%',
-                scrub: 2 // Slower scrub
-              },
-              opacity: 1,
-              scale: 1,
-              ease: 'power1.inOut' // Smoother ease
-            }
-          );
-          
-          // Image fades out - SLOWER
-          gsap.to(image, {
-            scrollTrigger: {
-              trigger: section,
-              start: 'center 10%',
-              end: 'bottom -30%',
-              scrub: 2.5 // Even slower fade out
-            },
-            opacity: 0,
-            scale: 0.97,
-            ease: 'power1.inOut'
-          });
-        }
-
-        // Emblem appears with image - SLOWER, SMOOTHER
-        if (emblem) {
-          gsap.fromTo(emblem,
-            { opacity: 0, scale: 0.7 },
-            {
-              scrollTrigger: {
-                trigger: section,
-                start: 'top 85%',
-                end: 'top 25%',
-                scrub: 2
+                start: 'top 100%',
+                end: 'top 50%',
+                scrub: 3
               },
               opacity: 1,
               scale: 1,
@@ -129,31 +98,62 @@ const ManifestoPage = () => {
             }
           );
           
-          // Emblem fades out as text comes in - SLOWER
-          gsap.to(emblem, {
+          // Image stays visible much longer before fading
+          gsap.to(image, {
             scrollTrigger: {
               trigger: section,
-              start: 'top 20%',
-              end: 'top -15%',
-              scrub: 2.5
+              start: 'bottom 60%',
+              end: 'bottom -20%',
+              scrub: 3
             },
             opacity: 0,
-            scale: 0.85,
-            y: -20,
+            scale: 0.98,
             ease: 'power1.inOut'
           });
         }
 
-        // Text content fades in as emblem fades out - SLOWER
+        // Emblem appears early with image
+        if (emblem) {
+          gsap.fromTo(emblem,
+            { opacity: 0, scale: 0.8 },
+            {
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 95%',
+                end: 'top 45%',
+                scrub: 3
+              },
+              opacity: 1,
+              scale: 1,
+              ease: 'power1.inOut'
+            }
+          );
+          
+          // Emblem fades out while text is already appearing (overlap)
+          gsap.to(emblem, {
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 35%',
+              end: 'top 0%',
+              scrub: 3
+            },
+            opacity: 0,
+            scale: 0.9,
+            y: -15,
+            ease: 'power1.inOut'
+          });
+        }
+
+        // Text appears earlier and overlaps with emblem fade
         if (textContent) {
           gsap.fromTo(textContent,
             { opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 15%',
-                end: 'top -20%',
-                scrub: 2
+                start: 'top 40%',
+                end: 'top 5%',
+                scrub: 3
               },
               opacity: 1,
               ease: 'power1.inOut'
@@ -161,21 +161,21 @@ const ManifestoPage = () => {
           );
         }
 
-        // Individual text lines cascade in - SLOWER
+        // Text lines appear with stagger - stay visible longer
         textLines.forEach((line, i) => {
           gsap.fromTo(line,
-            { y: 30, opacity: 0 },
+            { y: 25, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 10%',
-                end: 'top -25%',
-                scrub: 2
+                start: 'top 35%',
+                end: 'top 0%',
+                scrub: 3
               },
               y: 0,
               opacity: 1,
               ease: 'power1.out',
-              delay: i * 0.08
+              delay: i * 0.05
             }
           );
         });
