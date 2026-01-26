@@ -1270,6 +1270,19 @@ img {
    EXPERTISE PAGE - VALUES BENTO BOXES
    ============================================ */
 
+/* Expertise Teal Box - Same as Company page left box */
+.expertise-teal-box {
+  background-color: rgba(79, 173, 179, 0.5);
+  min-height: calc(100vh - var(--nav-height));
+  padding: 60px;
+  margin-top: var(--nav-height);
+  animation: slideFromTopLeft 0.675s ease-out forwards;
+}
+
+.expertise-teal-content {
+  max-width: 1100px;
+}
+
 /* Team heading spacing - 20px between title and images */
 .team-heading-spacing {
   margin-bottom: 20px;
