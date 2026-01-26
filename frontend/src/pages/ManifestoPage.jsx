@@ -19,8 +19,7 @@ const ManifestoPage = () => {
       content: "Climate transition will be built through real infrastructure. Decisions made this decade will lock in emissions pathways and economic outcomes for decades to come.",
       subContent: "Climate challenges are now inseparable from economic, industrial, and financial realities. Low-carbon infrastructure sits at the intersection of these forces, shaping how capital, industry, and climate objectives converge over the long term.",
       image: "https://static.prod-images.emergentagent.com/jobs/e151b339-d84c-47e4-ae2a-42bd52901c6d/images/c3b032cfaed16cbeeb06910d34e928d08887c448cb244107505e08899e46dd9f.png",
-      emblemPosition: { top: '10%', offset: '5%' },
-      emblemSize: 180 // Largest
+      emblemSize: 160
     },
     {
       title: "Unprecedented Capital Needs",
@@ -29,8 +28,7 @@ const ManifestoPage = () => {
       subContent: "Despite growing momentum, current investment levels remain far below what is required. Much of the infrastructure that will define the next decades has yet to be built, making this period structurally decisive.",
       source: "IEA, 2023",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/9t9vgtv7_Screenshot%202026-01-13%20at%2012.17.48.png",
-      emblemPosition: { top: '20%', offset: '12%' },
-      emblemSize: 150
+      emblemSize: 130
     },
     {
       title: "Capital Follows Returns",
@@ -39,8 +37,7 @@ const ManifestoPage = () => {
       subContent: "Closing the gap will require more than USD 1 trillion per year in additional infrastructure investment in the Global South, with private capital playing a critical role alongside public funding. Demonstrating that climate-aligned infrastructure can deliver attractive, long-term returns is essential to unlocking sustained private investment at scale.",
       source: "World Bank, 2023",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/cbva806x_Screenshot%202026-01-13%20at%2012.18.11.png",
-      emblemPosition: { top: '8%', offset: '18%' },
-      emblemSize: 120
+      emblemSize: 100
     },
     {
       title: "Overlooked Opportunities",
@@ -49,8 +46,7 @@ const ManifestoPage = () => {
       subContent: "Private capital currently accounts for a small fraction of climate finance in emerging markets, underscoring the scale of unmet investment needs.",
       source: "IFC, World Bank Group, 2023",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/0i8qyepy_Screenshot%202026-01-13%20at%2012.18.25.png",
-      emblemPosition: { top: '15%', offset: '8%' },
-      emblemSize: 100
+      emblemSize: 80
     },
     {
       title: "Structure Creates Value",
@@ -58,13 +54,52 @@ const ManifestoPage = () => {
       content: "Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.",
       subContent: "Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.",
       image: "https://customer-assets.emergentagent.com/job_climate-finance/artifacts/cbva806x_Screenshot%202026-01-13%20at%2012.18.11.png",
-      emblemPosition: { top: '12%', offset: '15%' },
-      emblemSize: 80 // Smallest
+      emblemSize: 60
     }
   ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Navigation hide on scroll
+      const nav = document.querySelector('.navigation');
+      if (nav) {
+        ScrollTrigger.create({
+          start: 'top -80',
+          end: 99999,
+          onUpdate: (self) => {
+            if (self.direction === 1) {
+              // Scrolling down - hide nav
+              gsap.to(nav, { 
+                opacity: 0, 
+                pointerEvents: 'none',
+                duration: 0.4,
+                ease: 'power2.out'
+              });
+            } else {
+              // Scrolling up - show nav
+              gsap.to(nav, { 
+                opacity: 1, 
+                pointerEvents: 'auto',
+                duration: 0.4,
+                ease: 'power2.out'
+              });
+            }
+          }
+        });
+        
+        // Also show nav when at very top
+        ScrollTrigger.create({
+          start: 'top top',
+          end: 'top -50',
+          onEnter: () => {
+            gsap.to(nav, { opacity: 1, pointerEvents: 'auto', duration: 0.3 });
+          },
+          onLeaveBack: () => {
+            gsap.to(nav, { opacity: 1, pointerEvents: 'auto', duration: 0.3 });
+          }
+        });
+      }
+
       // Hero heading animation
       gsap.from('.manifesto-heading-branded', {
         y: 60,
@@ -74,21 +109,21 @@ const ManifestoPage = () => {
         delay: 0.3
       });
 
-      // Animate each section - EXTENDED VISIBILITY with OVERLAP
+      // Animate each section - Emblem above text, NO OVERLAP
       gsap.utils.toArray('.cascade-section').forEach((section, index) => {
         const image = section.querySelector('.cascade-image');
         const emblem = section.querySelector('.cascade-emblem');
         const textContent = section.querySelector('.cascade-text-content');
         const textLines = section.querySelectorAll('.cascade-text-line');
         
-        // Image fades in very early - starts before section enters viewport
+        // Image fades in early
         if (image) {
           gsap.fromTo(image,
             { opacity: 0, scale: 1.02 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 120%', // Start even earlier
+                start: 'top 110%',
                 end: 'top 40%',
                 scrub: 2
               },
@@ -98,11 +133,11 @@ const ManifestoPage = () => {
             }
           );
           
-          // Image stays visible MUCH longer - fades very late
+          // Image fades out late
           gsap.to(image, {
             scrollTrigger: {
               trigger: section,
-              start: 'bottom 80%', // Much later fade out
+              start: 'bottom 70%',
               end: 'bottom 0%',
               scrub: 2
             },
@@ -112,47 +147,49 @@ const ManifestoPage = () => {
           });
         }
 
-        // Emblem appears early with image
+        // Emblem appears and is fully visible BEFORE text
         if (emblem) {
+          // Emblem fades IN
           gsap.fromTo(emblem,
-            { opacity: 0, scale: 0.8 },
+            { opacity: 0, scale: 0.8, y: 20 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 110%',
-                end: 'top 35%',
+                start: 'top 100%',
+                end: 'top 50%',
                 scrub: 2
               },
               opacity: 1,
               scale: 1,
+              y: 0,
               ease: 'power1.inOut'
             }
           );
           
-          // Emblem fades out while text appears (overlap)
+          // Emblem fades OUT completely BEFORE text appears
           gsap.to(emblem, {
             scrollTrigger: {
               trigger: section,
-              start: 'top 30%',
-              end: 'top -5%',
+              start: 'top 40%',
+              end: 'top 15%',
               scrub: 2
             },
             opacity: 0,
-            scale: 0.9,
-            y: -15,
+            scale: 0.85,
+            y: -30,
             ease: 'power1.inOut'
           });
         }
 
-        // Text appears earlier to overlap with emblem
+        // Text appears AFTER emblem fades out (no overlap)
         if (textContent) {
           gsap.fromTo(textContent,
             { opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 35%',
-                end: 'top 0%',
+                start: 'top 15%',
+                end: 'top -15%',
                 scrub: 2
               },
               opacity: 1,
@@ -161,15 +198,15 @@ const ManifestoPage = () => {
           );
         }
 
-        // Text lines appear and STAY visible long
+        // Text lines appear sequentially AFTER emblem is gone
         textLines.forEach((line, i) => {
           gsap.fromTo(line,
-            { y: 20, opacity: 0 },
+            { y: 25, opacity: 0 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 30%',
-                end: 'top -5%',
+                start: 'top 10%',
+                end: 'top -20%',
                 scrub: 2
               },
               y: 0,
@@ -181,7 +218,7 @@ const ManifestoPage = () => {
         });
       });
 
-      // Conviction section animation - SLOWER
+      // Conviction section animation
       gsap.from('.conviction-block', {
         scrollTrigger: {
           trigger: '.conviction-block',
@@ -228,22 +265,20 @@ const ManifestoPage = () => {
                 </div>
               </div>
               
-              {/* Content Side - Emblem transforms to Text */}
+              {/* Content Side - Emblem ABOVE Text */}
               <div className="cascade-content-wrapper">
-                {/* Actual Emblem Image - decreasing sizes */}
+                {/* Emblem - positioned above text area */}
                 <img 
                   src={EMBLEM_URL}
                   alt="Climate Yield Emblem"
                   className="cascade-emblem" 
                   style={{
-                    top: section.emblemPosition.top,
-                    [isEven ? 'left' : 'right']: section.emblemPosition.offset,
                     width: `${section.emblemSize}px`,
                     height: `${section.emblemSize}px`
                   }}
                 />
                 
-                {/* Text Content - replaces emblem on scroll */}
+                {/* Text Content - below emblem */}
                 <div className="cascade-text-content">
                   <h2 className="cascade-text-line cascade-title">{section.title}</h2>
                   <h3 className="cascade-text-line cascade-subtitle">{section.subtitle}</h3>
