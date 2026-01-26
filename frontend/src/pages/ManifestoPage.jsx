@@ -54,41 +54,41 @@ const ManifestoPage = () => {
         delay: 0.3
       });
 
-      // Section animations on scroll
-      gsap.utils.toArray('.manifesto-content-section').forEach((section) => {
-        const image = section.querySelector('.manifesto-img-wrapper');
-        const content = section.querySelector('.manifesto-text-content');
+      // Section animations on scroll - images fade out as scrolling down
+      gsap.utils.toArray('.manifesto-bento-section').forEach((section) => {
+        const image = section.querySelector('.manifesto-bento-image');
+        const boxes = section.querySelectorAll('.manifesto-bento-box');
         
-        // Image ease in/out
+        // Image fades OUT as you scroll down
         if (image) {
-          gsap.from(image, {
+          gsap.to(image, {
             scrollTrigger: {
               trigger: section,
-              start: 'top 85%',
-              end: 'top 20%',
+              start: 'top 50%',
+              end: 'bottom 20%',
               scrub: 1
             },
-            y: 60,
             opacity: 0,
-            scale: 1.03,
+            scale: 0.95,
             ease: 'power2.inOut'
           });
         }
 
-        // Content reveal
-        if (content) {
-          gsap.from(content, {
+        // Bento boxes reveal
+        boxes.forEach((box, i) => {
+          gsap.from(box, {
             scrollTrigger: {
               trigger: section,
               start: 'top 75%',
               toggleActions: 'play none none reverse'
             },
-            y: 40,
+            y: 30,
             opacity: 0,
-            duration: 0.9,
-            ease: 'power2.inOut'
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power2.out'
           });
-        }
+        });
       });
 
       // Conviction section animation
@@ -122,38 +122,55 @@ const ManifestoPage = () => {
         </div>
       </div>
 
-      {/* Content Sections - No extra spacing */}
+      {/* Content Sections - Bento Box Layout */}
       <div className="manifesto-content-flow">
         {sections.map((section, index) => (
           <div 
             key={index} 
-            className={`manifesto-content-section ${index % 2 === 0 ? 'img-left' : 'img-right'}`}
+            className="manifesto-bento-section"
           >
-            <div className="manifesto-img-wrapper">
-              <img src={section.image} alt={section.title} className="manifesto-img" />
+            {/* Image */}
+            <div className="manifesto-bento-image">
+              <img src={section.image} alt={section.title} />
             </div>
-            <div className="manifesto-text-content">
-              <h2 className="manifesto-title">{section.title}</h2>
-              <h3 className="manifesto-subtitle">{section.subtitle}</h3>
-              <p className="manifesto-text">{section.content}</p>
-              <p className="manifesto-subtext">{section.subContent}</p>
-              {section.source && (
-                <span className="manifesto-source">— {section.source}</span>
-              )}
+            
+            {/* Bento Boxes for Text */}
+            <div className="manifesto-bento-grid">
+              <div className="manifesto-bento-box bento-title">
+                <h2>{section.title}</h2>
+              </div>
+              <div className="manifesto-bento-box bento-subtitle">
+                <h3>{section.subtitle}</h3>
+              </div>
+              <div className="manifesto-bento-box bento-content">
+                <p>{section.content}</p>
+              </div>
+              <div className="manifesto-bento-box bento-subcontent">
+                <p>{section.subContent}</p>
+                {section.source && (
+                  <span className="bento-source">— {section.source}</span>
+                )}
+              </div>
             </div>
           </div>
         ))}
 
         {/* Structure Section */}
-        <div className="manifesto-structure-block">
-          <h2 className="manifesto-title">Structure Creates Value</h2>
-          <h3 className="manifesto-subtitle">Structure and integrity create durable value</h3>
-          <p className="manifesto-text">
-            Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.
-          </p>
-          <p className="manifesto-subtext">
-            Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.
-          </p>
+        <div className="manifesto-bento-section structure-section">
+          <div className="manifesto-bento-grid centered">
+            <div className="manifesto-bento-box bento-title">
+              <h2>Structure Creates Value</h2>
+            </div>
+            <div className="manifesto-bento-box bento-subtitle">
+              <h3>Structure and integrity create durable value</h3>
+            </div>
+            <div className="manifesto-bento-box bento-content wide">
+              <p>Long-term value is built through rigorous project structuring, regulatory alignment, and institutional governance.</p>
+            </div>
+            <div className="manifesto-bento-box bento-subcontent wide">
+              <p>Climate Yield operates where these tensions fully manifest, on real assets exposed to physical and regulatory constraints, where decisions shape industrial, economic, and environmental trajectories over the long term.</p>
+            </div>
+          </div>
         </div>
 
         {/* Conviction Section */}
