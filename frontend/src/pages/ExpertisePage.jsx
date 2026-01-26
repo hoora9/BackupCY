@@ -3,16 +3,6 @@ import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { expertiseContent, pageBackgrounds } from '../data/mock';
 
-// Values data
-const valuesData = [
-  'Integrity',
-  'Discipline', 
-  'Agility',
-  'Mastery',
-  'Real Impact',
-  'Collaboration'
-];
-
 const ExpertisePage = () => {
   return (
     <PageBackground imageUrl={pageBackgrounds.expertise} className="expertise-page" overlay={false}>
@@ -23,7 +13,7 @@ const ExpertisePage = () => {
           {/* Team Section */}
           <div className="team-section-overlay animate-slide-up delay-1">
             {/* Branded Heading - Same style as Mission with CSS emblems */}
-            <div className="branded-quote-block">
+            <div className="branded-quote-block team-heading-spacing">
               <h2 className="team-heading-mission-style">
                 {expertiseContent.teamHeading}
               </h2>
@@ -52,13 +42,16 @@ const ExpertisePage = () => {
             
             {/* Bento Box Grid */}
             <div className="values-bento-grid" data-testid="values-bento-grid">
-              {valuesData.map((value, index) => (
+              {expertiseContent.values.map((value, index) => (
                 <div 
                   key={index} 
                   className="value-bento-box"
                   data-testid={`value-box-${index}`}
                 >
-                  <span className="value-bento-text">{value}</span>
+                  <div className="value-bento-content">
+                    <span className="value-bento-label">{value.label}</span>
+                    <span className="value-bento-description">{value.description}</span>
+                  </div>
                 </div>
               ))}
             </div>
