@@ -1,32 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { servicesContent, pageBackgrounds } from '../data/mock';
-import { ChevronDown, Volume2, VolumeX } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 const ServicesPage = () => {
-  const [openAccordion, setOpenAccordion] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef(null);
-
-  // Autoplay video when component mounts
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(error => {
-        console.log('Video autoplay was prevented:', error);
-      });
-    }
-  }, []);
+  const [openAccordion, setOpenAccordion] = useState(-1); // -1 means all closed
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? -1 : index);
-  };
-
-  const toggleAudio = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(!isMuted);
-    }
   };
 
   return (
@@ -71,35 +53,16 @@ const ServicesPage = () => {
         </div>
       </div>
       
-      {/* Right Box - Teal Background with Video Container */}
-      <div className="services-box-right services-video-box" data-testid="services-video-box">
-        {/* Video Container - Max 500px */}
-        <div className="services-video-container">
-          <video
-            ref={videoRef}
-            className="services-video"
-            autoPlay
-            muted={isMuted}
-            loop
-            playsInline
-            data-testid="services-video"
-          >
-            <source 
-              src="https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/ntai7yt3_Untitled%20%281%29.mp4" 
-              type="video/mp4" 
-            />
-            Your browser does not support the video tag.
-          </video>
-          
-          {/* Audio Toggle Button */}
-          <button 
-            className="audio-toggle-btn"
-            onClick={toggleAudio}
-            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-            data-testid="audio-toggle"
-          >
-            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-          </button>
+      {/* Right Box - Teal Background with Expertise Text */}
+      <div className="services-box-right services-text-box" data-testid="services-text-box">
+        <div className="services-expertise-content">
+          <div className="expertise-highlight">
+            <span className="expertise-number">10+</span>
+            <span className="expertise-label">Years of Expertise</span>
+          </div>
+          <p className="expertise-description">
+            10+ years of experience at the intersection of infrastructure and environmental markets. Climate Yield applies deep regulatory and market expertise to structure low-carbon infrastructure projects through dedicated project companies, robust governance, and clearly defined operational and revenue frameworks.
+          </p>
         </div>
       </div>
     </PageBackground>
