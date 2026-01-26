@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { contactContent, pageBackgrounds } from '../data/mock';
-import { MapPin, Phone, Globe, Send } from 'lucide-react';
+import { MapPin, Globe, Send } from 'lucide-react';
 
 // Dropdown options
 const contactTypeOptions = [
