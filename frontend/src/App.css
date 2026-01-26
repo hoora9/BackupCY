@@ -1246,12 +1246,13 @@ img {
   padding: 40px 0;
 }
 
-/* Each Section Container - Taller for more reading time */
+/* Each Section Container - Overlapping sections for continuous content */
 .cascade-section {
   position: relative;
   display: flex;
-  min-height: 100vh;
-  padding: 80px var(--page-padding);
+  min-height: 90vh;
+  padding: 60px var(--page-padding);
+  margin-bottom: -10vh; /* Overlap sections */
 }
 
 /* Image Left Layout */
