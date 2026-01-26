@@ -7,7 +7,6 @@ import MissionPage from "./pages/MissionPage";
 import ExpertisePage from "./pages/ExpertisePage";
 import ServicesPage from "./pages/ServicesPage";
 import ContactPage from "./pages/ContactPage";
-import ImpactPage from "./pages/ImpactPage";
 import ManifestoPage from "./pages/ManifestoPage";
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
           <Route path="/mission" element={<MissionPage />} />
           <Route path="/manifesto" element={<ManifestoPage />} />
           <Route path="/expertise" element={<ExpertisePage />} />
-          <Route path="/impact" element={<ImpactPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
