@@ -64,13 +64,6 @@ const ContactPage = () => {
             </div>
             
             <div className="info-item">
-              <Phone className="info-icon" size={18} />
-              <a href={`tel:${contactContent.phone}`} className="info-link">
-                {contactContent.phone}
-              </a>
-            </div>
-            
-            <div className="info-item">
               <Globe className="info-icon" size={18} />
               <a href={`https://${contactContent.website}`} className="info-link" target="_blank" rel="noopener noreferrer">
                 {contactContent.website}
