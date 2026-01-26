@@ -219,8 +219,41 @@ const ManifestoPage = () => {
         </div>
       </div>
 
+      {/* Cascading Objects - Appear before bento boxes */}
+      <div className="cascade-container">
+        <div className="cascade-shape shape-1"></div>
+        <div className="cascade-shape shape-2"></div>
+        <div className="cascade-shape shape-3"></div>
+        <div className="cascade-shape shape-4"></div>
+        <div className="cascade-shape shape-5"></div>
+      </div>
+
       {/* Content Sections - Bento Box Layout */}
       <div className="manifesto-content-flow">
+        
+        {/* First Section - Single Bento Box with Multi-Colored Text */}
+        <div className="manifesto-bento-section hero-bento-section">
+          {/* Image */}
+          <div className="manifesto-bento-image">
+            <img src={heroSection.image} alt="A Decisive Decade" />
+          </div>
+          
+          {/* Single Bento Box with All Content - Different Colors */}
+          <div className="manifesto-bento-grid single-box-grid">
+            <div className="manifesto-bento-box hero-unified-box">
+              <h2 className="hero-bento-line hero-title-line">A Decisive Decade</h2>
+              <h3 className="hero-bento-line hero-subtitle-line">Low-carbon infrastructure investment is entering a decisive decade</h3>
+              <p className="hero-bento-line hero-content-line">
+                Climate transition will be built through real infrastructure. Decisions made this decade will lock in emissions pathways and economic outcomes for decades to come.
+              </p>
+              <p className="hero-bento-line hero-subcontent-line">
+                Climate challenges are now inseparable from economic, industrial, and financial realities. Low-carbon infrastructure sits at the intersection of these forces, shaping how capital, industry, and climate objectives converge over the long term.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Remaining Sections */}
         {sections.map((section, index) => (
           <div 
             key={index} 
