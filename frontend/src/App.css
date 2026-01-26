@@ -2523,6 +2523,53 @@ img {
   background-color: rgba(79, 173, 179, 0.5); /* #4fadb3 at 50% opacity */
 }
 
+/* Text variant for services right box */
+.services-box-right.services-text-box {
+  padding: 60px 50px;
+  background-color: rgba(79, 173, 179, 0.5); /* #4fadb3 at 50% opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Services Expertise Content */
+.services-expertise-content {
+  max-width: 450px;
+  text-align: center;
+}
+
+.expertise-highlight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.expertise-number {
+  font-size: clamp(64px, 10vw, 96px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
+.expertise-label {
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 600;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 8px;
+}
+
+.expertise-description {
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  text-align: left;
+}
+
 /* Video Container - Max 500px */
 .services-video-container {
   position: relative;
