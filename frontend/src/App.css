@@ -2139,7 +2139,7 @@ img {
   transform: rotate(180deg);
 }
 
-/* Mission page - emblem aligned to right edge of content box */
+/* Mission page - emblem aligned to right edge of content box, below the word */
 .mission-quote-block {
   display: block;
   width: 100%;
@@ -2148,8 +2148,8 @@ img {
 
 .mission-quote-block::after {
   right: 0;
-  bottom: auto;
-  top: 0.5em;
+  bottom: -0.5em;
+  top: auto;
 }
 
 /* Emblem quotation marks - remove old styles */
