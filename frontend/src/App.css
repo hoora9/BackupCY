@@ -2546,20 +2546,20 @@ img {
 }
 
 .expertise-number {
-  font-size: clamp(64px, 10vw, 96px);
+  font-size: clamp(80px, 12vw, 120px);
   font-weight: 700;
   color: var(--white);
   line-height: 1;
-  letter-spacing: -3px;
+  letter-spacing: -4px;
 }
 
 .expertise-label {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(20px, 2.5vw, 28px);
   font-weight: 600;
   color: var(--white);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 8px;
+  letter-spacing: 0.12em;
+  margin-top: 12px;
 }
 
 .expertise-description {
@@ -2568,6 +2568,10 @@ img {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
   text-align: left;
+}
+
+.expertise-description strong {
+  font-weight: 700;
 }
 
 /* Video Container - Max 500px */
