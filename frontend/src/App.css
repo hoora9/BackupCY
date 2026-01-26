@@ -1246,12 +1246,12 @@ img {
   padding: 40px 0;
 }
 
-/* Each Section Container */
+/* Each Section Container - Taller for more reading time */
 .cascade-section {
   position: relative;
   display: flex;
-  min-height: 85vh;
-  padding: 60px var(--page-padding);
+  min-height: 100vh;
+  padding: 80px var(--page-padding);
 }
 
 /* Image Left Layout */
