@@ -1270,9 +1270,9 @@ img {
    EXPERTISE PAGE - VALUES BENTO BOXES
    ============================================ */
 
-/* Team heading spacing - 10px between title and images */
+/* Team heading spacing - 20px between title and images */
 .team-heading-spacing {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 /* Values Bento Section - No bottom padding */
