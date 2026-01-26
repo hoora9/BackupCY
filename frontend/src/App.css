@@ -1238,84 +1238,100 @@ img {
   display: none;
 }
 
-/* ---------- Cascading Objects Animation ---------- */
-.cascade-container {
+/* ============================================
+   CASCADING EMBLEM DESIGN
+   ============================================ */
+
+.manifesto-cascade-flow {
+  padding: 40px 0;
+}
+
+/* Each Section Container */
+.cascade-section {
   position: relative;
-  height: 200px;
-  margin: 0 var(--page-padding);
-  overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
+  min-height: 85vh;
+  padding: 60px var(--page-padding);
 }
 
-.cascade-shape {
-  width: 60px;
-  height: 60px;
+/* Image Left Layout */
+.cascade-section.image-left {
+  flex-direction: row;
+}
+
+/* Image Right Layout */
+.cascade-section.image-right {
+  flex-direction: row-reverse;
+}
+
+/* Image Wrapper */
+.cascade-image-wrapper {
+  flex: 0 0 50%;
+  position: relative;
+  padding: 20px;
+}
+
+.cascade-image {
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
   border-radius: 12px;
+  overflow: hidden;
   opacity: 0;
-  transform: translateY(-100px) scale(0.5);
 }
 
-.cascade-shape.shape-1 {
-  background: linear-gradient(135deg, var(--bleu-clair) 0%, var(--teal) 100%);
-  width: 50px;
-  height: 50px;
+.cascade-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-.cascade-shape.shape-2 {
-  background: linear-gradient(135deg, var(--vert-doux) 0%, var(--teal) 100%);
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+.cascade-image:hover img {
+  transform: scale(1.02);
 }
 
-.cascade-shape.shape-3 {
-  background: linear-gradient(135deg, var(--teal) 0%, var(--bleu-clair) 100%);
-  width: 80px;
-  height: 80px;
-}
-
-.cascade-shape.shape-4 {
-  background: linear-gradient(135deg, var(--vert-fonce) 0%, var(--vert-doux) 100%);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-.cascade-shape.shape-5 {
-  background: linear-gradient(135deg, var(--sable-neutre) 0%, var(--gris-acier) 100%);
-  width: 45px;
-  height: 45px;
-}
-
-/* ---------- Hero Unified Bento Box ---------- */
-.single-box-grid {
-  width: 55%;
-}
-
-.hero-unified-box {
-  background: linear-gradient(145deg, rgba(15, 28, 46, 0.9) 0%, rgba(42, 108, 174, 0.6) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
+/* Content Wrapper - Contains Emblem and Text */
+.cascade-content-wrapper {
+  flex: 0 0 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 40px;
-  grid-column: span 2;
 }
 
-.hero-unified-box:hover {
-  background: linear-gradient(145deg, rgba(15, 28, 46, 0.95) 0%, rgba(42, 108, 174, 0.7) 100%);
-  border-color: rgba(255, 255, 255, 0.35);
+/* Cascading Emblem */
+.cascade-emblem {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  z-index: 2;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+  transition: filter 0.3s ease;
 }
 
-/* Hero lines with different colors */
-.hero-bento-line {
+.cascade-emblem:hover {
+  filter: drop-shadow(0 8px 30px rgba(79, 173, 179, 0.4));
+}
+
+/* Text Content - Clean, no boxes */
+.cascade-text-content {
+  width: 100%;
+  max-width: 500px;
+  opacity: 0;
+  z-index: 1;
+}
+
+.cascade-text-line {
   opacity: 0;
   transform: translateY(40px);
 }
 
-.hero-title-line {
-  font-size: clamp(2rem, 4vw, 2.8rem);
+.cascade-title {
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   color: var(--white);
   margin: 0 0 16px 0;
@@ -1323,41 +1339,105 @@ img {
   letter-spacing: -0.02em;
 }
 
-.hero-subtitle-line {
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
+.cascade-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   font-weight: 500;
   color: var(--teal);
-  margin: 0 0 28px 0;
+  margin: 0 0 32px 0;
   line-height: 1.4;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(79, 173, 179, 0.3);
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(79, 173, 179, 0.25);
 }
 
-.hero-content-line {
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+.cascade-paragraph {
+  font-family: var(--font-primary);
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
   font-weight: 400;
-  color: var(--vert-doux);
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
   margin: 0 0 20px 0;
 }
 
-.hero-subcontent-line {
-  font-size: clamp(0.9rem, 1.3vw, 1rem);
-  font-weight: 400;
-  color: rgba(232, 224, 213, 0.85);
-  line-height: 1.7;
-  margin: 0;
-  padding-top: 16px;
-  border-top: 1px solid rgba(168, 207, 185, 0.2);
+.cascade-paragraph.secondary {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
 }
 
-/* Hero section specific image handling */
-.hero-bento-section .manifesto-bento-image {
-  opacity: 0;
+.cascade-source {
+  display: block;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: var(--gris-acier);
+  font-style: italic;
+  letter-spacing: 0.02em;
 }
 
-/* Mobile responsive for cascade and hero */
+/* Mobile Responsive for Cascade Sections */
+@media (max-width: 1024px) {
+  .cascade-section {
+    min-height: auto;
+    padding: 40px var(--page-padding);
+  }
+  
+  .cascade-image {
+    min-height: 350px;
+  }
+  
+  .cascade-emblem {
+    width: 100px;
+    height: 100px;
+  }
+}
+
 @media (max-width: 768px) {
+  .cascade-section,
+  .cascade-section.image-left,
+  .cascade-section.image-right {
+    flex-direction: column;
+    min-height: auto;
+    padding: 30px var(--page-padding-mobile);
+  }
+  
+  .cascade-image-wrapper,
+  .cascade-content-wrapper {
+    flex: none;
+    width: 100%;
+    padding: 10px 0;
+  }
+  
+  .cascade-image {
+    min-height: 280px;
+    border-radius: 8px;
+  }
+  
+  .cascade-content-wrapper {
+    padding: 30px 0;
+  }
+  
+  .cascade-emblem {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    margin: 0 auto 20px;
+  }
+  
+  .cascade-text-content {
+    max-width: 100%;
+  }
+  
+  .cascade-title {
+    font-size: 1.8rem;
+  }
+  
+  .cascade-subtitle {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
+}
   .cascade-container {
     height: 150px;
     gap: 20px;
