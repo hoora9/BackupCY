@@ -1270,10 +1270,15 @@ img {
    EXPERTISE PAGE - VALUES BENTO BOXES
    ============================================ */
 
-/* Values Bento Section */
+/* Team heading spacing - 10px between title and images */
+.team-heading-spacing {
+  margin-bottom: 10px;
+}
+
+/* Values Bento Section - No bottom padding */
 .values-bento-section {
   margin-top: 60px;
-  padding-bottom: 80px;
+  padding-bottom: 0;
 }
 
 /* Values Section Heading */
@@ -1303,11 +1308,11 @@ img {
   background: transparent;
   border: 2px solid #5b6770;
   border-radius: 8px;
-  padding: 32px 24px;
+  padding: 24px 20px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 120px;
   transition: all 0.3s ease;
 }
 
@@ -1316,20 +1321,40 @@ img {
   transform: translateY(-4px);
 }
 
-/* Bento Box Text */
-.value-bento-text {
+/* Bento Box Content */
+.value-bento-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Bento Box Label - Bold */
+.value-bento-label {
   font-family: var(--font-primary);
-  font-size: clamp(14px, 1.5vw, 18px);
+  font-size: clamp(14px, 1.3vw, 16px);
   font-weight: 700;
   color: var(--white);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* Bento Box Description - Normal weight */
+.value-bento-description {
+  font-family: var(--font-primary);
+  font-size: clamp(12px, 1vw, 14px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
 }
 
 /* Team Grid for 3 members */
 .team-grid-3 {
   grid-template-columns: repeat(3, 1fr) !important;
+}
+
+/* Remove extra bottom spacing on expertise page */
+.expertise-layout {
+  padding-bottom: 40px;
 }
 
 /* Responsive adjustments */
@@ -1340,8 +1365,8 @@ img {
   }
   
   .value-bento-box {
-    padding: 24px 16px;
-    min-height: 80px;
+    padding: 20px 16px;
+    min-height: 100px;
   }
   
   .team-grid-3 {
