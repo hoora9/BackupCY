@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { expertiseContent, pageBackgrounds } from '../data/mock';
+import { Linkedin } from 'lucide-react';
 
 const ExpertisePage = () => {
   return (
@@ -28,6 +29,17 @@ const ExpertisePage = () => {
                   <div className="member-info">
                     <h4 className="member-name">{member.name}</h4>
                     <p className="member-title">{member.title}</p>
+                    {member.linkedin && (
+                      <a 
+                        href={member.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="member-linkedin"
+                        aria-label={`${member.name}'s LinkedIn profile`}
+                      >
+                        <Linkedin size={18} />
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}
