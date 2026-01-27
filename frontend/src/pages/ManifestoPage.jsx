@@ -172,7 +172,7 @@ const ManifestoPage = () => {
               trigger: section,
               start: 'top 40%',
               end: 'top 15%',
-              scrub: 2
+              scrub: 3
             },
             opacity: 0,
             scale: 0.85,
@@ -190,7 +190,7 @@ const ManifestoPage = () => {
                 trigger: section,
                 start: 'top 15%',
                 end: 'top -15%',
-                scrub: 2
+                scrub: 3
               },
               opacity: 1,
               ease: 'power1.inOut'
@@ -207,7 +207,7 @@ const ManifestoPage = () => {
                 trigger: section,
                 start: 'top 10%',
                 end: 'top -20%',
-                scrub: 2
+                scrub: 3
               },
               y: 0,
               opacity: 1,
