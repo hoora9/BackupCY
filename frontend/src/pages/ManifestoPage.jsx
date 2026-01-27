@@ -74,15 +74,13 @@ const ManifestoPage = () => {
     if (overlayRef.current) {
       gsap.fromTo(overlayRef.current,
         {
-          x: '-100%',
-          y: '-100%',
-          opacity: 0
+          x: '-50%',
+          y: '-50%'
         },
         {
           x: '0%',
           y: '0%',
-          opacity: 1,
-          duration: 1,
+          duration: 0.8,
           ease: 'power3.out',
           delay: 0.2
         }
@@ -90,23 +88,16 @@ const ManifestoPage = () => {
     }
 
     // Animate title
-    gsap.from('.manifesto-page-title', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      delay: 0.8
-    });
+    gsap.fromTo('.manifesto-page-title', 
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.6 }
+    );
 
     // Animate accordion items
-    gsap.from('.manifesto-accordion-item', {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power2.out',
-      delay: 1
-    });
+    gsap.fromTo('.manifesto-accordion-item', 
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power2.out', delay: 0.8 }
+    );
   }, []);
 
   const toggleSection = (index) => {
