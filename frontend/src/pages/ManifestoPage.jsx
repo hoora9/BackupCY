@@ -70,19 +70,21 @@ const ManifestoPage = () => {
   ];
 
   useEffect(() => {
-    // Animate overlay from top-left
+    // Animate overlay sliding in from top-left
     if (overlayRef.current) {
       gsap.fromTo(overlayRef.current,
         {
-          clipPath: 'polygon(0 0, 0 0, 0 0, 0 0)',
+          x: '-100%',
+          y: '-100%',
           opacity: 0
         },
         {
-          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+          x: '0%',
+          y: '0%',
           opacity: 1,
-          duration: 1.2,
-          ease: 'power3.inOut',
-          delay: 0.3
+          duration: 1,
+          ease: 'power3.out',
+          delay: 0.2
         }
       );
     }
