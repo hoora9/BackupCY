@@ -1064,7 +1064,7 @@ img {
 }
 
 /* ============================================
-   MANIFESTO PAGE REDESIGN - Accordion Style
+   MANIFESTO PAGE REDESIGN - Horizontal Accordion
    ============================================ */
 
 .manifesto-page-redesign {
@@ -1084,14 +1084,17 @@ img {
   width: 100vw;
   height: 100vh;
   background: rgba(15, 28, 46, 0.85);
-  padding: calc(var(--nav-height) + 60px) var(--page-padding) 60px;
+  padding: calc(var(--nav-height) + 40px) var(--page-padding) 40px;
   overflow-y: auto;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Title Section - Same as Company "WHO WE ARE" */
+/* Title Section */
 .manifesto-title-section {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  flex-shrink: 0;
 }
 
 .manifesto-title-block {
@@ -1099,7 +1102,7 @@ img {
 }
 
 .manifesto-page-title {
-  font-size: clamp(48px, 7vw, 80px);
+  font-size: clamp(40px, 6vw, 70px);
   font-weight: 700;
   letter-spacing: -2px;
   text-transform: uppercase;
@@ -1109,8 +1112,282 @@ img {
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Vertical Accordion */
-.manifesto-accordion {
+/* ============================================
+   HORIZONTAL ACCORDION
+   ============================================ */
+
+.h-accordion-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  min-height: 400px;
+  max-height: 500px;
+}
+
+.h-accordion-item {
+  position: relative;
+  width: 80px;
+  height: 100%;
+  min-height: 400px;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Color overlays for each item using brand palette */
+.h-accordion-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.h-accordion-item:nth-child(1)::after {
+  background: linear-gradient(180deg, rgba(42, 108, 174, 0.85) 0%, rgba(15, 28, 46, 0.9) 100%);
+}
+
+.h-accordion-item:nth-child(2)::after {
+  background: linear-gradient(180deg, rgba(79, 173, 179, 0.85) 0%, rgba(15, 28, 46, 0.9) 100%);
+}
+
+.h-accordion-item:nth-child(3)::after {
+  background: linear-gradient(180deg, rgba(168, 207, 185, 0.85) 0%, rgba(15, 28, 46, 0.9) 100%);
+}
+
+.h-accordion-item:nth-child(4)::after {
+  background: linear-gradient(180deg, rgba(0, 75, 73, 0.85) 0%, rgba(15, 28, 46, 0.9) 100%);
+}
+
+.h-accordion-item:nth-child(5)::after {
+  background: linear-gradient(180deg, rgba(94, 118, 108, 0.85) 0%, rgba(15, 28, 46, 0.9) 100%);
+}
+
+.h-accordion-item:nth-child(6)::after {
+  background: linear-gradient(180deg, rgba(232, 224, 213, 0.4) 0%, rgba(15, 28, 46, 0.9) 100%);
+}
+
+/* Number at top of each item */
+.h-accordion-number {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+  letter-spacing: 0.1em;
+}
+
+/* Closed state - vertical title */
+.h-accordion-closed {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+.h-accordion-title-vertical {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  text-align: center;
+  max-height: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Open state - hidden by default */
+.h-accordion-open {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 5;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 30px 30px;
+}
+
+.h-accordion-content {
+  color: #ffffff;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.h-accordion-title {
+  font-family: var(--font-primary);
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.h-accordion-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 500;
+  color: var(--teal);
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.h-accordion-paragraph {
+  font-family: var(--font-primary);
+  font-size: clamp(13px, 1.2vw, 14px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0 0 14px 0;
+}
+
+.h-accordion-source {
+  display: block;
+  font-size: 12px;
+  color: var(--gris-acier);
+  font-style: italic;
+  margin-top: 16px;
+}
+
+/* ACTIVE STATE */
+.h-accordion-item.active {
+  width: calc(100% - 400px);
+  min-width: 350px;
+}
+
+.h-accordion-item.active .h-accordion-closed {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.h-accordion-item.active .h-accordion-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.h-accordion-item.active .h-accordion-number {
+  left: 30px;
+  transform: translateX(0);
+  font-size: 16px;
+}
+
+/* Hover effect */
+.h-accordion-item:not(.active):hover {
+  width: 100px;
+}
+
+.h-accordion-item:not(.active):hover::after {
+  opacity: 0.9;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .h-accordion-wrapper {
+    max-height: 450px;
+  }
+  
+  .h-accordion-item {
+    width: 60px;
+  }
+  
+  .h-accordion-item.active {
+    width: calc(100% - 300px);
+    min-width: 280px;
+  }
+  
+  .h-accordion-title-vertical {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .manifesto-overlay {
+    padding: calc(var(--nav-height) + 20px) var(--page-padding-mobile) 20px;
+  }
+  
+  .manifesto-title-section {
+    margin-bottom: 20px;
+  }
+  
+  .manifesto-page-title {
+    font-size: 36px;
+  }
+  
+  .h-accordion-wrapper {
+    flex-direction: column;
+    gap: 6px;
+    max-height: none;
+    min-height: auto;
+  }
+  
+  .h-accordion-item {
+    width: 100%;
+    height: 60px;
+    min-height: 60px;
+  }
+  
+  .h-accordion-item.active {
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+  }
+  
+  .h-accordion-number {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+  }
+  
+  .h-accordion-item.active .h-accordion-number {
+    top: 20px;
+    left: 20px;
+    transform: none;
+  }
+  
+  .h-accordion-closed {
+    justify-content: flex-start;
+    padding-left: 60px;
+  }
+  
+  .h-accordion-title-vertical {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  .h-accordion-open {
+    padding: 50px 20px 20px;
+  }
+}
+
+/* Old Vertical Accordion - Keep for backwards compatibility */
   max-width: 900px;
   display: flex;
   flex-direction: column;
