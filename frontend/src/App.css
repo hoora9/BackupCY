@@ -1076,15 +1076,15 @@ img {
   position: relative;
 }
 
-/* Overlay - 80% transparent, covers full screen */
+/* Overlay - 80% transparent, covers page below nav */
 .manifesto-overlay {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: var(--nav-height);
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
   background: rgba(15, 28, 46, 0.85);
-  padding: calc(var(--nav-height) + 40px) var(--page-padding) 40px;
+  padding: 40px var(--page-padding) 40px;
   overflow-y: auto;
   z-index: 1;
   display: flex;
