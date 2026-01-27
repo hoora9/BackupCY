@@ -3002,7 +3002,7 @@ img {
   background-color: rgba(168, 207, 185, 0.5);
   z-index: 2;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   /* Animation: slides from right - 25% faster */
   animation: slideFromRight 0.675s ease-out forwards;
   animation-delay: 0.19s;
@@ -3017,6 +3017,7 @@ img {
 .mission-green-content {
   padding: 60px;
   padding-left: 50px;
+  padding-top: 180px; /* Align with left text after MISSION heading */
 }
 
 .mission-green-content p {
