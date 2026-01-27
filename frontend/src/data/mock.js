@@ -25,8 +25,8 @@ export const pageBackgrounds = {
   mission: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/yimhqcaa_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-35.png',
   // Manifesto - Page 26 (Solar panels)
   manifesto: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/08cmvt51_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-26.png',
-  // Expertise - Abstract green waves (Page 22)
-  expertise: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/ekka5eh1_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-22.png',
+  // Expertise - New background
+  expertise: 'https://customer-assets.emergentagent.com/job_2b80c9d1-92b2-491e-aa63-9ed5489ce9c9/artifacts/cre1m1w6_2151839313-freepik-2.svg',
   // Services - Mountain lake reflection
   services: 'https://customer-assets.emergentagent.com/job_climatefinance/artifacts/lmju7ltn_26%20dec%20Brand%20book%20simplifie%CC%81Climate%20Yield-35.png',
   // Contact - Mountain lake reflection
