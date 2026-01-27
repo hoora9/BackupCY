@@ -1,14 +1,17 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 ROOT_DIR = Path(__file__).parent
@@ -18,6 +21,14 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# SMTP Configuration
+SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.office365.com')
+SMTP_PORT = int(os.environ.get('SMTP_PORT', 587))
+SMTP_USERNAME = os.environ.get('SMTP_USERNAME', '')
+SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD', '')
+SMTP_FROM_EMAIL = os.environ.get('SMTP_FROM_EMAIL', '')
+SMTP_TO_EMAIL = os.environ.get('SMTP_TO_EMAIL', '')
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -36,6 +47,19 @@ class StatusCheck(BaseModel):
 
 class StatusCheckCreate(BaseModel):
     client_name: str
+
+# Contact Form Model
+class ContactFormData(BaseModel):
+    name: str
+    email: EmailStr
+    company: Optional[str] = ""
+    contactType: str
+    subject: str
+    message: str
+
+class ContactResponse(BaseModel):
+    success: bool
+    message: str
 
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
