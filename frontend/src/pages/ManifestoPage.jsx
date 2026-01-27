@@ -5,9 +5,8 @@ import { gsap } from 'gsap';
 const BACKGROUND_IMAGE = "https://customer-assets.emergentagent.com/job_2b80c9d1-92b2-491e-aa63-9ed5489ce9c9/artifacts/fc3qglrk_Manifesto%20background.png";
 
 const ManifestoPage = () => {
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeItem, setActiveItem] = useState(0);
   const overlayRef = useRef(null);
-  const containerRef = useRef(null);
 
   const sections = [
     {
@@ -35,7 +34,7 @@ const ManifestoPage = () => {
       subtitle: "Capital only scales where projects deliver attractive, long-term returns",
       content: [
         "Ambition alone does not mobilise capital. Investment flows when risk, governance, and cash-flow visibility are clearly structured to meet investor expectations.",
-        "Closing the gap will require more than USD 1 trillion per year in additional infrastructure investment in the Global South, with private capital playing a critical role alongside public funding. Demonstrating that climate-aligned infrastructure can deliver attractive, long-term returns is essential to unlocking sustained private investment at scale."
+        "Closing the gap will require more than USD 1 trillion per year in additional infrastructure investment in the Global South, with private capital playing a critical role alongside public funding."
       ],
       source: "World Bank, 2023"
     },
@@ -60,8 +59,8 @@ const ManifestoPage = () => {
     },
     {
       number: "06",
-      title: "Our conviction is simple.",
-      subtitle: "",
+      title: "Our Conviction",
+      subtitle: "Our conviction is simple",
       content: [
         "The climate transition becomes investable only when it is grounded in reality — in the constraints of the field, the logic of capital, and a deep understanding of environmental and carbon market systems.",
         "Climate Yield exists to transform complexity into credible, investment-ready low-carbon infrastructure capable of supporting sustained capital deployment."
@@ -70,20 +69,11 @@ const ManifestoPage = () => {
   ];
 
   useEffect(() => {
-    // Animate overlay sliding in from top-left
+    // Animate overlay
     if (overlayRef.current) {
       gsap.fromTo(overlayRef.current,
-        {
-          x: '-50%',
-          y: '-50%'
-        },
-        {
-          x: '0%',
-          y: '0%',
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: 0.2
-        }
+        { x: '-50%', y: '-50%' },
+        { x: '0%', y: '0%', duration: 0.8, ease: 'power3.out', delay: 0.2 }
       );
     }
 
@@ -94,59 +84,57 @@ const ManifestoPage = () => {
     );
 
     // Animate accordion items
-    gsap.fromTo('.manifesto-accordion-item', 
+    gsap.fromTo('.h-accordion-item', 
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power2.out', delay: 0.8 }
     );
   }, []);
 
-  const toggleSection = (index) => {
-    setActiveSection(activeSection === index ? null : index);
-  };
-
   return (
     <div 
       className="manifesto-page-redesign" 
-      ref={containerRef}
       style={{ backgroundImage: `url(${BACKGROUND_IMAGE})` }}
     >
       <Navigation />
       
-      {/* Overlay that transitions from top-left */}
+      {/* Overlay */}
       <div className="manifesto-overlay" ref={overlayRef}>
-        {/* Title Section - Same style as Company page "WHO WE ARE" */}
+        {/* Title Section */}
         <div className="manifesto-title-section">
           <div className="branded-quote-block manifesto-title-block">
             <h1 className="manifesto-page-title">MANIFESTO</h1>
           </div>
         </div>
 
-        {/* Vertical Accordion */}
-        <div className="manifesto-accordion">
+        {/* Horizontal Accordion */}
+        <div className="h-accordion-wrapper">
           {sections.map((section, index) => (
             <div 
               key={index}
-              className={`manifesto-accordion-item ${activeSection === index ? 'active' : ''}`}
+              className={`h-accordion-item ${activeItem === index ? 'active' : ''}`}
+              onClick={() => setActiveItem(index)}
+              data-index={index}
             >
-              <button 
-                className="manifesto-accordion-header"
-                onClick={() => toggleSection(index)}
-              >
-                <span className="accordion-number">{section.number}</span>
-                <span className="accordion-title">{section.title}</span>
-                <span className="accordion-icon">{activeSection === index ? '−' : '+'}</span>
-              </button>
+              {/* Number at top */}
+              <div className="h-accordion-number">{section.number}</div>
               
-              <div className="manifesto-accordion-content">
-                {section.subtitle && (
-                  <h3 className="accordion-subtitle">{section.subtitle}</h3>
-                )}
-                {section.content.map((paragraph, pIndex) => (
-                  <p key={pIndex} className="accordion-paragraph">{paragraph}</p>
-                ))}
-                {section.source && (
-                  <span className="accordion-source">— {section.source}</span>
-                )}
+              {/* Closed state - vertical title */}
+              <div className="h-accordion-closed">
+                <h2 className="h-accordion-title-vertical">{section.title}</h2>
+              </div>
+              
+              {/* Open state - full content */}
+              <div className="h-accordion-open">
+                <div className="h-accordion-content">
+                  <h2 className="h-accordion-title">{section.title}</h2>
+                  <h3 className="h-accordion-subtitle">{section.subtitle}</h3>
+                  {section.content.map((paragraph, pIndex) => (
+                    <p key={pIndex} className="h-accordion-paragraph">{paragraph}</p>
+                  ))}
+                  {section.source && (
+                    <span className="h-accordion-source">— {section.source}</span>
+                  )}
+                </div>
               </div>
             </div>
           ))}
