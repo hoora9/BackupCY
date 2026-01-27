@@ -1369,6 +1369,7 @@ img {
   line-height: 1.4;
   padding-bottom: 24px;
   border-bottom: 1px solid rgba(79, 173, 179, 0.25);
+  text-align: center;
 }
 
 .cascade-paragraph {
@@ -1378,6 +1379,7 @@ img {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.8;
   margin: 0 0 20px 0;
+  text-align: center;
 }
 
 .cascade-paragraph.secondary {
@@ -1392,6 +1394,7 @@ img {
   color: var(--gris-acier);
   font-style: italic;
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 /* Mobile Responsive for Cascade Sections */
