@@ -109,23 +109,23 @@ const ManifestoPage = () => {
         delay: 0.3
       });
 
-      // Animate each section - Emblem above text, NO OVERLAP
+      // Animate each section - SLOWER transitions, images overlap during transition
       gsap.utils.toArray('.cascade-section').forEach((section, index) => {
         const image = section.querySelector('.cascade-image');
         const emblem = section.querySelector('.cascade-emblem');
         const textContent = section.querySelector('.cascade-text-content');
         const textLines = section.querySelectorAll('.cascade-text-line');
         
-        // Image fades in early
+        // Image fades in VERY early (so it overlaps with previous section's fade out)
         if (image) {
           gsap.fromTo(image,
             { opacity: 0, scale: 1.02 },
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 110%',
-                end: 'top 40%',
-                scrub: 2
+                start: 'top 130%',  // Start even earlier
+                end: 'top 50%',     // Slower fade in
+                scrub: 3            // Slower scrub
               },
               opacity: 1,
               scale: 1,
@@ -133,13 +133,13 @@ const ManifestoPage = () => {
             }
           );
           
-          // Image fades out late
+          // Image fades out VERY late (overlaps with next section's fade in)
           gsap.to(image, {
             scrollTrigger: {
               trigger: section,
-              start: 'bottom 70%',
-              end: 'bottom 0%',
-              scrub: 2
+              start: 'bottom 100%',  // Start fading much later
+              end: 'bottom 20%',     // Slower fade out
+              scrub: 3               // Slower scrub
             },
             opacity: 0,
             scale: 0.98,
@@ -155,9 +155,9 @@ const ManifestoPage = () => {
             {
               scrollTrigger: {
                 trigger: section,
-                start: 'top 100%',
+                start: 'top 120%',
                 end: 'top 50%',
-                scrub: 2
+                scrub: 3
               },
               opacity: 1,
               scale: 1,
