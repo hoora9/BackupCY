@@ -1387,12 +1387,7 @@ img {
   }
 }
 
-/* Old Vertical Accordion - Keep for backwards compatibility */
-  max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+/* Old Vertical Accordion - Deprecated */
 
 .manifesto-accordion-item {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
