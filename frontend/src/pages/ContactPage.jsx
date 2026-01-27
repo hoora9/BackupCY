@@ -147,6 +147,7 @@ const ContactPage = () => {
                     value={formData.company}
                     onChange={handleChange}
                     placeholder="Your company"
+                    disabled={loading}
                   />
                 </div>
                 <div className="form-group">
@@ -157,6 +158,7 @@ const ContactPage = () => {
                     value={formData.contactType}
                     onChange={handleChange}
                     required
+                    disabled={loading}
                   >
                     <option value="">Select an option</option>
                     {contactTypeOptions.map((option, index) => (
@@ -175,6 +177,7 @@ const ContactPage = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
+                    disabled={loading}
                   >
                     <option value="">Select a subject</option>
                     {subjectOptions.map((option, index) => (
@@ -194,12 +197,22 @@ const ContactPage = () => {
                   required
                   placeholder="Tell us about your project or inquiry..."
                   rows={4}
+                  disabled={loading}
                 />
               </div>
               
-              <button type="submit" className="submit-btn">
-                <span>Send Message</span>
-                <Send size={16} />
+              <button type="submit" className="submit-btn" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 size={16} className="spin" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Send Message</span>
+                    <Send size={16} />
+                  </>
+                )}
               </button>
             </form>
           </div>
