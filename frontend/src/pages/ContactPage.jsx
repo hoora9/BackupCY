@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
 import PageBackground from '../components/PageBackground';
 import { contactContent, pageBackgrounds } from '../data/mock';
-import { MapPin, Globe, Send } from 'lucide-react';
+import { MapPin, Globe, Send, Loader2 } from 'lucide-react';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Dropdown options
 const contactTypeOptions = [
@@ -28,20 +31,37 @@ const ContactPage = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error when user starts typing
+    if (error) setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: '', email: '', company: '', contactType: '', subject: '', message: '' });
+    setLoading(true);
+    setError('');
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/contact`, formData);
+      
+      if (response.data.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', company: '', contactType: '', subject: '', message: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      }
+    } catch (err) {
+      console.error('Contact form error:', err);
+      setError(err.response?.data?.detail || 'Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
