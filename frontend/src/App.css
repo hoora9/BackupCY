@@ -4114,20 +4114,60 @@ img {
 }
 
 @media (max-width: 480px) {
-  .nav-links {
-    gap: 10px 14px;
-  }
-  
-  .nav-link {
-    font-size: 9px;
-  }
-  
+  /* Team grid single column on very small screens */
   .team-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-grid-overlay {
     grid-template-columns: 1fr;
   }
   
   .member-photo {
     width: 160px;
     height: 160px;
+  }
+  
+  /* Homepage tagline */
+  .tagline-text {
+    font-size: 24px !important;
+  }
+  
+  /* Smaller headings */
+  .page-heading {
+    font-size: 28px;
+  }
+  
+  /* Mobile menu links smaller on very small screens */
+  .mobile-nav-link {
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+  
+  /* Expertise values bento boxes */
+  .values-bento-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Manifesto accordion */
+  .h-accordion-wrapper {
+    gap: 4px;
+  }
+  
+  .h-accordion-item {
+    height: 50px;
+    min-height: 50px;
+  }
+  
+  .h-accordion-item.active {
+    min-height: 280px;
+  }
+  
+  .h-accordion-title {
+    font-size: 18px;
+  }
+  
+  .h-accordion-paragraph {
+    font-size: 13px;
   }
 }
