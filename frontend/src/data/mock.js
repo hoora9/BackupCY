@@ -153,19 +153,19 @@ export const expertiseContent = {
     {
       name: 'Victor Coulon',
       title: 'Partner',
-      photo: 'https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/v8asoa0v_3.png',
+      photo: 'https://customer-assets.emergentagent.com/job_2b80c9d1-92b2-491e-aa63-9ed5489ce9c9/artifacts/ck8jokkp_Untitled-1.png',
       linkedin: 'https://www.linkedin.com/in/victor-coulon/'
     },
     {
       name: 'Samuel Jaudel',
       title: 'Partner',
-      photo: 'https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/eel5aozw_1.png',
+      photo: 'https://customer-assets.emergentagent.com/job_2b80c9d1-92b2-491e-aa63-9ed5489ce9c9/artifacts/emck5ifh_Untitled-2.png',
       linkedin: 'https://www.linkedin.com/in/samueljaudel/?originalSubdomain=nl'
     },
     {
       name: 'Guillaume Benhamou',
       title: 'Adviser',
-      photo: 'https://customer-assets.emergentagent.com/job_b44059d0-0a5d-456f-a0da-c88e865f455e/artifacts/vzftnewa_2.png',
+      photo: 'https://customer-assets.emergentagent.com/job_2b80c9d1-92b2-491e-aa63-9ed5489ce9c9/artifacts/9kb3xu8e_Untitled-3.png',
       linkedin: 'https://www.linkedin.com/in/guillaumebenhamou/?originalSubdomain=fr'
     }
   ]
