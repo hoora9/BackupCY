@@ -209,6 +209,114 @@ img {
   background: #4fadb3;
 }
 
+/* ============================================
+   HAMBURGER MENU & MOBILE NAVIGATION
+   ============================================ */
+
+/* Hide hamburger on desktop */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 28, 46, 0.98);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.mobile-nav-link {
+  font-family: var(--font-primary);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu-overlay.open .mobile-nav-link {
+  opacity: 1;
+  transform: translateY(0);
+  animation: mobileNavFadeIn 0.4s ease forwards;
+}
+
+@keyframes mobileNavFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--teal);
+}
+
+/* Mobile breakpoint - show hamburger, hide desktop nav */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+  
+  .nav-links-desktop {
+    display: none;
+  }
+  
+  .nav-content {
+    padding: 14px var(--page-padding-mobile);
+  }
+  
+  .nav-line-top,
+  .nav-line-bottom {
+    margin: 0 var(--page-padding-mobile);
+  }
+  
+  .logo-img {
+    height: 35px;
+  }
+}
+
 /* ---------- Homepage - Tikehau Style Side-by-Side Boxes ---------- */
 .home-content {
   flex: 1;
