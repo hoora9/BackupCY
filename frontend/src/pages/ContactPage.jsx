@@ -101,6 +101,12 @@ const ContactPage = () => {
               </div>
             )}
             
+            {error && (
+              <div className="form-error">
+                {error}
+              </div>
+            )}
+            
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-row">
                 <div className="form-group">
@@ -113,6 +119,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     placeholder="Your name"
+                    disabled={loading}
                   />
                 </div>
                 <div className="form-group">
@@ -125,6 +132,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     placeholder="your@email.com"
+                    disabled={loading}
                   />
                 </div>
               </div>
