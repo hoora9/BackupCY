@@ -1083,7 +1083,7 @@ img {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 28, 46, 0.80);
+  background: rgba(15, 28, 46, 0.85);
   padding: calc(var(--nav-height) + 60px) var(--page-padding) 60px;
   overflow-y: auto;
   z-index: 1;
@@ -1103,9 +1103,10 @@ img {
   font-weight: 700;
   letter-spacing: -2px;
   text-transform: uppercase;
-  color: var(--white);
+  color: #ffffff;
   line-height: 1;
   margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Vertical Accordion */
