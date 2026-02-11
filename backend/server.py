@@ -302,25 +302,27 @@ async def submit_contact_form(form_data: ContactFormData):
     # Step 3: Send email notification
     email_sent = send_contact_email(form_data)
     
-    # Determine overall success
-    # We consider it successful if at least the HubSpot contact was created OR email was sent
-    if email_sent or contact_id:
-        success_parts = []
-        if contact_id:
-            success_parts.append("contact saved")
-        if ticket_id:
-            success_parts.append("ticket created")
-        if email_sent:
-            success_parts.append("email sent")
-        
+    # Log summary of operations
+    logger.info(f"Form submission results - Contact: {contact_id}, Ticket: {ticket_id}, Email: {email_sent}")
+    
+    # Determine overall success - contact creation is the primary goal
+    if contact_id:
         return ContactResponse(
             success=True,
             message="Thank you for your message. We'll be in touch shortly.",
             hubspot_contact_id=contact_id,
             hubspot_ticket_id=ticket_id
         )
+    elif email_sent:
+        # Fallback if HubSpot fails but email works
+        return ContactResponse(
+            success=True,
+            message="Thank you for your message. We'll be in touch shortly.",
+            hubspot_contact_id=None,
+            hubspot_ticket_id=None
+        )
     else:
-        logger.error("Both HubSpot and email operations failed")
+        logger.error("Both HubSpot contact creation and email sending failed")
         raise HTTPException(
             status_code=500,
             detail="Failed to process your message. Please try again later or contact us directly."
