@@ -11,7 +11,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from hubspot import HubSpot
 from hubspot.crm.contacts import SimplePublicObjectInputForCreate
-from hubspot.crm.deals import SimplePublicObjectInputForCreate as DealInput
+from hubspot.crm.tickets import SimplePublicObjectInputForCreate as TicketInput
 
 
 ROOT_DIR = Path(__file__).parent
@@ -64,7 +64,7 @@ class ContactResponse(BaseModel):
     success: bool
     message: str
     hubspot_contact_id: Optional[str] = None
-    hubspot_deal_id: Optional[str] = None
+    hubspot_ticket_id: Optional[str] = None
 
 
 def create_hubspot_contact(form_data: ContactFormData) -> Optional[str]:
@@ -79,14 +79,13 @@ def create_hubspot_contact(form_data: ContactFormData) -> Optional[str]:
         firstname = name_parts[0]
         lastname = name_parts[1] if len(name_parts) > 1 else ""
         
-        # Prepare contact properties
+        # Prepare contact properties - only using standard HubSpot properties
         properties = {
             "email": form_data.email,
             "firstname": firstname,
             "lastname": lastname,
             "company": form_data.company or "",
-            "hs_lead_status": form_data.contactType,
-            "message": form_data.message,
+            "hs_lead_status": "NEW",  # Valid HubSpot lead status
         }
         
         # Create the contact
@@ -100,27 +99,57 @@ def create_hubspot_contact(form_data: ContactFormData) -> Optional[str]:
         return contact_id
         
     except Exception as e:
-        logger.error(f"Failed to create HubSpot contact: {str(e)}")
-        # Don't raise - we still want to try sending the email
+        error_str = str(e)
+        # Check if contact already exists (duplicate email)
+        if "409" in error_str or "CONFLICT" in error_str:
+            logger.info(f"Contact already exists for email: {form_data.email}")
+            # Try to find existing contact
+            try:
+                search_response = hubspot_client.crm.contacts.search_api.do_search(
+                    public_object_search_request={
+                        "filterGroups": [{
+                            "filters": [{
+                                "propertyName": "email",
+                                "operator": "EQ",
+                                "value": form_data.email
+                            }]
+                        }],
+                        "limit": 1
+                    }
+                )
+                if search_response.results:
+                    return search_response.results[0].id
+            except Exception as search_err:
+                logger.error(f"Failed to search for existing contact: {str(search_err)}")
+        else:
+            logger.error(f"Failed to create HubSpot contact: {error_str}")
         return None
 
 
-def create_hubspot_deal(form_data: ContactFormData, contact_id: Optional[str]) -> Optional[str]:
-    """Create a deal in HubSpot CRM and associate it with the contact"""
+def create_hubspot_ticket(form_data: ContactFormData, contact_id: Optional[str]) -> Optional[str]:
+    """Create a ticket in HubSpot CRM and associate it with the contact"""
     if not hubspot_client:
-        logger.warning("HubSpot client not initialized, skipping deal creation")
+        logger.warning("HubSpot client not initialized, skipping ticket creation")
         return None
     
     try:
-        # Prepare deal properties
+        # Prepare ticket properties
+        ticket_content = f"""Contact Type: {form_data.contactType}
+Company: {form_data.company or 'Not provided'}
+Email: {form_data.email}
+
+Message:
+{form_data.message}"""
+        
         properties = {
-            "dealname": f"{form_data.subject} - {form_data.name}",
-            "dealstage": "appointmentscheduled",  # First stage in default pipeline
-            "pipeline": "default",
-            "description": f"Contact Type: {form_data.contactType}\n\nCompany: {form_data.company or 'Not provided'}\n\nMessage:\n{form_data.message}",
+            "subject": f"{form_data.subject} - {form_data.name}",
+            "content": ticket_content,
+            "hs_pipeline": "0",  # Default support pipeline
+            "hs_pipeline_stage": "1",  # New ticket stage
+            "hs_ticket_priority": "MEDIUM",
         }
         
-        # If we have a contact_id, create the deal with an association
+        # If we have a contact_id, create the ticket with an association
         if contact_id:
             associations = [
                 {
@@ -128,30 +157,34 @@ def create_hubspot_deal(form_data: ContactFormData, contact_id: Optional[str]) -
                     "types": [
                         {
                             "associationCategory": "HUBSPOT_DEFINED",
-                            "associationTypeId": 3  # Deal to Contact association
+                            "associationTypeId": 16  # Ticket to Contact association
                         }
                     ]
                 }
             ]
-            deal_input = DealInput(properties=properties, associations=associations)
+            ticket_input = TicketInput(properties=properties, associations=associations)
         else:
-            deal_input = DealInput(properties=properties)
+            ticket_input = TicketInput(properties=properties)
         
-        deal_response = hubspot_client.crm.deals.basic_api.create(
-            simple_public_object_input_for_create=deal_input
+        ticket_response = hubspot_client.crm.tickets.basic_api.create(
+            simple_public_object_input_for_create=ticket_input
         )
         
-        deal_id = deal_response.id
-        logger.info(f"HubSpot deal created with ID: {deal_id}")
-        return deal_id
+        ticket_id = ticket_response.id
+        logger.info(f"HubSpot ticket created with ID: {ticket_id}")
+        return ticket_id
         
     except Exception as e:
-        logger.error(f"Failed to create HubSpot deal: {str(e)}")
+        logger.error(f"Failed to create HubSpot ticket: {str(e)}")
         return None
 
 
 def send_contact_email(form_data: ContactFormData) -> bool:
     """Send contact form email via SMTP"""
+    if not SMTP_USERNAME or not SMTP_PASSWORD:
+        logger.warning("SMTP credentials not configured, skipping email")
+        return False
+    
     try:
         # Create message
         msg = MIMEMultipart('alternative')
@@ -257,32 +290,34 @@ async def root():
 # Contact form endpoint
 @api_router.post("/contact", response_model=ContactResponse)
 async def submit_contact_form(form_data: ContactFormData):
-    """Handle contact form submission: create HubSpot contact + deal, and send email"""
+    """Handle contact form submission: create HubSpot contact + ticket, and send email"""
     logger.info(f"Received contact form submission from {form_data.name} ({form_data.email})")
     
     # Step 1: Create HubSpot Contact
     contact_id = create_hubspot_contact(form_data)
     
-    # Step 2: Create HubSpot Deal (associated with contact if contact was created)
-    deal_id = create_hubspot_deal(form_data, contact_id)
+    # Step 2: Create HubSpot Ticket (associated with contact if contact was created)
+    ticket_id = create_hubspot_ticket(form_data, contact_id)
     
     # Step 3: Send email notification
     email_sent = send_contact_email(form_data)
     
     # Determine overall success
-    # We consider it successful if at least the email was sent OR HubSpot records were created
-    if email_sent or (contact_id and deal_id):
+    # We consider it successful if at least the HubSpot contact was created OR email was sent
+    if email_sent or contact_id:
         success_parts = []
-        if contact_id and deal_id:
-            success_parts.append("saved to CRM")
+        if contact_id:
+            success_parts.append("contact saved")
+        if ticket_id:
+            success_parts.append("ticket created")
         if email_sent:
-            success_parts.append("email notification sent")
+            success_parts.append("email sent")
         
         return ContactResponse(
             success=True,
-            message=f"Thank you for your message. We'll be in touch shortly. ({', '.join(success_parts)})",
+            message="Thank you for your message. We'll be in touch shortly.",
             hubspot_contact_id=contact_id,
-            hubspot_deal_id=deal_id
+            hubspot_ticket_id=ticket_id
         )
     else:
         logger.error("Both HubSpot and email operations failed")
