@@ -4047,14 +4047,17 @@ img {
     position: relative;
     top: 0;
     height: auto;
-    min-height: 50vh;
+    min-height: auto;
+    padding-top: calc(var(--nav-height) + 20px);
+    border: none;
+    align-items: flex-start;
   }
   
   .mission-blue-content,
   .company-blue-content,
   .services-blue-content {
     width: 100%;
-    padding: 40px 24px;
+    padding: 20px 24px 40px;
   }
   
   .mission-blue-content .mission-heading {
