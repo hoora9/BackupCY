@@ -4146,6 +4146,55 @@ img {
     padding: 30px 24px;
   }
   
+  /* Services page mobile styles */
+  .services-box-left {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    border: none;
+    padding-top: var(--nav-height);
+    align-items: flex-start;
+  }
+  
+  .services-left-content {
+    padding: 30px 24px;
+  }
+  
+  .services-heading-new {
+    font-size: 36px;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+  
+  .services-box-right {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    opacity: 1;
+  }
+  
+  .services-box-right.services-text-box {
+    padding: 40px 24px;
+  }
+  
+  .expertise-number {
+    font-size: 64px;
+    letter-spacing: -2px;
+  }
+  
+  .expertise-label {
+    font-size: 18px;
+  }
+  
+  .expertise-description {
+    font-size: 14px;
+  }
+  
   @keyframes slideFromBottom {
     from {
       opacity: 0;
