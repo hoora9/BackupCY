@@ -4358,3 +4358,23 @@ img {
     font-size: 13px;
   }
 }
+
+/* Extra small screens - 320px and below */
+@media (max-width: 360px) {
+  .tagline-text {
+    font-size: 13px !important;
+  }
+  
+  .box-tab-left,
+  .box-tab-right {
+    padding: 10px 12px;
+  }
+  
+  .box-large {
+    font-size: 10px;
+  }
+  
+  .box-small {
+    font-size: 9px;
+  }
+}
