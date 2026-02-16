@@ -4516,11 +4516,10 @@ img {
     font-size: 32px !important;
   }
   
-  .mission-green-content {
-    padding: 24px !important;
+  .mission-green-box {
+    background-color: rgba(42, 108, 174, 0.85) !important;
   }
   
-  /* Mission green box text should match blue box style on mobile */
   .mission-green-content p {
     font-size: 14px !important;
     line-height: 1.75 !important;
@@ -4529,8 +4528,10 @@ img {
     margin-bottom: 20px !important;
   }
   
-  .mission-green-box {
-    background-color: rgba(42, 108, 174, 0.85) !important;
+  /* Also fix the text position in green box */
+  .mission-green-content {
+    padding: 24px !important;
+    padding-top: 24px !important;
   }
   
   /* Manifesto accordion - prevent overlap */
