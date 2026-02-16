@@ -4167,6 +4167,16 @@ img {
     animation-delay: 0.25s;
   }
   
+  /* Mission green box should match blue box style on mobile */
+  .mission-green-box {
+    background-color: rgba(42, 108, 174, 0.85) !important;
+  }
+  
+  .mission-green-content p {
+    color: rgba(255, 255, 255, 0.92) !important;
+    text-align: left !important;
+  }
+  
   .mission-green-content,
   .company-green-content,
   .services-green-content {
