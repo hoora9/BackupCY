@@ -4432,8 +4432,9 @@ img {
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    padding-top: 20px !important;
+    padding-top: 0 !important;
     padding-bottom: 20px !important;
+    margin-top: var(--nav-height) !important;
   }
   
   .tagline {
@@ -4441,7 +4442,7 @@ img {
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-top: 20px !important;
+    margin-top: 25px !important;
     margin-bottom: 25px !important;
     text-align: center !important;
     width: 100% !important;
