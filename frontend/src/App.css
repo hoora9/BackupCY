@@ -4426,14 +4426,15 @@ img {
     min-height: auto !important;
   }
   
-  /* Homepage - tagline centered in middle of page */
+  /* Homepage - tagline below nav line, above boxes, with equal spacing */
   .home-content {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    min-height: calc(100vh - var(--nav-height)) !important;
-    padding: 20px !important;
+    padding-top: 0 !important;
+    padding-bottom: 20px !important;
+    margin-top: var(--nav-height) !important;
   }
   
   .tagline {
@@ -4441,7 +4442,8 @@ img {
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-bottom: 40px !important;
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
     text-align: center !important;
     width: 100% !important;
   }
