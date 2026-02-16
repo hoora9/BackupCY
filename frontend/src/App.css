@@ -4159,9 +4159,36 @@ img {
     font-size: 24px !important;
   }
   
-  /* Smaller headings */
+  /* Smaller headings on very small screens */
   .page-heading {
     font-size: 28px;
+  }
+  
+  .mission-blue-content .mission-heading {
+    font-size: 32px;
+    letter-spacing: -1px;
+  }
+  
+  .company-blue-content .company-heading,
+  .services-blue-content .services-heading {
+    font-size: 28px;
+    letter-spacing: -1px;
+  }
+  
+  /* Branded quote blocks - even smaller on tiny screens */
+  .branded-quote-block {
+    padding-left: 1.5em;
+    padding-right: 0.8em;
+  }
+  
+  .branded-quote-block::before {
+    width: 1.2em;
+    height: 1.2em;
+  }
+  
+  .branded-quote-block::after {
+    width: 0.9em;
+    height: 0.9em;
   }
   
   /* Mobile menu links smaller on very small screens */
