@@ -4266,7 +4266,31 @@ img {
   
   /* Homepage tagline */
   .tagline-text {
-    font-size: 24px !important;
+    font-size: 18px !important;
+    white-space: normal;
+    text-align: center;
+  }
+  
+  /* Even smaller boxes */
+  .box-tab-left,
+  .box-tab-right {
+    padding: 12px 14px;
+  }
+  
+  .box-large {
+    font-size: 11px;
+  }
+  
+  .box-small {
+    font-size: 10px;
+  }
+  
+  .emblem-box {
+    padding: 16px;
+  }
+  
+  .emblem-img {
+    height: 32px;
   }
   
   /* Smaller headings on very small screens */
