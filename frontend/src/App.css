@@ -4414,12 +4414,14 @@ img {
     min-height: auto !important;
   }
   
-  /* Homepage - tagline above boxes */
+  /* Homepage - tagline centered in middle of page */
   .home-content {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
-    padding-top: calc(var(--nav-height) + 40px) !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: calc(100vh - var(--nav-height)) !important;
+    padding: 20px !important;
   }
   
   .tagline {
@@ -4427,7 +4429,7 @@ img {
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 40px !important;
     text-align: center !important;
     width: 100% !important;
   }
