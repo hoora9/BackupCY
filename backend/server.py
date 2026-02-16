@@ -1,52 +1,56 @@
 from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
+import asyncio
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional
-import uuid
-from datetime import datetime, timezone
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+from pydantic import BaseModel, EmailStr
+from typing import Optional
+import resend
+from hubspot import HubSpot
+from hubspot.crm.contacts import SimplePublicObjectInputForCreate
 
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
-# SMTP Configuration
-SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.office365.com')
-SMTP_PORT = int(os.environ.get('SMTP_PORT', 587))
-SMTP_USERNAME = os.environ.get('SMTP_USERNAME', '')
-SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD', '')
-SMTP_FROM_EMAIL = os.environ.get('SMTP_FROM_EMAIL', '')
-SMTP_TO_EMAIL = os.environ.get('SMTP_TO_EMAIL', '')
+# Resend Configuration
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'onboarding@resend.dev')
+RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', '')
 
-# Create the main app without a prefix
+# Initialize Resend
+if RESEND_API_KEY:
+    resend.api_key = RESEND_API_KEY
+    logger.info("Resend email client initialized")
+else:
+    logger.warning("Resend API key not configured")
+
+# HubSpot Configuration
+HUBSPOT_ACCESS_TOKEN = os.environ.get('HUBSPOT_ACCESS_TOKEN', '')
+
+# Initialize HubSpot client
+hubspot_client = None
+if HUBSPOT_ACCESS_TOKEN:
+    hubspot_client = HubSpot(access_token=HUBSPOT_ACCESS_TOKEN)
+    logger.info("HubSpot client initialized successfully")
+else:
+    logger.warning("HubSpot access token not configured")
+
+# Create the main app
 app = FastAPI()
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
 # Contact Form Model
 class ContactFormData(BaseModel):
@@ -57,68 +61,113 @@ class ContactFormData(BaseModel):
     subject: str
     message: str
 
+
 class ContactResponse(BaseModel):
     success: bool
     message: str
+    hubspot_contact_id: Optional[str] = None
 
-# Email sending function
-def send_contact_email(form_data: ContactFormData) -> bool:
-    """Send contact form email via SMTP"""
+
+def create_hubspot_contact(form_data: ContactFormData) -> Optional[str]:
+    """Create a contact in HubSpot CRM"""
+    if not hubspot_client:
+        logger.warning("HubSpot client not initialized, skipping contact creation")
+        return None
+    
     try:
-        # Create message
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = f"New Contact Form Submission: {form_data.subject}"
-        msg['From'] = SMTP_FROM_EMAIL
-        msg['To'] = SMTP_TO_EMAIL
+        # Split name into first and last name
+        name_parts = form_data.name.strip().split(' ', 1)
+        firstname = name_parts[0]
+        lastname = name_parts[1] if len(name_parts) > 1 else ""
         
+        # Prepare contact properties
+        properties = {
+            "email": form_data.email,
+            "firstname": firstname,
+            "lastname": lastname,
+            "company": form_data.company or "",
+            "hs_lead_status": "NEW",
+        }
+        
+        # Create the contact
+        contact_input = SimplePublicObjectInputForCreate(properties=properties)
+        contact_response = hubspot_client.crm.contacts.basic_api.create(
+            simple_public_object_input_for_create=contact_input
+        )
+        
+        contact_id = contact_response.id
+        logger.info(f"HubSpot contact created with ID: {contact_id}")
+        return contact_id
+        
+    except Exception as e:
+        error_str = str(e)
+        # Check if contact already exists (duplicate email)
+        if "409" in error_str or "CONFLICT" in error_str:
+            logger.info(f"Contact already exists for email: {form_data.email}")
+            try:
+                search_response = hubspot_client.crm.contacts.search_api.do_search(
+                    public_object_search_request={
+                        "filterGroups": [{
+                            "filters": [{
+                                "propertyName": "email",
+                                "operator": "EQ",
+                                "value": form_data.email
+                            }]
+                        }],
+                        "limit": 1
+                    }
+                )
+                if search_response.results:
+                    return search_response.results[0].id
+            except Exception as search_err:
+                logger.error(f"Failed to search for existing contact: {str(search_err)}")
+        else:
+            logger.error(f"Failed to create HubSpot contact: {error_str}")
+        return None
+
+
+async def send_contact_email(form_data: ContactFormData) -> bool:
+    """Send contact form email via Resend"""
+    if not RESEND_API_KEY or not RECIPIENT_EMAIL:
+        logger.warning("Resend not configured, skipping email")
+        return False
+    
+    try:
         # Create HTML email body
         html_body = f"""
         <html>
-        <head>
-            <style>
-                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-                .header {{ background: #2a6cae; color: white; padding: 20px; text-align: center; }}
-                .content {{ padding: 20px; background: #f9f9f9; }}
-                .field {{ margin-bottom: 15px; }}
-                .label {{ font-weight: bold; color: #2a6cae; }}
-                .value {{ margin-top: 5px; }}
-                .message-box {{ background: white; padding: 15px; border-left: 4px solid #4fadb3; margin-top: 10px; }}
-                .footer {{ text-align: center; padding: 20px; color: #666; font-size: 12px; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h2>New Contact Form Submission</h2>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="background: #2a6cae; color: white; padding: 20px; text-align: center;">
+                    <h2 style="margin: 0;">New Contact Form Submission</h2>
                 </div>
-                <div class="content">
-                    <div class="field">
-                        <div class="label">Name:</div>
-                        <div class="value">{form_data.name}</div>
+                <div style="padding: 20px; background: #f9f9f9;">
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #2a6cae;">Name:</div>
+                        <div style="margin-top: 5px;">{form_data.name}</div>
                     </div>
-                    <div class="field">
-                        <div class="label">Email:</div>
-                        <div class="value"><a href="mailto:{form_data.email}">{form_data.email}</a></div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #2a6cae;">Email:</div>
+                        <div style="margin-top: 5px;"><a href="mailto:{form_data.email}">{form_data.email}</a></div>
                     </div>
-                    <div class="field">
-                        <div class="label">Company:</div>
-                        <div class="value">{form_data.company or 'Not provided'}</div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #2a6cae;">Company:</div>
+                        <div style="margin-top: 5px;">{form_data.company or 'Not provided'}</div>
                     </div>
-                    <div class="field">
-                        <div class="label">Contact Type:</div>
-                        <div class="value">{form_data.contactType}</div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #2a6cae;">Contact Type:</div>
+                        <div style="margin-top: 5px;">{form_data.contactType}</div>
                     </div>
-                    <div class="field">
-                        <div class="label">Subject:</div>
-                        <div class="value">{form_data.subject}</div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #2a6cae;">Subject:</div>
+                        <div style="margin-top: 5px;">{form_data.subject}</div>
                     </div>
-                    <div class="field">
-                        <div class="label">Message:</div>
-                        <div class="message-box">{form_data.message}</div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #2a6cae;">Message:</div>
+                        <div style="background: white; padding: 15px; border-left: 4px solid #4fadb3; margin-top: 10px;">{form_data.message}</div>
                     </div>
                 </div>
-                <div class="footer">
+                <div style="text-align: center; padding: 20px; color: #666; font-size: 12px;">
                     <p>This email was sent from the Climate Yield Advisory website contact form.</p>
                 </div>
             </div>
@@ -126,88 +175,73 @@ def send_contact_email(form_data: ContactFormData) -> bool:
         </html>
         """
         
-        # Plain text version
-        text_body = f"""
-        New Contact Form Submission
+        params = {
+            "from": SENDER_EMAIL,
+            "to": [RECIPIENT_EMAIL],
+            "subject": f"New Contact Form Submission: {form_data.subject}",
+            "html": html_body
+        }
         
-        Name: {form_data.name}
-        Email: {form_data.email}
-        Company: {form_data.company or 'Not provided'}
-        Contact Type: {form_data.contactType}
-        Subject: {form_data.subject}
+        # Run sync SDK in thread to keep FastAPI non-blocking
+        email_response = await asyncio.to_thread(resend.Emails.send, params)
         
-        Message:
-        {form_data.message}
-        
-        ---
-        This email was sent from the Climate Yield Advisory website contact form.
-        """
-        
-        # Attach both versions
-        msg.attach(MIMEText(text_body, 'plain'))
-        msg.attach(MIMEText(html_body, 'html'))
-        
-        # Send email
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USERNAME, SMTP_PASSWORD)
-            server.sendmail(SMTP_FROM_EMAIL, SMTP_TO_EMAIL, msg.as_string())
-        
+        logger.info(f"Email sent successfully to {RECIPIENT_EMAIL}, ID: {email_response.get('id')}")
         return True
+        
     except Exception as e:
         logger.error(f"Failed to send email: {str(e)}")
         return False
 
-# Add your routes to the router instead of directly to app
+
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Climate Yield Advisory API"}
 
-# Contact form endpoint
+
 @api_router.post("/contact", response_model=ContactResponse)
 async def submit_contact_form(form_data: ContactFormData):
-    """Handle contact form submission and send email"""
+    """Handle contact form submission: create HubSpot contact and send email notification"""
     logger.info(f"Received contact form submission from {form_data.name} ({form_data.email})")
     
-    # Send email
-    email_sent = send_contact_email(form_data)
+    # Step 1: Create HubSpot Contact
+    contact_id = create_hubspot_contact(form_data)
     
-    if email_sent:
-        logger.info(f"Email sent successfully to {SMTP_TO_EMAIL}")
+    # Step 2: Send email notification via Resend
+    email_sent = await send_contact_email(form_data)
+    
+    # Log summary
+    logger.info(f"Form submission results - Contact: {contact_id}, Email: {email_sent}")
+    
+    # Success if contact was created (primary goal)
+    if contact_id:
         return ContactResponse(
             success=True,
-            message="Thank you for your message. We'll be in touch shortly."
+            message="Thank you for your message. We'll be in touch shortly.",
+            hubspot_contact_id=contact_id
+        )
+    elif email_sent:
+        return ContactResponse(
+            success=True,
+            message="Thank you for your message. We'll be in touch shortly.",
+            hubspot_contact_id=None
         )
     else:
-        logger.error("Failed to send contact form email")
+        logger.error("Both HubSpot contact creation and email sending failed")
         raise HTTPException(
             status_code=500,
-            detail="Failed to send your message. Please try again later."
+            detail="Failed to process your message. Please try again later or contact us directly."
         )
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {
+        "status": "healthy",
+        "hubspot_configured": hubspot_client is not None,
+        "resend_configured": bool(RESEND_API_KEY)
+    }
+
 
 # Include the router in the main app
 app.include_router(api_router)
@@ -219,14 +253,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
