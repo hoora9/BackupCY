@@ -4097,6 +4097,37 @@ img {
     bottom: -0.3em;
   }
   
+  /* Company page mobile styles */
+  .company-section-who {
+    flex-direction: column;
+    min-height: auto;
+    margin-top: 0;
+    padding-top: var(--nav-height);
+  }
+  
+  .company-box-left {
+    padding: 30px 24px;
+    border: none;
+    align-items: flex-start;
+  }
+  
+  .company-box-right {
+    padding: 30px 24px;
+    border: none;
+    align-items: flex-start;
+  }
+  
+  .company-heading-new {
+    font-size: 36px;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  
+  .company-left-content,
+  .company-right-content {
+    max-width: 100%;
+  }
+  
   .mission-green-box,
   .company-green-box,
   .services-green-box {
@@ -4104,7 +4135,7 @@ img {
     top: 0;
     width: 100%;
     height: auto;
-    min-height: 50vh;
+    min-height: auto;
     animation: slideFromBottom 0.9s ease-out forwards;
     animation-delay: 0.25s;
   }
@@ -4112,7 +4143,7 @@ img {
   .mission-green-content,
   .company-green-content,
   .services-green-content {
-    padding: 40px 24px;
+    padding: 30px 24px;
   }
   
   @keyframes slideFromBottom {
