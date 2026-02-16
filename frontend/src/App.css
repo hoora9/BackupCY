@@ -4165,6 +4165,18 @@ img {
     min-height: auto;
     animation: slideFromBottom 0.9s ease-out forwards;
     animation-delay: 0.25s;
+    border: none !important;
+  }
+  
+  /* Mission green box text should match blue box text placement */
+  .mission-green-content {
+    padding: 24px !important;
+    width: 100% !important;
+  }
+  
+  .mission-green-content p {
+    text-align: left !important;
+    padding-left: 0 !important;
   }
   
   .mission-green-content,
@@ -4414,12 +4426,14 @@ img {
     min-height: auto !important;
   }
   
-  /* Homepage - tagline above boxes */
+  /* Homepage - tagline centered in middle of page */
   .home-content {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
-    padding-top: calc(var(--nav-height) + 40px) !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: calc(100vh - var(--nav-height)) !important;
+    padding: 20px !important;
   }
   
   .tagline {
@@ -4427,7 +4441,7 @@ img {
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 40px !important;
     text-align: center !important;
     width: 100% !important;
   }
@@ -4504,8 +4518,24 @@ img {
     font-size: 32px !important;
   }
   
+  /* Mission green box should match blue box style on mobile */
+  .mission-green-box {
+    border: none !important;
+  }
+  
   .mission-green-content {
     padding: 24px !important;
+    padding-top: 24px !important;
+    width: 100% !important;
+  }
+  
+  .mission-green-content p {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+    text-align: left !important;
+    margin-bottom: 20px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   
   /* Manifesto accordion - prevent overlap */
