@@ -4516,22 +4516,24 @@ img {
     font-size: 32px !important;
   }
   
+  /* Mission green box should match blue box style on mobile */
   .mission-green-box {
-    background-color: rgba(42, 108, 174, 0.85) !important;
+    border: none !important;
+  }
+  
+  .mission-green-content {
+    padding: 24px !important;
+    padding-top: 24px !important;
+    width: 100% !important;
   }
   
   .mission-green-content p {
     font-size: 14px !important;
     line-height: 1.75 !important;
-    color: rgba(255, 255, 255, 0.92) !important;
     text-align: left !important;
     margin-bottom: 20px !important;
-  }
-  
-  /* Also fix the text position in green box */
-  .mission-green-content {
-    padding: 24px !important;
-    padding-top: 24px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   
   /* Manifesto accordion - prevent overlap */
