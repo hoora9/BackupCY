@@ -4432,7 +4432,7 @@ img {
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    padding-top: 40px !important;
+    padding-top: 20px !important;
     padding-bottom: 20px !important;
   }
   
@@ -4441,8 +4441,8 @@ img {
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-top: 30px !important;
-    margin-bottom: 30px !important;
+    margin-top: 20px !important;
+    margin-bottom: 25px !important;
     text-align: center !important;
     width: 100% !important;
   }
