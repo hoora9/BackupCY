@@ -4058,14 +4058,40 @@ img {
   }
   
   .mission-blue-content .mission-heading {
-    font-size: 40px;
+    font-size: 36px;
     margin-bottom: 24px;
+    letter-spacing: -1px;
   }
   
   .company-blue-content .company-heading,
   .services-blue-content .services-heading {
-    font-size: 36px;
+    font-size: 32px;
     margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+  
+  /* Fix branded quote block on mobile - prevent text cutoff */
+  .branded-quote-block {
+    padding-left: 1.8em;
+    padding-right: 1em;
+    display: block;
+    width: 100%;
+  }
+  
+  .branded-quote-block::before {
+    width: 1.4em;
+    height: 1.4em;
+  }
+  
+  .branded-quote-block::after {
+    width: 1em;
+    height: 1em;
+    right: auto;
+    left: calc(100% - 1.2em);
+  }
+  
+  .mission-quote-block::after {
+    bottom: -0.3em;
   }
   
   .mission-green-box,
