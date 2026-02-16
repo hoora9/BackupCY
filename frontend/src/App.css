@@ -4266,8 +4266,8 @@ img {
   
   /* Homepage tagline */
   .tagline-text {
-    font-size: 18px !important;
-    white-space: normal;
+    font-size: 16px !important;
+    white-space: nowrap;
     text-align: center;
   }
   
