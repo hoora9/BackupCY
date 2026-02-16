@@ -4165,16 +4165,18 @@ img {
     min-height: auto;
     animation: slideFromBottom 0.9s ease-out forwards;
     animation-delay: 0.25s;
+    border: none !important;
   }
   
-  /* Mission green box should match blue box style on mobile */
-  .mission-green-box {
-    background-color: rgba(42, 108, 174, 0.85) !important;
+  /* Mission green box text should match blue box text placement */
+  .mission-green-content {
+    padding: 24px !important;
+    width: 100% !important;
   }
   
   .mission-green-content p {
-    color: rgba(255, 255, 255, 0.92) !important;
     text-align: left !important;
+    padding-left: 0 !important;
   }
   
   .mission-green-content,
