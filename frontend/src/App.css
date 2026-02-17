@@ -3981,18 +3981,17 @@ img {
   
   /* Homepage tagline - must appear above boxes on mobile */
   .home-content {
-    justify-content: center;
+    justify-content: flex-end;
     padding-bottom: 40px;
   }
   
   .tagline {
-    position: absolute;
-    top: 50%;
-    left: var(--page-padding);
-        transform: translateY(-50%);
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
     margin-bottom: 24px;
-  }
-  
+  }  
   .tagline.tagline-centered {
     transform: none;
     left: auto;
@@ -4039,6 +4038,20 @@ img {
 @media (max-width: 768px) {
   :root {
     --page-padding: var(--page-padding-mobile);
+  }
+
+     /* Mobile tagline centering */
+  .home-content {
+    justify-content: center;
+  }
+
+  .tagline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
   }
   
   /* Navigation handled by hamburger menu CSS above */
