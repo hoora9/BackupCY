@@ -4426,7 +4426,9 @@ img {
     min-height: auto !important;
   }
   
-  /* Homepage - tagline below nav line, above boxes, with equal spacing */
+  /* Desktop only - tagline positioning */
+@media (min-width: 769px) {
+/* Homepage - tagline below nav line, above boxes, with equal spacing */
   .home-content {
     display: flex !important;
     flex-direction: column !important;
@@ -4447,6 +4449,8 @@ img {
     text-align: center !important;
     width: 100% !important;
   }
+   }
+
   
   .tagline-text {
     font-size: 18px !important;
