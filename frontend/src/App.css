@@ -403,14 +403,13 @@ img {
 
 /* Tagline - decreased by 15% */
 .tagline {
-  position: absolute;
-  top: 50%;
-  left: var(--page-padding);
-  transform: translateY(-50%);
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
   padding: 0;
   margin: 0;
 }
-
 /* Centered tagline variant */
 .tagline.tagline-centered {
   left: 50%;
